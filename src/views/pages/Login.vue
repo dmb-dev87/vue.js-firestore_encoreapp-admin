@@ -1,8 +1,8 @@
 <template>
   <div class="c-app flex-row align-items-center">
-    <CContainer>
+    <CContainer fluid>
       <CRow class="justify-content-center">        
-        <CCol md="3">
+        <CCol md="4">
           <div class="login-logo">
             <img alt="Encore Loyalty APP logo" src="https://encoreapp.net/img/logo-dark.png" width="300">
           </div>
