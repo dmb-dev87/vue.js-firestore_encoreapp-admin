@@ -22,7 +22,7 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Chrisvenues',
         to: '/chrisvenue',
-        icon: 'cil-institution'
+        icon: 'cil-library-building'
       },
       {
         _name: 'CSidebarNavItem',
@@ -40,7 +40,7 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Category',
         to: '/categories',
-        icon: 'cil-imager'
+        icon: 'cil-layers'
       },
       {
         _name: 'CSidebarNavItem',
@@ -52,7 +52,7 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Users',
         to: '/users',
-        icon: 'cil-account-logout'
+        icon: 'cil-people',
       },
       {
         _name: 'CSidebarNavItem',

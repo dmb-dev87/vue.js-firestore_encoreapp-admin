@@ -30,6 +30,6 @@ export default {
     minimize () {
       return this.$store.state.sidebarMinimize 
     }
-  }
+  },
 }
 </script>
