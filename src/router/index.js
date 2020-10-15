@@ -7,8 +7,15 @@ const TheContainer = () => import('@/containers/TheContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
-const Details = () => import('@/views/details/Details')
+
+const Chrisvenue = () => import('@/views/chrisvenues/Chrisvenue')
+const Details = () => import('@/views/chrisvenues/Details')
+const CategoryList = () => import('@/views/categories/CategoryList')
 const Settings = () => import('@/views/settings/Settings')
+
+// Users
+const Users = () => import('@/views/users/Users')
+const User = () => import('@/views/users/User')
 
 // Views - Pages
 const Page404 = () => import('@/views/pages/Page404')
@@ -16,10 +23,6 @@ const Page500 = () => import('@/views/pages/Page500')
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
 const ResetPassword = () => import('@/views/pages/ResetPassword')
-
-// Users
-const Users = () => import('@/views/users/Users')
-const User = () => import('@/views/users/User')
 
 Vue.use(Router)
 
@@ -77,9 +80,24 @@ function configRoutes () {
           component: Details
         },
         {
+          path: '/detail/:id',
+          name: 'Detail',
+          component: Details
+        },
+        {
           path: 'settings',
           name: 'Settings',
           component: Settings
+        },
+        {
+          path: 'chrisvenue',
+          name: 'Chrisvenues',
+          component: Chrisvenue
+        },
+        {
+          path: 'categories',
+          name: 'Categories',
+          component: CategoryList
         },
         {
           path: 'users',
@@ -100,7 +118,7 @@ function configRoutes () {
             {
               path: ':id',
               meta: {
-                label: 'User Details'
+                label: 'User Edit'
               },
               name: 'User',
               component: User

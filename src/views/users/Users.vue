@@ -33,20 +33,37 @@
 </template>
 
 <script>
-import usersData from './UsersData'
+import { db } from './../../firebase.js'
 export default {
   name: 'Users',
   data () {
     return {
-      items: usersData,
+      items: [],
       fields: [
         { key: 'username', label: 'Name', _classes: 'font-weight-bold' },
-        { key: 'registered' },
-        { key: 'role' },
-        { key: 'status' }
+        { key: 'country' },
+        { key: 'email' },
+        { key: 'gender' },
+        { key: 'phone'}
       ],
       activePage: 1
     }
+  },
+  created() {
+    let dbRef = db.collection('users').onSnapshot((snapshotChange) => {
+      this.items = []
+      snapshotChange.forEach((doc) => {
+        this.items.push({
+          key: doc.id,
+          username: doc.data().username,
+          country: doc.data().country,
+          email: doc.data().email,
+          gender: doc.data().gender,
+          phone: doc.data().mobilenumber,
+        })
+      })
+      console.log(this.items);
+    })
   },
   watch: {
     $route: {
@@ -69,7 +86,7 @@ export default {
       }
     },
     rowClicked (item, index) {
-      this.$router.push({path: `users/${index + 1}`})
+      this.$router.push({path: `users/${item.key}`})
     },
     pageChange (val) {
       this.$router.push({ query: { page: val }})

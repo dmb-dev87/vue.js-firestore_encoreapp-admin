@@ -32,6 +32,8 @@
                   placeholder="Type group name if this is a branch"
                   horizontal
                   autocomplete="name"
+                  :value="chrisvenue.category_name"
+                  v-model="chrisvenue.category_name"
                 />
               </CCol>
             </CRow>
@@ -39,12 +41,16 @@
               label="Teaser line:"
               placeholder="Type your short teaser line here"
               horizontal
+              :value="chrisvenue.teaserline"
+              v-model="chrisvenue.teaserline"
             />
             <CTextarea
               label="About the business:"
               placeholder="Tell us a little bit about your business"
               horizontal
               rows="2"
+              :value="chrisvenue.about"
+              v-model="chrisvenue.about"
             />
             <hr class="mt-1 mb-3">
             <CInput
@@ -52,6 +58,8 @@
               placeholder="Location"
               horizontal
               autocomplete="location"
+              :value="chrisvenue.geolocation.Latitude"
+              v-model="chrisvenue.geolocation.Latitude"
             />
             <hr class="mt-1 mb-3">
             <CTextarea
@@ -59,12 +67,14 @@
               placeholder="Put the opening hours here"
               horizontal
               rows="2"
+              :value="chrisvenue.openinghours"
+              v-model="chrisvenue.openinghours"
             />
           </CForm>
           <CRow>
             <CCol sm="3" />
             <CCol sm="9">
-              <CButton class="px-4" type="submit" color="danger"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
+              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
             </CCol>
           </CRow>
         </CCardBody>
@@ -74,8 +84,21 @@
 </template>
 
 <script>
-
-  export default {
-    name: 'CDetailsAbout',
+export default {
+  name: 'CDetailsAbout',
+  props: {
+    chrisvenue: Object
+  },
+  methods: {
+    updateChrisvenueData() {
+      let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
+      dbRef.update(this.chrisvenue).then(() => {
+        console.log("Chrisvenue successfully updated!")
+      }).catch((error) =>{
+        console.log(error)
+      })
+    }
   }
+}
+
 </script>

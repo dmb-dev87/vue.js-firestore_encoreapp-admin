@@ -11,16 +11,18 @@ export default [
         name: 'Dashboard',
         to: '/dashboard',
         icon: 'cil-speedometer',
-        badge: {
-          color: 'primary',
-          text: 'NEW'
-        }
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Get Started Guild',
         to: '/#',
         icon: 'cil-map'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Chrisvenues',
+        to: '/chrisvenue',
+        icon: 'cil-institution'
       },
       {
         _name: 'CSidebarNavItem',
@@ -36,15 +38,9 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Statistics and reports',
-        to: '/#',
-        icon: 'cil-chart-pie'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Reviews',
-        to: '/#',
-        icon: 'cid-star-half'
+        name: 'Category',
+        to: '/categories',
+        icon: 'cil-imager'
       },
       {
         _name: 'CSidebarNavItem',
@@ -54,21 +50,9 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Promotions',
-        to: '/#',
-        icon: 'cib-probot'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Select plan',
-        to: '/#',
-        icon: 'cil-pencil'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Billing',
-        to: '/#',
-        icon: 'cil-dollar'
+        name: 'Users',
+        to: '/users',
+        icon: 'cil-account-logout'
       },
       {
         _name: 'CSidebarNavItem',
