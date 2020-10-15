@@ -18,6 +18,11 @@
             :pagination="{ doubleArrows: false, align: 'center'}"
             @page-change="pageChange"
           >
+            <template #profileImage="data">
+              <td>
+                <img :src="data.item.profileImage" height="30px" />
+              </td>
+            </template>
             <template #status="data">
               <td>
                 <CBadge :color="getBadge(data.item.status)">
@@ -40,6 +45,7 @@ export default {
     return {
       items: [],
       fields: [
+        { key: 'profileImage', label: 'Avatar'},
         { key: 'username', label: 'Name', _classes: 'font-weight-bold' },
         { key: 'country' },
         { key: 'email' },
@@ -60,6 +66,7 @@ export default {
           email: doc.data().email,
           gender: doc.data().gender,
           phone: doc.data().mobilenumber,
+          profileImage: doc.data().profileImage,
         })
       })
       console.log(this.items);
