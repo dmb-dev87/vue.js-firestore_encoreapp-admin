@@ -20,12 +20,12 @@
       >
         <template #image="{item}">
           <td>
-            <CImg :src="item.image" height="30px" />
+            <CImg :src="item.image" height="50px" />
           </td>
         </template>
         <template #action="{item}">
           <td>
-            <CLink block color="link" class="text-left" :to="{name: 'CategoryDetail', params: { id: item.key }}">Details</CLink>
+            <CLink block color="link" class="text-left" :to="{name: 'SliderDetail', params: { id: item.key }}">Details</CLink>
           </td>
         </template>
       </CDataTable>
@@ -35,7 +35,7 @@
 
 <script>
   export default {
-    name: 'CategoryTable',
+    name: 'SliderTable',
     props: {
       items: Array,
       fields: {

@@ -58,8 +58,8 @@
               placeholder="Location"
               horizontal
               autocomplete="location"
-              :value="chrisvenue.geolocation.Latitude"
-              v-model="chrisvenue.geolocation.Latitude"
+              :value="chrisvenue.geolocation"
+              v-model="chrisvenue.geolocation"
             />
             <hr class="mt-1 mb-3">
             <CTextarea

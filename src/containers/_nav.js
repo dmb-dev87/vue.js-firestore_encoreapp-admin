@@ -38,6 +38,12 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
+        name: 'Sliders',
+        to: '/sliders',
+        icon: 'cil-image'
+      },
+      {
+        _name: 'CSidebarNavItem',
         name: 'Category',
         to: '/categories',
         icon: 'cil-layers'

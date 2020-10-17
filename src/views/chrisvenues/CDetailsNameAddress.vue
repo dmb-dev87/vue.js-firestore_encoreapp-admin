@@ -74,8 +74,9 @@
               label="Country:"
               size="md"
               horizontal
-              :value.sync="selectedOption"
-              :options="selectOptions"
+              :value.sync="chrisvenue.country"
+              v-model="chrisvenue.country"
+              :options="countries"
               placeholder="Click to select country"
             />
             <CInput
@@ -119,17 +120,24 @@
 
 <script>
 import { db } from "./../../firebase.js"
+import countryData from "./CountryData"
 
 export default {
   name: 'CDetailsNameAddress',
   props: {
     chrisvenue: Object
   },
+  data () {
+    return {
+      countries: countryData,
+    }
+  },
   created() {
     console.log(this.chrisvenue)
   },
   methods: {
     updateChrisvenueData() {
+      console.log(this.chrisvenue);
       let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
       dbRef.update(this.chrisvenue).then(() => {
         console.log("Chrisvenue successfully updated!")

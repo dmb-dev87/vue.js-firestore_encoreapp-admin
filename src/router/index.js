@@ -11,6 +11,7 @@ const Dashboard = () => import('@/views/Dashboard')
 const Chrisvenue = () => import('@/views/chrisvenues/Chrisvenue')
 const Details = () => import('@/views/chrisvenues/Details')
 const CategoryList = () => import('@/views/categories/CategoryList')
+const SliderList = () => import('@/views/sliders/SliderList')
 const Settings = () => import('@/views/settings/Settings')
 
 // Users
@@ -98,6 +99,11 @@ function configRoutes () {
           path: 'categories',
           name: 'Categories',
           component: CategoryList
+        },
+        {
+          path: 'sliders',
+          name: 'Sliders',
+          component: SliderList
         },
         {
           path: 'users',

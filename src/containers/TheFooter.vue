@@ -1,12 +1,13 @@
 <template>
   <CFooter :fixed="false">
     <div>
-      <a href="https://encoreapp.net/" target="_blank">EncoreApp</a>
-      <span class="ml-1">&copy; {{new Date().getFullYear()}} creativeLabs.</span>
+      <span class="mr-1">Copyright &copy; 2019-{{new Date().getFullYear()}} </span>
+      <a href="https://encoreapp.net/" target="_blank">Encore Loyalty APP</a>
+      <span>. All rights reserved.</span>
     </div>
     <div class="mfs-auto">
       <span class="mr-1" target="_blank">Powered by</span>
-      <a href="https://encoreapp.net/">EncoreApp</a>
+      <a href="https://encoreapp.net/">Encore Loyalty APP</a>
     </div>
   </CFooter>
 </template>
