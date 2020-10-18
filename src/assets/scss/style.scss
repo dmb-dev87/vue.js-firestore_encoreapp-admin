@@ -28,3 +28,8 @@
 .col-form-label {
   font-weight: 600;
 }
+
+.custom-file-label::after {
+  color: #ffffff;
+  background-color: #321fdb;
+}

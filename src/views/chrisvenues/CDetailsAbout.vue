@@ -91,12 +91,23 @@ export default {
   },
   methods: {
     updateChrisvenueData() {
-      let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
-      dbRef.update(this.chrisvenue).then(() => {
-        console.log("Chrisvenue successfully updated!")
-      }).catch((error) =>{
-        console.log(error)
-      })
+      if (this.$route.params.id === undefined) {
+        db.collection("chrisvenue")
+          .add(this.chrisvenue)
+          .then(() => {
+            console.log("Chrisvenue successfully written!");
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+      } else {
+        let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
+        dbRef.update(this.chrisvenue).then(() => {
+          console.log("Chrisvenue successfully updated!")
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
     }
   }
 }

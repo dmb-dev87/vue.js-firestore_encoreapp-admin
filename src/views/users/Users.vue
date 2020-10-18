@@ -3,7 +3,14 @@
     <CCol col="12" xl="8">
       <CCard>
         <CCardHeader>
-          Users
+          <CRow>
+            <CCol>
+              Users
+            </CCol>
+            <CCol sm="3" class="text-right">
+              <CButton class="px-3" color="success" @click="goAddUser">Add User</CButton>
+            </CCol>
+          </CRow>
         </CCardHeader>
         <CCardBody>
           <CDataTable
@@ -83,6 +90,9 @@ export default {
     }
   },
   methods: {
+    goAddUser() {
+      this.$router.push({path: '/user/add'})
+    },
     getBadge (status) {
       switch (status) {
         case 'Active': return 'success'

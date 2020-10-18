@@ -1,10 +1,18 @@
 <template>
   <div>
     <CRow>
-      <CCol lg="12">
+      <CCol lg="9">
         <CategoryTable :items="getShuffledCategriesData()" :fields="fields">
           <template #header>
-            <CIcon name="cil-bank"/> Category List
+            <CRow>
+              <CCol>
+                <CIcon name="cil-bank"/> Category List
+              </CCol>
+              <CCol sm="3" class="text-right" >
+                <CButton class="px-3" color="success" @click="goAddCategory">Add Category</CButton>
+              </CCol>
+            </CRow>
+
           </template>
         </CategoryTable>
       </CCol>
@@ -52,10 +60,12 @@
         }
         return array
       },
-
       getShuffledCategriesData () {
         return this.shuffleArray(this.categories.slice(0))
-      }
+      },
+      goAddCategory() {
+        this.$router.push({path: '/category/add'})
+      },
     }
   }
 </script>

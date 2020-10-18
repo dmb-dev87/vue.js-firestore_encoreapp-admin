@@ -4,7 +4,14 @@
       <CCol lg="12">
         <SliderTable :items="getShuffledSlidersData()" :fields="fields">
           <template #header>
-            <CIcon name="cil-bank"/> Slider List
+            <CRow>
+              <CCol>
+                <CIcon name="cil-bank"/> Slider List
+              </CCol>
+              <CCol sm="3" class="text-right">
+                <CButton class="px-3" color="success" @click="goAddSlider">Add Slider</CButton>
+              </CCol>
+            </CRow>
           </template>
         </SliderTable>
       </CCol>
@@ -55,7 +62,10 @@
 
       getShuffledSlidersData () {
         return this.shuffleArray(this.sliders.slice(0))
-      }
+      },
+      goAddSlider() {
+        this.$router.push({path: '/slider/add'})
+      },
     }
   }
 </script>

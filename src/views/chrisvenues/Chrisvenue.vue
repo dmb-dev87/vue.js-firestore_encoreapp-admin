@@ -4,7 +4,14 @@
       <CCol lg="12">
         <CTableWrapper :items="getShuffledChrisvenuesData()" :fields="fields">
           <template #header>
-            <CIcon name="cil-bank"/> Chrisvenues List
+            <CRow>
+              <CCol>
+                <CIcon name="cil-bank"/> Chrisvenues List
+              </CCol>
+              <CCol sm="3" class="text-right">
+                <CButton class="px-3" color="success" @click="goAddChrisvenue">Add Chrisvenue</CButton>
+              </CCol>
+            </CRow>
           </template>
         </CTableWrapper>
       </CCol>
@@ -56,10 +63,12 @@
         }
         return array
       },
-
       getShuffledChrisvenuesData () {
         return this.shuffleArray(this.Chrisvenues.slice(0))
-      }
+      },
+      goAddChrisvenue() {
+        this.$router.push({path: '/chrisvenue/add'})
+      },
     }
   }
 </script>

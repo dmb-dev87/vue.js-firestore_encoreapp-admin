@@ -13,6 +13,9 @@
             <CTab title="Internet">
               <CDetailsInternet :chrisvenue="Chrisvenue" />
             </CTab>
+            <CTab title="Gallery">
+              <CDetailsGallery :chrisvenue="Chrisvenue" />
+            </CTab>
             <CTab title="Discount levels">
               <CDetailsDiscountLevels :chrisvenue="Chrisvenue " />
             </CTab>

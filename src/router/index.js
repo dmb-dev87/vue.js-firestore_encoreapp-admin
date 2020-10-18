@@ -9,9 +9,16 @@ const TheContainer = () => import('@/containers/TheContainer')
 const Dashboard = () => import('@/views/Dashboard')
 
 const Chrisvenue = () => import('@/views/chrisvenues/Chrisvenue')
-const Details = () => import('@/views/chrisvenues/Details')
+const ChrisvenueDetails = () => import('@/views/chrisvenues/Details')
+
+// Categories
 const CategoryList = () => import('@/views/categories/CategoryList')
+const CategoryDetail = () => import('@/views/categories/CategoryDetail')
+
+// Sliders
 const SliderList = () => import('@/views/sliders/SliderList')
+const SliderDetail = () => import('@/views/sliders/SliderDetail')
+
 const Settings = () => import('@/views/settings/Settings')
 
 // Users
@@ -78,12 +85,7 @@ function configRoutes () {
         {
           path: 'details',
           name: 'Details',
-          component: Details
-        },
-        {
-          path: '/detail/:id',
-          name: 'Detail',
-          component: Details
+          component: ChrisvenueDetails
         },
         {
           path: 'settings',
@@ -92,18 +94,105 @@ function configRoutes () {
         },
         {
           path: 'chrisvenue',
-          name: 'Chrisvenues',
-          component: Chrisvenue
+          meta: {
+            label: 'Chrisvenues'
+          },
+          component: {
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: '',
+              name: 'Chrisvenues',
+              component: Chrisvenue
+            },
+            {
+              path: ':id',
+              meta: {
+                label: 'Chrisvenue Edit'
+              },
+              name: 'ChrisvenueDetail',
+              component: ChrisvenueDetails
+            },
+            {
+              path: '/chrisvenue/add',
+              meta: {
+                label: 'Add'
+              },
+              name: 'ChrisvenueAdd',
+              component: ChrisvenueDetails
+            }
+          ]
         },
         {
           path: 'categories',
-          name: 'Categories',
-          component: CategoryList
+          meta: {
+            label: 'Categories'
+          },
+          component: {
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: '',
+              name: 'Categories',
+              component: CategoryList
+            },
+            {
+              path: ':id',
+              meta: {
+                label: 'Category Edit'
+              },
+              name: 'CategoryDetail',
+              component: CategoryDetail
+            },
+            {
+              path: '/category/add',
+              meta: {
+                label: 'Add'
+              },
+              name: 'CategoryAdd',
+              component: CategoryDetail
+            }
+          ]
         },
         {
           path: 'sliders',
-          name: 'Sliders',
-          component: SliderList
+          meta: {
+            label: 'Sliders'
+          },
+          component: {
+            render(c) {
+              return c('router-view')
+            }
+          },
+          children: [
+            {
+              path: '',
+              name: 'Sliders',
+              component: SliderList
+            },
+            {
+              path: ':id',
+              meta: {
+                label: 'Slider Edit'
+              },
+              name: 'SliderDetail',
+              component: SliderDetail
+            },
+            {
+              path: '/slider/add',
+              meta: {
+                label: 'Add'
+              },
+              name: 'SliderAdd',
+              component: SliderDetail
+            }
+          ]
         },
         {
           path: 'users',
@@ -125,6 +214,14 @@ function configRoutes () {
               path: ':id',
               meta: {
                 label: 'User Edit'
+              },
+              name: 'User',
+              component: User
+            },
+            {
+              path: '/user/add',
+              meta: {
+                label: 'User Add'
               },
               name: 'User',
               component: User

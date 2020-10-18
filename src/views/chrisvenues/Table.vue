@@ -20,7 +20,7 @@
       >
         <template #action="{item}">
           <td>
-            <CLink block color="link" class="text-left" :to="{name: 'Detail', params: { id: item.key }}">Details</CLink>
+            <CLink block color="link" class="text-left" :to="{name: 'ChrisvenueDetail', params: { id: item.key }}">Details</CLink>
           </td>
         </template>
       </CDataTable>
