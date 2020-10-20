@@ -59,8 +59,8 @@
       getBadge (status) {
         return status === 'Active' ? 'success'
           : status === 'Inactive' ? 'secondary'
-            : status === 'Pending' ? 'warning'
-              : status === 'Banned' ? 'danger' : 'primary'
+          : status === 'Pending' ? 'warning'
+          : status === 'Banned' ? 'danger' : 'primary'
       }
     }
   }

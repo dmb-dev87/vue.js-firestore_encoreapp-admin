@@ -24,9 +24,12 @@
               <CRow class="mb-1">
                 <CButton @click="choosePhoto" class="px-4 mr-2" color="success">Choose a photo</CButton>
                 <input
-                  type="file" ref="input1"
+                  type="file"
                   style="display: none"
-                  @change="previewImage" accept="image/*" >
+                  @change="previewImage"
+                  accept="image/*"
+                  ref="input1"
+                />
               </CRow>
               <CRow class="mb-1">
                 <img :src="categoryData.category_image" width="200px"/>
@@ -65,30 +68,38 @@
 </template>
 
 <script>
-  import firebase from './../../firebase.js'
+  import firebase from 'firebase'
   import { db } from './../../firebase.js'
 
   export default {
     name: 'CategoryDetail',
     data () {
       return {
+        uploadValue: 0,
         alertText: "",
         dismissSecs: 5,
         dismissCountDown: 0,
         imageData: null,
         categoryData: {
-
         },
       }
     },
     created() {
-      let dbRef = db.collection('category').doc(this.$route.params.id)
-      dbRef.get().then((doc) => {
-        this.categoryData = doc.data()
-        console.log(this.categoryData)
-      }).catch((error) => {
-        console.log(error)
-      })
+      if (this.$route.params.id)
+      {
+        let dbRef = db.collection('category').doc(this.$route.params.id)
+        dbRef.get().then((doc) => {
+          this.categoryData = doc.data()
+          this.imageURL = this.categoyData.category_image
+        }).catch((error) => {
+        })
+      } else {
+        this.categoryData = {
+          category_image: "",
+          category_id: "",
+          category_name: ""
+        }
+      }
     },
     methods: {
       showAlert () {
@@ -98,10 +109,8 @@
         this.$router.push({path: '/categories'})
       },
       updateCategoryData() {
-        console.log("++++++++++++", this.categoryData)
-        console.log("++++++++++++", this.$route.params.id)
-
         if (this.$route.params.id === undefined) {
+          console.log("+++++++++++", "AAAAAA")
           db.collection("category")
             .add(this.categoryData)
             .then(() => {
@@ -111,18 +120,15 @@
             .catch((error) => {
               this.alertText = "Error writing document"
               this.showAlert ()
-              console.error("Error writing document: ", error);
             });
         } else {
           let dbRef = db.collection('category').doc(this.$route.params.id)
           dbRef.update(this.categoryData).then(() => {
             this.alertText = "Category successfully updated!"
             this.showAlert ()
-            console.log("Category successfully updated!")
           }).catch((error) =>{
             this.alertText = "Error writing document"
             this.showAlert ()
-            console.log(error)
           })
         }
       },
@@ -131,20 +137,20 @@
       },
       previewImage(event) {
         this.uploadValue=0;
-        this.categoryData.category_image=null;
+        this.imageURL=""
         this.imageData = event.target.files[0];
         this.onUpload()
       },
       onUpload(){
-        this.categoryData.category_image=null
-        const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
+        const storageRef=firebase.storage().ref(`images/${this.imageData.name}`).put(this.imageData);
         storageRef.on(`state_changed`,snapshot=>{
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{console.log(error.message)},
+          }, error=>{
+
+          },
           ()=>{this.uploadValue=100;
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
               this.categoryData.category_image=url
-              console.log(this.img1)
             });
           }
         );

@@ -93,7 +93,7 @@ function configRoutes () {
           component: Settings
         },
         {
-          path: 'chrisvenue',
+          path: 'chrisvenues',
           meta: {
             label: 'Chrisvenues'
           },

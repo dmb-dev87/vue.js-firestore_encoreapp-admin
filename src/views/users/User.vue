@@ -68,7 +68,7 @@
                 :value.sync="userData.gender"
                 v-model="userData.gender"
                 :options="genders"
-                placeholder="Click to select country"
+                placeholder="Click to select gender"
               />
               <CSelect
                 label="Country:"
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import firebase from './../../firebase.js'
+import firebase from 'firebase'
 import { db } from './../../firebase.js'
 import countryData from "./../data/CountryData"
 
@@ -139,24 +139,43 @@ export default {
   data () {
     return {
       alertText: "",
+      uploadValue: 0,
       dismissSecs: 5,
       dismissCountDown: 0,
       imageData: null,
       countries: countryData,
-      genders: ["Male", "Female"],
+      genders: ["-", "Male", "Female"],
       userData: {
       },
       usersOpened: null
     }
   },
   created() {
-    let dbRef = db.collection('users').doc(this.$route.params.id)
-    dbRef.get().then((doc) => {
-      this.userData = doc.data()
-      console.log(this.userData)
-    }).catch((error) => {
-      console.log(error)
-    })
+    if (this.$route.params.id) {
+      let dbRef = db.collection('users').doc(this.$route.params.id)
+      dbRef.get().then((doc) => {
+        this.userData = doc.data()
+        console.log(this.userData)
+      }).catch((error) => {
+        console.log(error)
+      })
+    } else {
+      this.userData = {
+        country: "",
+        createAt: "",
+        dob: "",
+        email: "",
+        firstname: "",
+        gender: "-",
+        lastname: "",
+        mobilenumber: "",
+        name: "",
+        phone: "",
+        profileImage: "",
+        username: ""
+      }
+    }
+
   },
   methods: {
     showAlert () {
@@ -166,9 +185,6 @@ export default {
       this.usersOpened ? this.$router.go(-1) : this.$router.push({path: '/users'})
     },
     updateUserData() {
-      console.log("++++++++++++", this.userData)
-      console.log("++++++++++++", this.$route.params.id)
-
       if (this.$route.params.id === undefined) {
         db.collection("users")
           .add(this.userData)
@@ -198,12 +214,11 @@ export default {
     },
     previewImage(event) {
       this.uploadValue=0;
-      this.userData.profileImage=null;
+      this.userData.profileImage="";
       this.imageData = event.target.files[0];
       this.onUpload()
     },
     onUpload(){
-      this.userData.profileImage=null;
       const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
       storageRef.on(`state_changed`,snapshot=>{
           this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;

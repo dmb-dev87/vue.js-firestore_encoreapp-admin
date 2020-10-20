@@ -8,8 +8,8 @@
               label="Category:"
               size="md"
               horizontal
-              :value.sync="selectedOption"
-              :options="selectOptions"
+              :value.sync="chrisvenue.category_name"
+              :options="categories"
             />
             <CRow>
               <CCol sm="3" class="col-form-label" tag="label">
@@ -32,8 +32,8 @@
                   placeholder="Type group name if this is a branch"
                   horizontal
                   autocomplete="name"
-                  :value="chrisvenue.category_name"
-                  v-model="chrisvenue.category_name"
+                  :value="chrisvenue.branchgroupid"
+                  v-model="chrisvenue.branchgroupid"
                 />
               </CCol>
             </CRow>
@@ -71,12 +71,6 @@
               v-model="chrisvenue.openinghours"
             />
           </CForm>
-          <CRow>
-            <CCol sm="3" />
-            <CCol sm="9">
-              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
-            </CCol>
-          </CRow>
         </CCardBody>
       </CCard>
     </CCol>
@@ -87,28 +81,11 @@
 export default {
   name: 'CDetailsAbout',
   props: {
-    chrisvenue: Object
+    chrisvenue: Object,
+    categories: []
   },
   methods: {
-    updateChrisvenueData() {
-      if (this.$route.params.id === undefined) {
-        db.collection("chrisvenue")
-          .add(this.chrisvenue)
-          .then(() => {
-            console.log("Chrisvenue successfully written!");
-          })
-          .catch((error) => {
-            console.error("Error writing document: ", error);
-          });
-      } else {
-        let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
-        dbRef.update(this.chrisvenue).then(() => {
-          console.log("Chrisvenue successfully updated!")
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
-    }
+
   }
 }
 

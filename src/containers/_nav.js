@@ -21,7 +21,7 @@ export default [
       {
         _name: 'CSidebarNavItem',
         name: 'Chrisvenues',
-        to: '/chrisvenue',
+        to: '/chrisvenues',
         icon: 'cil-library-building'
       },
       {

@@ -37,7 +37,7 @@
               label="Bonus 'Kicker' discount:"
               size="md"
               horizontal
-              :value.sync="discountlevelbonuson"
+              :value.sync="chrisvenue.discountlevelbonuson"
               :options="bonusOptions"
             />
             <CSelect
@@ -48,12 +48,6 @@
               :options="bonusPercentOptions"
             />
           </CForm>
-          <CRow>
-            <CCol sm="3" />
-            <CCol sm="9">
-              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
-            </CCol>
-          </CRow>
         </CCardBody>
       </CCard>
     </CCol>
@@ -71,44 +65,14 @@ export default {
   data() {
     return {
       levelOptions: [
-        '5.00%', '7.50%', '10.00%', '12.50%', '15.00%', '17.50%', '20.00%', '22.50%', '25.00%', '27.50%', '30.00%', '32.50%', '35.00%', '37.50%', '40.00%', '42.50%', '45.00%', '47.50%', '50.00%', '52.50%', '55.00%', '57.50%', '60.00%',
+        5.00, 7.50, 10.00, 12.50, 15.00, 17.50, 20.00, 22.50, 25.00, 27.50, 30.00, 32.50, 35.00, 37.50, 40.00, 42.50, 45.00, 47.50, 50.00, 52.50, 55.00, 57.50, 60.00
       ],
       bonusOptions: [
         "-", "ON - Bonus 'Kicker' discount ACTIVE", "OFF-NOT ACTIVE",
       ],
       bonusPercentOptions: [
-        '2.50%', '5.00%', '7.50%', '10.00%', '12.50%', '15.00%', '17.50%', '20.00%'
+        2.50, 5.00, 7.50, 10.00, 12.50, 15.00, 17.50, 20.00
       ],
-      discountlevelbonuson: "-"
-    }
-  },
-  created() {
-    console.log(this.chrisvenue)
-    this.selectedBronze = chrisvenue.discountlevelbonus + ".00"
-    console.log(this.selectedBronze);
-    this.discountlevelbonuson = chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
-    console.log(this.discountlevelbonuson);
-  },
-  methods: {
-    updateChrisvenueData() {
-      this.chrisvenue.discountlevelbonuson = (this.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE") ? true : false
-      if (this.$route.params.id === undefined) {
-        db.collection("chrisvenue")
-          .add(this.chrisvenue)
-          .then(() => {
-            console.log("Chrisvenue successfully written!");
-          })
-          .catch((error) => {
-            console.error("Error writing document: ", error);
-          });
-      } else {
-        let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
-        dbRef.update(this.chrisvenue).then(() => {
-          console.log("Chrisvenue successfully updated!")
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
     }
   },
 }

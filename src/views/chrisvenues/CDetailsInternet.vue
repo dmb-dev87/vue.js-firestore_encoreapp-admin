@@ -47,12 +47,6 @@
               v-model="chrisvenue.twitterurl"
             />
           </CForm>
-          <CRow>
-            <CCol sm="3" />
-            <CCol sm="9">
-              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
-            </CCol>
-          </CRow>
         </CCardBody>
       </CCard>
     </CCol>
@@ -67,25 +61,7 @@ export default {
     chrisvenue: Object
   },
   methods: {
-    updateChrisvenueData() {
-      if (this.$route.params.id === undefined) {
-        db.collection("chrisvenue")
-          .add(this.chrisvenue)
-          .then(() => {
-            console.log("Chrisvenue successfully written!");
-          })
-          .catch((error) => {
-            console.error("Error writing document: ", error);
-          });
-      } else {
-        let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
-        dbRef.update(this.chrisvenue).then(() => {
-          console.log("Chrisvenue successfully updated!")
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
-    }
+
   }
 }
 </script>
