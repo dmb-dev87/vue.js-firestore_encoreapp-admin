@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { db } from './../../firebase.js'
+import { db, auth } from './../../firebase.js'
 export default {
   name: 'Users',
   data () {
@@ -59,23 +59,34 @@ export default {
         { key: 'gender' },
         { key: 'phone'}
       ],
-      activePage: 1
+      activePage: 1,
+      currentUser: {}
     }
   },
-  created() {
-    let dbRef = db.collection('users').onSnapshot((snapshotChange) => {
-      this.items = []
-      snapshotChange.forEach((doc) => {
-        this.items.push({
-          key: doc.id,
-          username: doc.data().username,
-          country: doc.data().country,
-          email: doc.data().email,
-          gender: doc.data().gender,
-          phone: doc.data().mobilenumber,
-          profileImage: doc.data().profileImage,
+  async created() {
+    await this.getCurrentUser()
+    let dbRef
+    if (this.currentUser.userrole == "admin") {
+      dbRef = db.collection('users')
+    } else {
+      dbRef = db.collection('users')
+        .where('uid', '==', auth.currentUser.uid)
+    }
+
+    dbRef.get()
+      .then(querySnapshot => {
+        this.items = []
+        querySnapshot.docs.map((doc) => {
+          this.items.push({
+            key: doc.id,
+            username: doc.data().username,
+            country: doc.data().country,
+            email: doc.data().email,
+            gender: doc.data().gender,
+            phone: doc.data().mobilenumber,
+            profileImage: doc.data().profileImage,
+          })
         })
-      })
       console.log(this.items);
     })
   },
@@ -90,6 +101,17 @@ export default {
     }
   },
   methods: {
+    async getCurrentUser() {
+      console.log("++++++++++++1", auth.currentUser.uid)
+      const query = db.collection('users').doc(auth.currentUser.uid)
+      await query.get()
+        .then((doc) => {
+          console.log("+++++++++++2", doc.data())
+          this.currentUser = doc.data()
+        })
+
+      console.log("++++++++++3", this.currentUser)
+    },
     goAddUser() {
       this.$router.push({path: '/user/add'})
     },

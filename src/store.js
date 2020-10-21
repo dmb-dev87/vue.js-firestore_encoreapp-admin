@@ -25,7 +25,9 @@ const mutations = {
     state[variable] = value
   },
   setUserProfile(state, val) {
+    console.log("+++++++++++++++++set", val)
     state.userProfile = val
+    console.log("+++++++++++++++++set", state.userProfile)
   }
 }
 
@@ -34,12 +36,16 @@ const actions = {
     // sign user in
     const { user } = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
 
+    console.log("+++++++++++++++++login", user)
+
     // fetch user profile and set in state
     dispatch('fetchUserProfile', user)
   },
   async fetchUserProfile({ commit }, user) {
     // fetch user profile
     const userProfile = await fb.usersCollection.doc(user.uid).get()
+
+    console.log("+++++++++++++++++fetch", userProfile)
 
     // set user profile in state
     commit('setUserProfile', userProfile.data())

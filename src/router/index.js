@@ -19,8 +19,6 @@ const CategoryDetail = () => import('@/views/categories/CategoryDetail')
 const SliderList = () => import('@/views/sliders/SliderList')
 const SliderDetail = () => import('@/views/sliders/SliderDetail')
 
-const Settings = () => import('@/views/settings/Settings')
-
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
@@ -86,11 +84,6 @@ function configRoutes () {
           path: 'details',
           name: 'Details',
           component: ChrisvenueDetails
-        },
-        {
-          path: 'settings',
-          name: 'Settings',
-          component: Settings
         },
         {
           path: 'chrisvenues',
@@ -223,7 +216,7 @@ function configRoutes () {
               meta: {
                 label: 'User Add'
               },
-              name: 'User',
+              name: 'UserAdd',
               component: User
             }
           ]

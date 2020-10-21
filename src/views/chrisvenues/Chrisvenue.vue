@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import { db } from './../../firebase.js'
+  import { db, auth } from './../../firebase.js'
   import CTableWrapper from './Table.vue'
 
   export default {
@@ -36,24 +36,41 @@
         fields:  ['name', 'area', 'city', 'country', 'address1', 'email', 'action']
       }
     },
-    created() {
-      let dbRef = db.collection('chrisvenues').onSnapshot((snapshotChange) => {
-        this.Chrisvenues = []
-        snapshotChange.forEach((doc) => {
-          this.Chrisvenues.push({
-            key: doc.id,
-            name: doc.data().name,
-            area: doc.data().area,
-            city: doc.data().city,
-            country: doc.data().country,
-            address1: doc.data().address1,
-            email: doc.data().email,
+    async created() {
+      await this.getCurrentUser()
+
+      let dbRef
+      if (this.currentUser.userrole == "admin") {
+        dbRef = db.collection('chrisvenues')
+      } else {
+        dbRef = db.collection('chrisvenues')
+          .where('owner', '==', auth.currentUser.uid)
+      }
+
+      dbRef.get()
+        .then(querySnapshot => {
+          this.Chrisvenues = []
+          querySnapshot.docs.map((doc) => {
+            this.Chrisvenues.push({
+              key: doc.id,
+              name: doc.data().name,
+              area: doc.data().area,
+              city: doc.data().city,
+              country: doc.data().country,
+              address1: doc.data().address1,
+              email: doc.data().email,
+            })
           })
         })
-      })
-      console.log(this.Chrisvenues);
     },
     methods: {
+      async getCurrentUser() {
+        const query = db.collection('users').doc(auth.currentUser.uid)
+        await query.get()
+          .then((doc) => {
+            this.currentUser = doc.data()
+          })
+      },
       shuffleArray (array) {
         for (let i = array.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1))

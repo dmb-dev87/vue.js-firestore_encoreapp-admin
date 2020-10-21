@@ -14,27 +14,9 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Get Started Guild',
-        to: '/#',
-        icon: 'cil-map'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Chrisvenues',
+        name: 'Business Details',
         to: '/chrisvenues',
         icon: 'cil-library-building'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Business Details',
-        to: '/details',
-        icon: 'cil-institution'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Gallery',
-        to: '/#',
-        icon: 'cil-image'
       },
       {
         _name: 'CSidebarNavItem',
@@ -47,12 +29,6 @@ export default [
         name: 'Category',
         to: '/categories',
         icon: 'cil-layers'
-      },
-      {
-        _name: 'CSidebarNavItem',
-        name: 'Settings',
-        to: '/settings',
-        icon: 'cil-settings'
       },
       {
         _name: 'CSidebarNavItem',

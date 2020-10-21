@@ -22,7 +22,7 @@
 
 <script>
   import * as Categories from './index.js'
-  import { db } from './../../firebase.js'
+  import { db, auth } from './../../firebase.js'
   import CategoryTable from './CategoryTable.vue'
 
   export default {
@@ -37,20 +37,38 @@
         fields:  ['id', 'name', 'image', 'action']
       }
     },
-    created() {
-      let dbRef = db.collection('category').onSnapshot((snapshotChange) => {
+    async created() {
+      await this.getCurrentUser()
+
+      let dbRef
+      if (this.currentUser.userrole == "admin") {
+        dbRef = db.collection('category')
+      } else {
         this.categories = []
-        snapshotChange.forEach((doc) => {
-          this.categories.push({
-            key: doc.id,
-            id: doc.data().category_id,
-            name: doc.data().category_name,
-            image: doc.data().category_image,
+        return
+      }
+
+      dbRef.get()
+        .then(querySnapshot => {
+          this.categories = []
+          querySnapshot.docs.map((doc) => {
+            this.categories.push({
+              key: doc.id,
+              id: doc.data().category_id,
+              name: doc.data().category_name,
+              image: doc.data().category_image,
+            })
           })
         })
-      })
     },
     methods: {
+      async getCurrentUser() {
+        const query = db.collection('users').doc(auth.currentUser.uid)
+        await query.get()
+          .then((doc) => {
+            this.currentUser = doc.data()
+          })
+      },
       shuffleArray (array) {
         for (let i = array.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1))

@@ -21,7 +21,7 @@
 
 <script>
   import * as Sliders from './index.js'
-  import { db } from './../../firebase.js'
+  import { db, auth } from './../../firebase.js'
   import SliderTable from './SliderTable.vue'
 
   export default {
@@ -36,20 +36,37 @@
         fields:  ['image', 'url', 'action']
       }
     },
-    created() {
-      let dbRef = db.collection('slider').onSnapshot((snapshotChange) => {
+    async created() {
+      await this.getCurrentUser()
+
+      let dbRef
+      if (this.currentUser.userrole == "admin") {
+        dbRef = db.collection('slider')
+      } else {
         this.sliders = []
-        snapshotChange.forEach((doc) => {
-          this.sliders.push({
-            key: doc.id,
-            image: doc.data().slider_images,
-            url: doc.data().slider_images,
+        return
+      }
+
+      dbRef.get()
+        .then(querySnapshot => {
+          this.sliders = []
+          querySnapshot.docs.map((doc) => {
+            this.sliders.push({
+              key: doc.id,
+              image: doc.data().slider_images,
+              url: doc.data().slider_images,
+            })
           })
         })
-        console.log(this.sliders);
-      })
     },
     methods: {
+      async getCurrentUser() {
+        const query = db.collection('users').doc(auth.currentUser.uid)
+        await query.get()
+          .then((doc) => {
+            this.currentUser = doc.data()
+          })
+      },
       shuffleArray (array) {
         for (let i = array.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1))

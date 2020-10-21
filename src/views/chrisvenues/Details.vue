@@ -33,7 +33,10 @@
               <CDetailsGallery :chrisvenue="Chrisvenue" />
             </CTab>
             <CTab title="Discount levels">
-              <CDetailsDiscountLevels :chrisvenue="Chrisvenue " />
+              <CDetailsDiscountLevels :chrisvenue="Chrisvenue" />
+            </CTab>
+            <CTab title="Settings">
+              <MainSettings v-bind:chrisvenue="Chrisvenue" @update-features="updateFeatures" />
             </CTab>
           </CTabs>
           <CRow>
@@ -50,7 +53,7 @@
 
 <script>
 import * as Details from './index.js'
-import { db } from '../../firebase.js'
+import { db, auth } from '../../firebase.js'
 
 export default {
   name: 'Details',
@@ -74,6 +77,17 @@ export default {
     dbRef.get().then((doc) => {
       this.Chrisvenue = doc.data();
       this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
+      this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED"
+      this.Chrisvenue.isActive = this.Chrisvenue.isActive ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE"
+
+      if(this.Chrisvenue.pincode) {
+        this.Chrisvenue.isPinOrQr = "PIN code used for redeem"
+      } else if (this.Chrisvenue.qrcode) {
+        this.Chrisvenue.isPinOrQr = "QR code used for redeem"
+      } else {
+        this.Chrisvenue.isPinOrQr = "-"
+      }
+
       console.log(doc.data());
     }).catch((error) => {
       console.log(error);
@@ -85,7 +99,6 @@ export default {
           doc.data().category_name
         )
       })
-      console.log("+++++++++++++++", this.categories)
     })
   },
   methods: {
@@ -94,32 +107,57 @@ export default {
     },
     updateChrisvenueData() {
       this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
+      this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
+      this.Chrisvenue.isActive = this.Chrisvenue.isActive === "YES - Encore points are ACTIVE" ? true: false
       console.log("++++++++++", this.$route.params.id)
       if (this.$route.params.id === undefined) {
+        this.Chrisvenue.owner = auth.currentUser.uid
         db.collection("chrisvenues")
           .add(this.Chrisvenue)
           .then(() => {
             this.alertText = "Chrisvenue successfully written!"
             this.showAlert ()
-            console.log("Chrisvenue successfully written!");
+            console.log("++++++++", "Chrisvenue successfully written!");
             this.$router.push({path: '/chrisvenues'})
           })
           .catch((error) => {
             this.alertText = "Error writing document"
             this.showAlert ()
-            console.error("Error writing document: ", error);
+            console.error("++++++++", "Error writing document: ", error);
           });
       } else {
         let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
         dbRef.update(this.Chrisvenue).then(() => {
           this.alertText = "Chrisvenue successfully updated!"
           this.showAlert ()
-          console.log("Chrisvenue successfully updated!")
+          console.log("++++++++", "Chrisvenue successfully updated!")
         }).catch((error) => {
           this.alertText = "Error writing document"
           this.showAlert ()
           console.log(error)
         })
+      }
+    },
+    updateFeatures(item) {
+      console.log("+++++++++++++++", item.type)
+      switch (item.type) {
+        case 'featurealcoholserved':
+          this.Chrisvenue.featurealcoholserved=item.checked
+          break
+        case 'featurefamilyfriendly':
+          this.Chrisvenue.featurefamilyfriendly=item.checked
+          break
+        case 'featurehandicapfriendly':
+          this.Chrisvenue.featurehandicapfriendly=item.checked
+          break
+        case 'featurewifi':
+          this.Chrisvenue.featurewifi=item.checked
+          break
+        case 'featurevegan':
+          this.Chrisvenue.featurevegan=item.checked
+          break
+        default:
+          break
       }
     }
   }

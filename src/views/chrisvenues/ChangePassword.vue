@@ -23,12 +23,6 @@
               type="password"
             />
           </CForm>
-          <CRow class="mt-3">
-            <CCol sm="3" />
-            <CCol sm="9">
-              <CButton class="px-4" type="submit" color="danger"><CIcon name="cil-check-circle"/> Update password</CButton>
-            </CCol>
-          </CRow>
         </CCardBody>
       </CCard>
     </CCol>

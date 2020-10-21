@@ -15,22 +15,24 @@
               label="Contact name:"
               placeholder="Contact name"
               horizontal
-              :value="chrisvenue.name"
-              v-model="chrisvenue.name"
+              :value="chrisvenue.contactperson"
+              v-model="chrisvenue.contactperson"
             />
             <CInput
               label="Contact person email:"
               placeholder="Contact person email"
               horizontal
               autocomplete="email"
-              :value="chrisvenue.email"
-              v-model="chrisvenue.email"
+              :value="chrisvenue.contactpersonemail"
+              v-model="chrisvenue.contactpersonemail"
             />
             <CInput
               label="Contact person phone:"
               placeholder="Contact person phone"
               horizontal
               autocomplete="number"
+              :value="chrisvenue.contactpersonphone"
+              v-model="chrisvenue.contactpersonphone"
             />
             <hr class="mt-1 mb-3">
             <CInput
@@ -90,6 +92,8 @@
               label="Phone, mobile:"
               placeholder="Phone, mobile"
               horizontal
+              :value="chrisvenue.phonemobile"
+              v-model="chrisvenue.phonemobile"
             />
             <CRow>
               <CCol sm="3">
