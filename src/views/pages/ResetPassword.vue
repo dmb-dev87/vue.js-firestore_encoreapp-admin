@@ -65,9 +65,7 @@
     },
     methods: {
       async resetPassword() {
-        console.log('email' + this.email)
         this.errorMsg = ''
-
         try {
           await auth.sendPasswordResetEmail(this.email)
           this.showSuccess = true

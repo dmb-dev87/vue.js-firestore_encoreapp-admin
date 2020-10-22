@@ -162,12 +162,10 @@
       }
     },
     mounted() {
-      console.log(this.chrisvenue)
       this.featurealcoholserved = this.props.chrisvenue.featurealcoholserved;
     },
     methods: {
       update_features: function(arg, event) {
-        console.log("+++++++++++++", event.target.checked)
         let item = {}
         switch (arg) {
           case 'featurealcoholserved':
@@ -188,7 +186,6 @@
           default:
             break
         }
-        console.log("++++++++++++++++", item)
         this.$emit('update-features', item)
       },
     }

@@ -83,7 +83,6 @@
         let dbRef = db.collection('slider').doc(this.$route.params.id)
         dbRef.get().then((doc) => {
           this.sliderData = doc.data()
-          console.log(this.sliderData)
         }).catch((error) => {
 
         })
@@ -119,7 +118,6 @@
             this.showAlert ()
           }).catch((error) =>{
             this.showAlert ()
-            console.log(error)
           })
         }
       },
@@ -130,20 +128,19 @@
         this.uploadValue=0;
         this.sliderData.slider_images="";
         this.imageData = event.target.files[0];
-        console.log("+++++++++", this.sliderData.slider_images)
         this.onUpload()
       },
       onUpload(){
         this.sliderData.slider_images=""
-        console.log("+++++++++", this.sliderData.slider_images)
         const storageRef=firebase.storage().ref(`images/${this.imageData.name}`).put(this.imageData);
         storageRef.on(`state_changed`,snapshot=>{
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{console.log(error.message)},
+          }, error=>{
+            
+          },
           ()=>{this.uploadValue=100;
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
               this.sliderData.slider_images=url
-              console.log("+++++++++", this.sliderData.slider_images)
             });
           }
         );

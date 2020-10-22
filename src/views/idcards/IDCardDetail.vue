@@ -142,7 +142,6 @@
           this.alertText = "ID card and trade license update failed!"
           this.alertColor = "danger"
           this.showAlert ()
-          console.log(error)
         })
       },
       chooseFront() {
@@ -179,7 +178,9 @@
         const storageRef=firebase.storage().ref(`images/${this.imageData[arg].name}`).put(this.imageData[arg]);
         storageRef.on(`state_changed`,snapshot=>{
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{console.log(error.message)},
+          }, error=>{
+            
+          },
           ()=>{this.uploadValue=100;
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
               switch (arg) {

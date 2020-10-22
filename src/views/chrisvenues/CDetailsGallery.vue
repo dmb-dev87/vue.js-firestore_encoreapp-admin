@@ -259,7 +259,9 @@
               default:
                 break
             }
-          }, error=>{console.log(error.message)},
+          }, error=>{
+            
+          },
           ()=>{this.uploadValue=100;
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
               image_url=url

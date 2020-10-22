@@ -131,10 +131,8 @@ export default {
     }
   },
   created() {
-    console.log(this.chrisvenue)
   },
   mounted() {
-    console.log(this.chrisvenue)
   },
   methods: {
 

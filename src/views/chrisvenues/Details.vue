@@ -84,7 +84,6 @@ export default {
         this.Chrisvenue.image = []
       }
     }).catch((error) => {
-      console.log(error);
     })
     db.collection('category').onSnapshot((snapshotChange) => {
       this.categories = []
@@ -211,7 +210,6 @@ export default {
           this.alertText = "Error writing document"
           this.alertColor = "danger"
           this.showAlert ()
-          console.log(error)
         })
       }
     },

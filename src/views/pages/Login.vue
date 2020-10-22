@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("email " + this.loginForm.email);
       this.$store.dispatch('login', {
         email: this.loginForm.email,
         password: this.loginForm.password

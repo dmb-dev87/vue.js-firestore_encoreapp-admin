@@ -87,7 +87,6 @@ export default {
             profileImage: doc.data().profileImage,
           })
         })
-      console.log(this.items);
     })
   },
   watch: {
@@ -102,15 +101,11 @@ export default {
   },
   methods: {
     async getCurrentUser() {
-      console.log("++++++++++++1", auth.currentUser.uid)
       const query = db.collection('users').doc(auth.currentUser.uid)
       await query.get()
         .then((doc) => {
-          console.log("+++++++++++2", doc.data())
           this.currentUser = doc.data()
         })
-
-      console.log("++++++++++3", this.currentUser)
     },
     goAddUser() {
       this.$router.push({path: '/user/add'})

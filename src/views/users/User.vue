@@ -155,9 +155,7 @@ export default {
       let dbRef = db.collection('users').doc(this.$route.params.id)
       dbRef.get().then((doc) => {
         this.userData = doc.data()
-        console.log(this.userData)
       }).catch((error) => {
-        console.log(error)
       })
     } else {
       this.userData = {
@@ -205,7 +203,6 @@ export default {
         }).catch((error) =>{
           this.alertText = "Error writing document!"
           this.showAlert ()
-          console.log(error)
         })
       }
     },
@@ -222,11 +219,12 @@ export default {
       const storageRef=firebase.storage().ref(`images/${this.imageData.name}`).put(this.imageData);
       storageRef.on(`state_changed`,snapshot=>{
           this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-        }, error=>{console.log(error.message)},
+        }, error=>{
+
+        },
         ()=>{this.uploadValue=100;
           storageRef.snapshot.ref.getDownloadURL().then((url)=>{
             this.userData.profileImage=url
-            console.log(this.img1)
           });
         }
       );
