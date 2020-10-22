@@ -11,7 +11,7 @@
               <CAlert
                 :show.sync="dismissCountDown"
                 closeButton
-                color="info"
+                :color="alertColor"
               >
                 {{this.alertText}}
               </CAlert>
@@ -77,6 +77,7 @@
       return {
         uploadValue: 0,
         alertText: "",
+        alertColor: "info",
         dismissSecs: 5,
         dismissCountDown: 0,
         imageData: null,
@@ -90,7 +91,6 @@
         let dbRef = db.collection('category').doc(this.$route.params.id)
         dbRef.get().then((doc) => {
           this.categoryData = doc.data()
-          this.imageURL = this.categoyData.category_image
         }).catch((error) => {
         })
       } else {
@@ -110,24 +110,27 @@
       },
       updateCategoryData() {
         if (this.$route.params.id === undefined) {
-          console.log("+++++++++++", "AAAAAA")
           db.collection("category")
             .add(this.categoryData)
             .then(() => {
               this.alertText = "Category successfully written!"
+              this.alertColor = "success"
               this.showAlert ()
             })
             .catch((error) => {
               this.alertText = "Error writing document"
+              this.alertColor = "danger"
               this.showAlert ()
             });
         } else {
           let dbRef = db.collection('category').doc(this.$route.params.id)
           dbRef.update(this.categoryData).then(() => {
             this.alertText = "Category successfully updated!"
+            this.alertColor = "success"
             this.showAlert ()
           }).catch((error) =>{
             this.alertText = "Error writing document"
+            this.alertColor = "error"
             this.showAlert ()
           })
         }
@@ -137,7 +140,7 @@
       },
       previewImage(event) {
         this.uploadValue=0;
-        this.imageURL=""
+        this.categoryData.category_image=""
         this.imageData = event.target.files[0];
         this.onUpload()
       },
@@ -145,7 +148,8 @@
         const storageRef=firebase.storage().ref(`images/${this.imageData.name}`).put(this.imageData);
         storageRef.on(`state_changed`,snapshot=>{
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{
+          },
+          error=>{
 
           },
           ()=>{this.uploadValue=100;

@@ -16,13 +16,13 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'Business Details',
         to: '/chrisvenues',
-        icon: 'cil-library-building'
+        icon: 'cil-layers'
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Sliders',
         to: '/sliders',
-        icon: 'cil-image'
+        icon: 'cil-layers'
       },
       {
         _name: 'CSidebarNavItem',
@@ -32,15 +32,15 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Users',
-        to: '/users',
-        icon: 'cil-people',
+        name: 'ID Nation Card',
+        to: '/idcards',
+        icon: 'cil-layers'
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Log out',
-        to: '/#',
-        icon: 'cil-account-logout'
+        name: 'Users',
+        to: '/users',
+        icon: 'cil-people',
       },
     ]
   }

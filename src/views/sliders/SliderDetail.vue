@@ -136,7 +136,7 @@
       onUpload(){
         this.sliderData.slider_images=""
         console.log("+++++++++", this.sliderData.slider_images)
-        const storageRef=firebase.storage().ref(`${this.imageData.name}`).put(this.imageData);
+        const storageRef=firebase.storage().ref(`images/${this.imageData.name}`).put(this.imageData);
         storageRef.on(`state_changed`,snapshot=>{
             this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
           }, error=>{console.log(error.message)},

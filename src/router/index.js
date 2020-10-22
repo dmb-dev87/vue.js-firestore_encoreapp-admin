@@ -19,6 +19,9 @@ const CategoryDetail = () => import('@/views/categories/CategoryDetail')
 const SliderList = () => import('@/views/sliders/SliderList')
 const SliderDetail = () => import('@/views/sliders/SliderDetail')
 
+// ID Card
+const IDCards = () => import('@/views/idcards/IDCardDetail')
+
 // Users
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
@@ -186,6 +189,13 @@ function configRoutes () {
               component: SliderDetail
             }
           ]
+        },
+        {
+          path: 'idcards',
+          meta: {
+            label: "ID Cards"
+          },
+          component: IDCards
         },
         {
           path: 'users',

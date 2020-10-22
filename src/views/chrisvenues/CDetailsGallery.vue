@@ -25,10 +25,7 @@
             <CRow class="mb-3">
               <CCol sm="3" />
               <CCol sm="7">
-                <CInput
-                  :value="chrisvenue.logoimage"
-                  style="border: none;"
-                />
+                <CLink href="chrisvenue.logoimage">{{chrisvenue.logoimage}}</CLink>
               </CCol>
               <CCol sm="2" class="mt-2 text-left">
                 <p>{{logo_state}}</p>
@@ -55,10 +52,7 @@
             <CRow class="mb-3">
               <CCol sm="3" />
               <CCol sm="7">
-                <CInput
-                  :value="chrisvenue.mainimage"
-                  style="border: none;"
-                />
+                <CLink href="chrisvenue.mainimage">{{chrisvenue.mainimage}}</CLink>
               </CCol>
               <CCol sm="2" class="mt-2 text-left">
                 <p>{{main_state}}</p>
@@ -86,10 +80,7 @@
               <CRow>
                 <CCol sm="3" />
                 <CCol sm="7">
-                  <CInput
-                    :value="chrisvenue.image[index]"
-                    style="border: none;"
-                  />
+                  <CLink href="chrisvenue.image[index]">{{chrisvenue.image[index]}}</CLink>
                 </CCol>
                 <CCol sm="2" class="mt-2 text-left">
                   <p>{{gallery_state[index]}}</p>
@@ -105,7 +96,6 @@
 
 <script>
   import firebase from "firebase"
-  import { db } from "./../../firebase.js"
 
   export default {
     name: 'CDetailsGallery',
@@ -131,7 +121,6 @@
     },
     methods: {
       prepareUpload(event, arg) {
-        console.log('++++++++++', arg)
         switch (arg) {
           case 'logo':
             this.logo_state = ""
@@ -186,7 +175,6 @@
         }
       },
       async uploadImage(arg) {
-        console.log('++++++++++')
         switch (arg) {
           case 'logo':
             this.imageData=this.logoImageData
@@ -255,7 +243,6 @@
                 break
               case 'gallery6':
                 this.gallery_state[5] = this.uploadValue + " %"
-                console.log("+++++++++++++++", this.gallery_state[5])
                 break
               case 'gallery7':
                 this.gallery_state[6] = this.uploadValue + " %"
@@ -308,8 +295,6 @@
                 case 'gallery6':
                   this.gallery_state[5] = "Done"
                   this.chrisvenue.image[5] = image_url
-                  console.log("++++++++", this.gallery_state[5])
-                  console.log("+++++++++++", this.chrisvenue.image[5])
                   break
                 case 'gallery7':
                   this.gallery_state[6] = "Done"

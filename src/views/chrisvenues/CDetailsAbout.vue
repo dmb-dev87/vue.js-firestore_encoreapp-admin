@@ -17,12 +17,13 @@
               </CCol>
               <CCol sm="3">
                 <CSwitch
+                  type="checkbox"
                   class="mr-1"
                   color="success"
                   :checked="chrisvenue.isBranch"
                   shape="pill"
                   variant="opposite"
-                  @click="update_isBranch($event)"
+                  :checked.sync="chrisvenue.isBranch"
                 />
                 <strong>
                   Click if branch
@@ -54,15 +55,6 @@
               v-model="chrisvenue.about"
             />
             <hr class="mt-1 mb-3">
-            <CInput
-              label="Location:"
-              placeholder="Location"
-              horizontal
-              autocomplete="location"
-              :value="chrisvenue.geolocation"
-              v-model="chrisvenue.geolocation"
-            />
-            <hr class="mt-1 mb-3">
             <CTextarea
               label="The opening hours:"
               placeholder="Put the opening hours here"
@@ -71,6 +63,23 @@
               :value="chrisvenue.openinghours"
               v-model="chrisvenue.openinghours"
             />
+            <hr class="mt-1 mb-3">
+            <CInput
+              label="Location:"
+              placeholder="Location"
+              horizontal
+              autocomplete="location"
+              :value="chrisvenue.geolocation"
+              v-model="chrisvenue.geolocation"
+            />
+            <CRow>
+              <google-map
+                :center="center"
+                :zoom="12"
+                style="width:100%;  height: 400px;"
+              >
+              </google-map>
+            </CRow>
           </CForm>
         </CCardBody>
       </CCard>
@@ -85,10 +94,28 @@ export default {
     chrisvenue: Object,
     categories: []
   },
+  data() {
+    return {
+      center: { lat: 45.508, lng: -73.587 },
+      markers: [],
+      places: [],
+      currentPlace: null
+    }
+  },
+  mounted() {
+    this.geolocate()
+  },
   methods: {
-    update_isBranch: function(arg, event) {
-      console.log("+++++++++++++", event.target.checked)
-      this.$emit('update-isBranch', event.target.checked)
+    setPlace(place) {
+      this.currentPlace = place;
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
     }
   }
 }

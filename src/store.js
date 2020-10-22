@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const state = {
   userProfile: {},
   sidebarShow: 'responsive',
-  sidebarMinimize: false
+  sidebarMinimize: false,
+  venueTitle: "Admin Venue"
 }
 
 const mutations = {
@@ -68,7 +69,7 @@ const actions = {
 
     // fetch user profile and set in state
     dispatch('fetchUserProfile', user)
-  }
+  },
 }
 
 export default new Vuex.Store({

@@ -10,6 +10,7 @@
     </CSidebarBrand>
 
     <CRenderFunction flat :content-to-render="$options.nav"/>
+    <CButton size="lg" color="danger" block @click="signout">Log out</CButton>
     <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"
@@ -19,6 +20,7 @@
 
 <script>
 import nav from './_nav'
+import firebase from 'firebase'
 
 export default {
   name: 'TheSidebar',
@@ -31,5 +33,17 @@ export default {
       return this.$store.state.sidebarMinimize 
     }
   },
+  methods: {
+    signout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "Login"
+          })
+        })
+    }
+  }
 }
 </script>
