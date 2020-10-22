@@ -88,7 +88,7 @@ function configRoutes () {
         {
           path: 'chrisvenues',
           meta: {
-            label: 'Chrisvenues'
+            label: 'Venues'
           },
           component: {
             render(c) {
@@ -98,13 +98,13 @@ function configRoutes () {
           children: [
             {
               path: '',
-              name: 'Chrisvenues',
+              name: 'Venues List',
               component: Chrisvenue
             },
             {
               path: ':id',
               meta: {
-                label: 'Chrisvenue Edit'
+                label: 'Venue Edit'
               },
               name: 'ChrisvenueDetail',
               component: ChrisvenueDetails
@@ -112,7 +112,7 @@ function configRoutes () {
             {
               path: '/chrisvenue/add',
               meta: {
-                label: 'Add'
+                label: 'Venue Add'
               },
               name: 'ChrisvenueAdd',
               component: ChrisvenueDetails

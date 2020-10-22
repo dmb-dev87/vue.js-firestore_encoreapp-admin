@@ -18,10 +18,11 @@
               <CCol sm="3">
                 <CSwitch
                   class="mr-1"
-                  color="dark"
-                  :checked="true"
+                  color="success"
+                  :checked="chrisvenue.isBranch"
                   shape="pill"
                   variant="opposite"
+                  @click="update_isBranch($event)"
                 />
                 <strong>
                   Click if branch
@@ -85,7 +86,10 @@ export default {
     categories: []
   },
   methods: {
-
+    update_isBranch: function(arg, event) {
+      console.log("+++++++++++++", event.target.checked)
+      this.$emit('update-isBranch', event.target.checked)
+    }
   }
 }
 

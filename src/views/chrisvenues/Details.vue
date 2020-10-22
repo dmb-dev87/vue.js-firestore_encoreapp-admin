@@ -24,7 +24,7 @@
               <CDetailsNameAddress :chrisvenue="Chrisvenue" />
             </CTab>
             <CTab title="About">
-              <CDetailsAbout :chrisvenue="Chrisvenue" :categories="categories" />
+              <CDetailsAbout :chrisvenue="Chrisvenue" :categories="categories" @update-isBranch="updateIsBranch" />
             </CTab>
             <CTab title="Internet">
               <CDetailsInternet :chrisvenue="Chrisvenue" />
@@ -76,17 +76,9 @@ export default {
     let dbRef = db.collection('chrisvenues').doc(this.$route.params.id);
     dbRef.get().then((doc) => {
       this.Chrisvenue = doc.data();
-      this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
-      this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED"
-      this.Chrisvenue.isActive = this.Chrisvenue.isActive ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE"
-
-      if(this.Chrisvenue.pincode) {
-        this.Chrisvenue.isPinOrQr = "PIN code used for redeem"
-      } else if (this.Chrisvenue.qrcode) {
-        this.Chrisvenue.isPinOrQr = "QR code used for redeem"
-      } else {
-        this.Chrisvenue.isPinOrQr = "-"
-      }
+      this.Chrisvenue.discountlevelbonuson = "-"
+      this.Chrisvenue.isFeatured = "-"
+      this.Chrisvenue.isActive_encore_points = "-"
 
       console.log(doc.data());
     }).catch((error) => {
@@ -108,7 +100,7 @@ export default {
     updateChrisvenueData() {
       this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
       this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
-      this.Chrisvenue.isActive = this.Chrisvenue.isActive === "YES - Encore points are ACTIVE" ? true: false
+      this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
       console.log("++++++++++", this.$route.params.id)
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid
@@ -137,6 +129,9 @@ export default {
           console.log(error)
         })
       }
+    },
+    updateIsBranch(checked) {
+      this.chrisvenue.isBranch=checked
     },
     updateFeatures(item) {
       console.log("+++++++++++++++", item.type)

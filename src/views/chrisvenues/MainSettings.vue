@@ -12,20 +12,19 @@
               :options="featuredOptions"
             />
             <hr class="mt-1 mb-3">
-            <CSelect
-              label="QR code or PIN code:"
-              size="md"
+            <CInput
+              label="PIN code:"
+              placeholder="Input PIN code"
               horizontal
-              :value.sync="chrisvenue.isPinOrQr"
-              :options="qrpinOptions"
-              placeholder="-"
+              :value="chrisvenue.pincode"
+              v-model="chrisvenue.pincode"
             />
             <hr class="mt-1 mb-3">
             <CSelect
               label="Activate Encore points:"
               size="md"
               horizontal
-              :value.sync="chrisvenue.isActive"
+              :value.sync="chrisvenue.isActive_encore_points"
               :options="activateOptions"
               placeholder="-"
             />
@@ -148,9 +147,6 @@
       return {
         featuredOptions: [
           "-", "ON - Your venue will be FEATURED (add-on charge applies)", "OFF - NOT FEATURED"
-        ],
-        qrpinOptions: [
-          "-", "QR code used for redeem", "PIN code used for redeem"
         ],
         activateOptions: [
           "-", "NO - Encore points not ACTIVE", "YES - Encore points are ACTIVE"

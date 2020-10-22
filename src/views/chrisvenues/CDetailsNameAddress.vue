@@ -103,7 +103,7 @@
                 />
                 <strong class="ml-4">
                   I agree to the
-                  <CLink>
+                  <CLink href="https://www.encoreapp.net/terms.html">
                     terms and conditions
                   </CLink>
                 </strong>

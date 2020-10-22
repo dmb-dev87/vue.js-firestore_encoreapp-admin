@@ -6,10 +6,10 @@
           <template #header>
             <CRow>
               <CCol>
-                <CIcon name="cil-bank"/> Chrisvenues List
+                <CIcon name="cil-bank"/> Venues List
               </CCol>
               <CCol sm="3" class="text-right">
-                <CButton class="px-3" color="success" @click="goAddChrisvenue">Add Chrisvenue</CButton>
+                <CButton class="px-3" color="success" @click="goAddChrisvenue">Add Venue</CButton>
               </CCol>
             </CRow>
           </template>
