@@ -21,8 +21,8 @@
         <CCardBody>
           <CRow>
             <CCol sm="4">
-              <CRow class="mb-1">
-                <CButton @click="chooseFront" class="px-4" color="success">Choose a front photo</CButton>
+              <CRow class="mb-2" style="justify-content: center;">
+                <CButton @click="chooseFront" class="px-4" color="success">Front of National ID</CButton>
                 <input
                   type="file"
                   ref="input_front"
@@ -31,13 +31,13 @@
                   accept="image/*"
                 />
               </CRow>
-              <CRow class="mb-1">
-                <img :src="userdata.IDnationalfront" width="200px"/>
+              <CRow class="mb-2" style="justify-content: center;">
+                <img :src="userdata.IDnationalfront" width="300px"/>
               </CRow>
             </CCol>
             <CCol sm="4">
-              <CRow class="mb-1">
-                <CButton @click="chooseBack" class="px-4" color="success">Choose a back photo</CButton>
+              <CRow class="mb-2" style="justify-content: center;">
+                <CButton @click="chooseBack" class="px-4" color="success">Back of National ID</CButton>
                 <input
                   type="file"
                   ref="input_back"
@@ -46,13 +46,13 @@
                   accept="image/*"
                 />
               </CRow>
-              <CRow class="mb-1">
-                <img :src="userdata.IDnationalback" width="200px"/>
+              <CRow class="mb-2" style="justify-content: center;">
+                <img :src="userdata.IDnationalback" width="300px"/>
               </CRow>
             </CCol>
-            <CCol sm="4">
-              <CRow class="mb-1">
-                <CButton @click="chooseTrade" class="px-4" color="success">Choose a trade license</CButton>
+            <CCol sm="4" class="text-center">
+              <CRow class="mb-2" style="justify-content: center;">
+                <CButton @click="chooseTrade" class="px-4" color="success">Trade/business license</CButton>
                 <input
                   type="file"
                   ref="input_trade"
@@ -61,18 +61,19 @@
                   accept="image/*"
                 />
               </CRow>
-              <CRow class="mb-1">
-                <img :src="userdata.IDtradelicense" width="200px"/>
+              <CRow class="mb-2" style="justify-content: center;">
+                <img :src="userdata.IDtradelicense" width="300px"/>
               </CRow>
             </CCol>
           </CRow>
         </CCardBody>
         <CCardFooter>
           <CRow>
-            <CCol col="4" />
-            <CCol>
-              <CButton class="px-4" type="submit" color="danger" @click="updateUserData">Save</CButton>
+            <CCol sm="4" />
+            <CCol sm="4" style="text-align: center;">
+              <CButton class="px-4" type="submit" color="danger" @click="updateUserData">UPLOAD AND SAVE</CButton>
             </CCol>
+            <CCol sm="4" />
           </CRow>
         </CCardFooter>
       </CCard>

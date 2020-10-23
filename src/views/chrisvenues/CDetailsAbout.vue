@@ -55,6 +55,32 @@
               v-model="chrisvenue.about"
             />
             <hr class="mt-1 mb-3">
+            <CRow>
+              <CCol sm="3" class="col-form-label" tag="label">
+                Location:
+              </CCol>
+              <CCol sm="4">
+                <CInput
+                  label="Latitude:"
+                  placeholder="Latitude"
+                  horizontal
+                  type="number"
+                  :value="location.latitude"
+                  v-model="location.latitude"
+                />
+              </CCol>
+              <CCol sm="4">
+                <CInput
+                  label="Longitude:"
+                  placeholder="Longitude"
+                  horizontal
+                  type="number"
+                  :value="location.longitude"
+                  v-model="location.longitude"
+                />
+              </CCol>
+            </CRow>
+            <hr class="mt-1 mb-3">
             <CTextarea
               label="The opening hours:"
               placeholder="Put the opening hours here"
@@ -63,23 +89,6 @@
               :value="chrisvenue.openinghours"
               v-model="chrisvenue.openinghours"
             />
-            <hr class="mt-1 mb-3">
-            <CInput
-              label="Location:"
-              placeholder="Location"
-              horizontal
-              autocomplete="location"
-              :value="chrisvenue.geolocation"
-              v-model="chrisvenue.geolocation"
-            />
-            <CRow>
-              <google-map
-                :center="center"
-                :zoom="12"
-                style="width:100%;  height: 400px;"
-              >
-              </google-map>
-            </CRow>
           </CForm>
         </CCardBody>
       </CCard>
@@ -92,31 +101,20 @@ export default {
   name: 'CDetailsAbout',
   props: {
     chrisvenue: Object,
-    categories: []
+    categories: [],
+    location: {
+
+    }
   },
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 },
-      markers: [],
-      places: [],
-      currentPlace: null
     }
   },
   mounted() {
     this.geolocate()
   },
   methods: {
-    setPlace(place) {
-      this.currentPlace = place;
-    },
-    geolocate: function() {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-      });
-    }
+
   }
 }
 

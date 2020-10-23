@@ -15,7 +15,7 @@
               <CDetailsNameAddress :chrisvenue="Chrisvenue" />
             </CTab>
             <CTab title="About">
-              <CDetailsAbout :chrisvenue="Chrisvenue" :categories="categories" @update-isBranch="updateIsBranch" />
+              <CDetailsAbout :chrisvenue="Chrisvenue" :categories="categories" :location="location" @update-isBranch="updateIsBranch" />
             </CTab>
             <CTab title="Internet">
               <CDetailsInternet :chrisvenue="Chrisvenue" />
@@ -27,7 +27,7 @@
               <CDetailsDiscountLevels :chrisvenue="Chrisvenue" />
             </CTab>
             <CTab title="Settings">
-              <MainSettings v-bind:chrisvenue="Chrisvenue" @update-features="updateFeatures" />
+              <MainSettings :chrisvenue="Chrisvenue" @update-features="updateFeatures" />
             </CTab>
           </CTabs>
           <CRow>
@@ -54,6 +54,7 @@
 <script>
 import * as Details from './index.js'
 import { db, auth } from '../../firebase.js'
+import firebase from 'firebase'
 
 export default {
   name: 'Details',
@@ -69,20 +70,24 @@ export default {
       Chrisvenue: {
 
       },
-      categories: []
+      categories: [],
+      location: {
+        latitude: 0.0,
+        longitude: 0.0
+      }
     }
   },
   created() {
     let dbRef = db.collection('chrisvenues').doc(this.$route.params.id);
     dbRef.get().then((doc) => {
-      this.Chrisvenue = doc.data();
-      this.Chrisvenue.discountlevelbonuson = "-"
-      this.Chrisvenue.isFeatured = "-"
-      this.Chrisvenue.isActive_encore_points = "-"
-
-      if (this.Chrisvenue.image === undefined) {
-        this.Chrisvenue.image = []
+      this.Chrisvenue = {
+        ...doc.data(),
+        discountlevelbonuson: "-",
+        isFeatured: "-",
+        isActive_encore_points: "-",
+        image: doc.data().image ? doc.data().image : []
       }
+      this.location = this.Chrisvenue.geolocation ? this.Chrisvenue.geolocation : {latitude: 0.0, longitude: 0.0}
     }).catch((error) => {
     })
     db.collection('category').onSnapshot((snapshotChange) => {
@@ -179,11 +184,13 @@ export default {
       this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
 
-      //validation fields
-      var val = this.validateFields()
+      validation fields
+      const val = this.validateFields()
 
       if (val === false)
         return
+
+      this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid
