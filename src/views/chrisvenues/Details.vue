@@ -184,7 +184,7 @@ export default {
       this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
 
-      validation fields
+      // validation fields
       const val = this.validateFields()
 
       if (val === false)
