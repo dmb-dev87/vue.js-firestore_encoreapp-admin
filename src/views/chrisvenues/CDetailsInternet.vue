@@ -5,7 +5,7 @@
         <CCardBody>
           <CForm>
             <CInput
-              label="Email:"
+              label="*Email:"
               placeholder="Email"
               horizontal
               :value="chrisvenue.email"

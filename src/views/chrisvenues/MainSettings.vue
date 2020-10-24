@@ -13,7 +13,7 @@
             />
             <hr class="mt-1 mb-3">
             <CInput
-              label="PIN code:"
+              label="*PIN code:"
               placeholder="Input PIN code"
               horizontal
               :value="chrisvenue.pincode"
@@ -30,7 +30,7 @@
             />
             <hr class="mt-1 mb-3">
             <CSelect
-              label="Minimum purchase:"
+              label="*Minimum purchase:"
               size="md"
               horizontal
               :value.sync="chrisvenue.minimumpurchase"

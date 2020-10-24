@@ -5,28 +5,28 @@
         <CCardBody>
           <CForm>
             <CSelect
-              label="Bronze level discount:"
+              label="*Bronze level discount:"
               size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelbronze"
               :options="levelOptions"
             />
             <CSelect
-              label="Silver level discount: (must be higher than Bronze %)"
+              label="*Silver level discount: (must be higher than Bronze %)"
               size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelsilver"
               :options="levelOptions"
             />
             <CSelect
-              label="Gold level discount: (must be higher than Silver %)"
+              label="*Gold level discount: (must be higher than Silver %)"
               size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelgold"
               :options="levelOptions"
             />
             <CSelect
-              label="Platinum level discount: (must be higher than Gold %)"
+              label="*Platinum level discount: (must be higher than Gold %)"
               size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelplatinum"

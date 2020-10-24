@@ -2,13 +2,6 @@
   <div>
     <CCol xs="12" lg="12">
       <CCard>
-        <CCardHeader>
-          <CRow>
-            <CCol sm="6">
-              Chrisvenue id:  {{ $route.params.id }}
-            </CCol>
-          </CRow>
-        </CCardHeader>
         <CCardBody>
           <CTabs variant="pills">
             <CTab title="Name and address" active>
@@ -160,6 +153,8 @@ export default {
         return false;
       }
 
+      if (this.Chrisvenue.)
+
       if (this.Chrisvenue.category_name === undefined || this.Chrisvenue.category_name === "") {
         this.alertText = "Please select the category!"
         this.alertColor = "info"
@@ -183,14 +178,13 @@ export default {
       this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
       this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
+      this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
       // validation fields
       const val = this.validateFields()
 
       if (val === false)
         return
-
-      this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid

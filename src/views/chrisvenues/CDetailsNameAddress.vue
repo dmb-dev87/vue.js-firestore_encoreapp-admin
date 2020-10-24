@@ -5,14 +5,14 @@
         <CCardBody>
           <CForm>
             <CInput
-              label="Business name:"
+              label="*Business name:"
               placeholder="Business name"
               horizontal
               :value="chrisvenue.name"
               v-model="chrisvenue.name"
             />
             <CInput
-              label="Contact name:"
+              label="*Contact name:"
               placeholder="Contact name"
               horizontal
               :value="chrisvenue.contactperson"
@@ -27,7 +27,7 @@
               v-model="chrisvenue.contactpersonemail"
             />
             <CInput
-              label="Contact person phone:"
+              label="*Contact person phone:"
               placeholder="Contact person phone"
               horizontal
               autocomplete="number"
@@ -66,14 +66,14 @@
               v-model="chrisvenue.zipcode"
             />
             <CInput
-              label="City:"
+              label="*City:"
               placeholder="City"
               horizontal
               :value="chrisvenue.city"
               v-model="chrisvenue.city"
             />
             <CSelect
-              label="Country:"
+              label="*Country:"
               size="md"
               horizontal
               :value.sync="chrisvenue.country"
@@ -82,7 +82,7 @@
               placeholder="Click to select country"
             />
             <CInput
-              label="Phone, landline:"
+              label="*Phone, landline:"
               placeholder="Phone, landline"
               horizontal
               :value="chrisvenue.phonelandline"

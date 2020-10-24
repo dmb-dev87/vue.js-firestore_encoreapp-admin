@@ -33,7 +33,7 @@
             </CRow>
             <CRow class="mb-1">
               <CCol sm="3" class="col-form-label" tag="label">
-                Main Image:
+                *Main Image:
               </CCol>
               <CCol sm="7">
                 <input

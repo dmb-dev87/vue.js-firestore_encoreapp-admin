@@ -5,7 +5,7 @@
         <CCardBody>
           <CForm>
             <CSelect
-              label="Category:"
+              label="*Category:"
               size="md"
               horizontal
               :value.sync="chrisvenue.category_name"
@@ -47,7 +47,7 @@
               v-model="chrisvenue.teaserline"
             />
             <CTextarea
-              label="About the business:"
+              label="*About the business:"
               placeholder="Tell us a little bit about your business"
               horizontal
               rows="2"
@@ -57,7 +57,7 @@
             <hr class="mt-1 mb-3">
             <CRow>
               <CCol sm="3" class="col-form-label" tag="label">
-                Location:
+                *Location:
               </CCol>
               <CCol sm="4">
                 <CInput
