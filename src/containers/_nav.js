@@ -3,10 +3,6 @@ export default [
     _name: 'CSidebarNav',
     _children: [
       {
-        _name: 'CSidebarNavTitle',
-        _children: ['Venue name here']
-      },
-      {
         _name: 'CSidebarNavItem',
         name: 'Dashboard',
         to: '/dashboard',

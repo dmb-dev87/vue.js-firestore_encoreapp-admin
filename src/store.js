@@ -10,7 +10,7 @@ const state = {
   userProfile: {},
   sidebarShow: 'responsive',
   sidebarMinimize: false,
-  venueTitle: "Admin Venue"
+  venueTitle: "Admin Venue",
 }
 
 const mutations = {
@@ -27,7 +27,7 @@ const mutations = {
   },
   setUserProfile(state, val) {
     state.userProfile = val
-  }
+  },
 }
 
 const actions = {

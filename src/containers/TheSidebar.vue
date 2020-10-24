@@ -25,15 +25,39 @@ import firebase from 'firebase'
 export default {
   name: 'TheSidebar',
   nav,
+  data() {
+    return {
+      venueTitle: "Venue Admin",
+      currentUser: {
+
+      }
+    }
+  },
   computed: {
     show () {
       return this.$store.state.sidebarShow 
     },
     minimize () {
       return this.$store.state.sidebarMinimize 
+    },
+  },
+  async created () {
+    await this.getCurrentUser()
+
+    if (this.currentUser.userrole == "admin") {
+      this.venueTitle ="Venue Admin"
+    } else {
+      this.venueTitle="Venue Owner"
     }
   },
   methods: {
+    async getCurrentUser() {
+      const query = db.collection('users').doc(auth.currentUser.uid)
+      await query.get()
+        .then((doc) => {
+          this.currentUser = doc.data()
+        })
+    },
     signout() {
       firebase
         .auth()

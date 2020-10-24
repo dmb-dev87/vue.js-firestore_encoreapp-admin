@@ -19,10 +19,32 @@
             <CTab title="Discount levels">
               <CDetailsDiscountLevels :chrisvenue="Chrisvenue" />
             </CTab>
+            <CTab title="ID and Company License">
+              <IDCardDetail :chrisvenue="Chrisvenue" @update-features="updateFeatures" />
+            </CTab>
             <CTab title="Settings">
               <MainSettings :chrisvenue="Chrisvenue" @update-features="updateFeatures" />
             </CTab>
           </CTabs>
+        </CCardBody>
+        <CCardFooter>
+          <CRow class="mb-3">
+            <CCol sm="3">
+            </CCol>
+            <CCol sm="9">
+              <input
+                type="checkbox"
+                :checked="termsAndCond"
+                @click="updateTermsAndCond"
+              />
+              <strong class="ml-4">
+                I agree to the
+                <CLink href="https://www.encoreapp.net/terms.html">
+                  terms and conditions
+                </CLink>
+              </strong>
+            </CCol>
+          </CRow>
           <CRow>
             <CCol sm="3" />
             <CCol sm="3">
@@ -38,7 +60,7 @@
               </CAlert>
             </CCol>
           </CRow>
-        </CCardBody>
+        </CCardFooter>
       </CCard>
     </CCol>
   </div>
@@ -60,6 +82,7 @@ export default {
       alertText: "",
       dismissSecs: 5,
       dismissCountDown: 0,
+      termsAndCond: false,
       Chrisvenue: {
 
       },
@@ -71,18 +94,43 @@ export default {
     }
   },
   created() {
-    let dbRef = db.collection('chrisvenues').doc(this.$route.params.id);
-    dbRef.get().then((doc) => {
+    if (this.$route.params.id) {
+      this.termsAndCond = true
+
+      let dbRef = db.collection('chrisvenues').doc(this.$route.params.id);
+      dbRef.get().then((doc) => {
+        this.Chrisvenue = {
+          ...doc.data(),
+          discountlevelbonuson: doc.data.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE",
+          isFeatured: doc.data.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED",
+          isActive_encore_points: doc.data.isActive_encore_points ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE",
+          logoimage: doc.data().logoimage ? doc.data().logoimage : "",
+          mainimage: doc.data().mainimage ? doc.data().mainimage : "",
+          image: doc.data().image ? doc.data().image : [],
+          IDnationalfront: doc.data().IDnationalfront ? doc.data().IDnationalfront : "",
+          IDnationalback: doc.data().IDnationalback ? doc.data().IDnationalback : "",
+          IDtradelicense: doc.data().IDtradelicense ? doc.data().IDtradelicense : "",
+        }
+        this.location = this.Chrisvenue.geolocation ? this.Chrisvenue.geolocation : {latitude: 0.0, longitude: 0.0}
+      }).catch((error) => {
+
+      })
+    } else {
+      this.termsAndCond = false
+
       this.Chrisvenue = {
-        ...doc.data(),
         discountlevelbonuson: "-",
         isFeatured: "-",
         isActive_encore_points: "-",
-        image: doc.data().image ? doc.data().image : []
+        mainimage: "",
+        logoimage: "",
+        image: [],
+        IDnationalfront: "",
+        IDnationalback: "",
+        IDtradelicense: "",
       }
-      this.location = this.Chrisvenue.geolocation ? this.Chrisvenue.geolocation : {latitude: 0.0, longitude: 0.0}
-    }).catch((error) => {
-    })
+    }
+
     db.collection('category').onSnapshot((snapshotChange) => {
       this.categories = []
       snapshotChange.forEach((doc) => {
@@ -101,97 +149,110 @@ export default {
         this.alertText = "Please input Venue name!"
         this.alertColor = "info"
         this.showAlert()
-        return false;
+        return false
       }
 
       if (this.Chrisvenue.contactperson === undefined || this.Chrisvenue.contactperson === "") {
         this.alertText = "Please type Contact name!"
         this.alertColor = "info"
         this.showAlert()
-        return false;
+        return false
       }
 
       if (this.Chrisvenue.contactpersonphone === undefined || this.Chrisvenue.contactpersonphone === "") {
         this.alertText = "Please type Contact phone number"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.country === undefined || this.Chrisvenue.country === "") {
         this.alertText = "Please type country"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.city === undefined || this.Chrisvenue.city === "") {
         this.alertText = "Please type city"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.about === undefined || this.Chrisvenue.about === "") {
         this.alertText = "Please type about text"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.email === undefined || this.Chrisvenue.email === "") {
         this.alertText = "Please type Email"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.phonelandline === undefined || this.Chrisvenue.phonelandline === "") {
         this.alertText = "Please input the Phone Number!"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.geolocation === undefined) {
         this.alertText = "Please select the location!"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
-
-      if (this.Chrisvenue.)
 
       if (this.Chrisvenue.category_name === undefined || this.Chrisvenue.category_name === "") {
         this.alertText = "Please select the category!"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.pincode === undefined || this.Chrisvenue.pincode === "") {
         this.alertText = "Please input the pin code!"
         this.alertColor = "info"
-        return false;
+        this.showAlert()
+        return false
       }
 
       if (this.Chrisvenue.mainimage === undefined || this.Chrisvenue.mainimage === "") {
         this.alertText = "Please upload the main image!"
         this.alertColor = "info"
-        return false;
+        return false
+      }
+
+      if (this.termsAndCond === false) {
+        this.alertText = "Please confirm terms and conditions!"
+        this.alertColor = "info"
+        this.showAlert()
+        return false
       }
     },
     updateChrisvenueData() {
-
       this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
       this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
       this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
       // validation fields
-      const val = this.validateFields()
-
-      if (val === false)
-        return
+      // const val = this.validateFields()
+      //
+      // if (val === false)
+      //   return
 
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid
         db.collection("chrisvenues")
           .add(this.Chrisvenue)
           .then(() => {
-            this.alertText = "Chrisvenue successfully written!"
+            this.alertText = "Venue successfully written!"
             this.alertColor = "success"
             this.showAlert ()
             this.$router.push({path: '/chrisvenues'})
@@ -204,7 +265,7 @@ export default {
       } else {
         let dbRef = db.collection('chrisvenues').doc(this.$route.params.id)
         dbRef.update(this.Chrisvenue).then(() => {
-          this.alertText = "Chrisvenue successfully updated!"
+          this.alertText = "Venue successfully updated!"
           this.alertColor = "success"
           this.showAlert ()
         }).catch((error) => {
@@ -237,6 +298,9 @@ export default {
         default:
           break
       }
+    },
+    updateTermsAndCond(event) {
+      this.termsAndCond = event.target.checked
     }
   }
 }

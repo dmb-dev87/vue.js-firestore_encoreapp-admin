@@ -5,6 +5,7 @@ import CDetailsGallery from './CDetailsGallery'
 import CDetailsDiscountLevels from './CDetailsDiscountLevels'
 import MainSettings from "./MainSettings"
 import ChangePassword from "./ChangePassword"
+import IDCardDetail from "./IDCardDetail"
 
 export {
   CDetailsNameAddress,
@@ -14,4 +15,5 @@ export {
   CDetailsDiscountLevels,
   MainSettings,
   ChangePassword,
+  IDCardDetail,
 }

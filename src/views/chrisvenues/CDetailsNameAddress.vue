@@ -95,20 +95,6 @@
               :value="chrisvenue.phonemobile"
               v-model="chrisvenue.phonemobile"
             />
-            <CRow>
-              <CCol sm="3">
-              </CCol>
-              <CCol sm="9">
-                <CInputCheckbox
-                />
-                <strong class="ml-4">
-                  I agree to the
-                  <CLink href="https://www.encoreapp.net/terms.html">
-                    terms and conditions
-                  </CLink>
-                </strong>
-              </CCol>
-            </CRow>
           </CForm>
         </CCardBody>
       </CCard>

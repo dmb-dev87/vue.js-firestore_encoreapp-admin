@@ -19,6 +19,7 @@
           </CRow>
         </CCardHeader>
         <CCardBody>
+          <CProgress class="mb-3" :value="uploadValue" :max="max" show-percentage animated></CProgress>
           <CRow>
             <CCol sm="4">
               <CRow class="mb-2" style="justify-content: center;">
@@ -32,7 +33,7 @@
                 />
               </CRow>
               <CRow class="mb-2" style="justify-content: center;">
-                <img :src="userdata.IDnationalfront" width="300px"/>
+                <img :src="idNationalFront" width="200px"/>
               </CRow>
             </CCol>
             <CCol sm="4">
@@ -47,7 +48,7 @@
                 />
               </CRow>
               <CRow class="mb-2" style="justify-content: center;">
-                <img :src="userdata.IDnationalback" width="300px"/>
+                <img :src="idNationalBack" width="200px"/>
               </CRow>
             </CCol>
             <CCol sm="4" class="text-center">
@@ -62,20 +63,11 @@
                 />
               </CRow>
               <CRow class="mb-2" style="justify-content: center;">
-                <img :src="userdata.IDtradelicense" width="300px"/>
+                <img :src="idTradeLicense" width="200px"/>
               </CRow>
             </CCol>
           </CRow>
         </CCardBody>
-        <CCardFooter>
-          <CRow>
-            <CCol sm="4" />
-            <CCol sm="4" style="text-align: center;">
-              <CButton class="px-4" type="submit" color="danger" @click="updateUserData">UPLOAD AND SAVE</CButton>
-            </CCol>
-            <CCol sm="4" />
-          </CRow>
-        </CCardFooter>
       </CCard>
     </CCol>
   </CRow>
@@ -83,10 +75,13 @@
 
 <script>
   import firebase from 'firebase'
-  import { db, auth } from './../../firebase.js'
+  import { db, auth } from '../../firebase.js'
 
   export default {
     name: 'IDCardDetail',
+    props: {
+      chrisvenue: Object,
+    },
     data () {
       return {
         alertText: "",
@@ -95,55 +90,29 @@
         dismissCountDown: 0,
         imageData: Array(3),
         uploadValue: 0,
-        userdata: {
-          IDnationalfront: "",
-          IDnationalback: "",
-          IDtradelicense: "",
+        max: 100,
+      }
+    },
+    computed: {
+      idNationalFront: {
+        get() {
+          return this.chrisvenue.IDnationalfront
+        },
+      },
+      idNationalBack: {
+        get() {
+          return this.chrisvenue.IDnationalback
+        },
+      },
+      idTradeLicense: {
+        get() {
+          return this.chrisvenue.IDtradelicense
         },
       }
     },
-    async created() {
-      await this.getCurrentUser()
-
-      await db.collection('users')
-        .doc(this.currentUser.uid)
-        .get()
-        .then((doc) => {
-          this.userdata= {
-            ...doc.data(),
-            IDnationalfront: doc.data().IDnationalfront ? doc.data().IDnationalfront : "",
-            IDnationalback: doc.data().IDnationalback ? doc.data().IDnationalback : "",
-            IDtradelicense: doc.data().IDtradelicense ? doc.data().IDtradelicense : ""
-          }
-        })
-        .catch((error) => {
-          this.alertText = "Read user data error!"
-          this.alertColor = "danger"
-          this.showAlert ()
-        })
-    },
     methods: {
-      async getCurrentUser() {
-        const query = db.collection('users').doc(auth.currentUser.uid)
-        await query.get()
-          .then((doc) => {
-            this.currentUser = doc.data()
-          })
-      },
       showAlert () {
         this.dismissCountDown = this.dismissSecs
-      },
-      updateUserData() {
-        let dbRef = db.collection('users').doc(this.currentUser.uid)
-        dbRef.update(this.userdata).then(() => {
-          this.alertText = "ID card and trade license successfully updated!"
-          this.alertColor = "success"
-          this.showAlert ()
-        }).catch((error) =>{
-          this.alertText = "ID card and trade license update failed!"
-          this.alertColor = "danger"
-          this.showAlert ()
-        })
       },
       chooseFront() {
         this.$refs.input_front.click()
@@ -157,46 +126,45 @@
       previewImage(event, arg) {
         switch (arg) {
           case 0:
-            this.userdata.IDnationalfront=""
-            this.imageData[0]=event.target.files[0];
+            this.idNationalFront=""
             break
           case 1:
-            this.userdata.IDnationalback=""
-            this.imageData[1]=event.target.files[0];
+            this.idNationalBack=""
             break
           case 2:
-            this.userdata.IDtradelicense=""
-            this.imageData[2]=event.target.files[0];
+            this.idTradeLicense=""
             break
           default:
             break
         }
 
         this.uploadValue=0;
+        this.imageData[arg]=event.target.files[0];
         this.onUpload(arg)
       },
       onUpload(arg){
-        const storageRef=firebase.storage().ref(`images/${this.imageData[arg].name}`).put(this.imageData[arg]);
+        const storageRef=firebase.storage().ref(`images/${this.imageData[arg].name}`).put(this.imageData[arg])
         storageRef.on(`state_changed`,snapshot=>{
-            this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-          }, error=>{
-            
+            this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100
           },
-          ()=>{this.uploadValue=100;
+          error=>{
+          },
+          ()=>{this.uploadValue=100
             storageRef.snapshot.ref.getDownloadURL().then((url)=>{
               switch (arg) {
                 case 0:
-                  this.userdata.IDnationalfront=url
+                  this.chrisvenue.IDnationalfront=url
                   break
                 case 1:
-                  this.userdata.IDnationalback=url
+                  this.chrisvenue.IDnationalback=url
                   break
                 case 2:
-                  this.userdata.IDtradelicense=url
+                  this.chrisvenue.IDtradelicense=url
                   break
                 default:
                   break
               }
+              this.uploadValue=0
             });
           }
         );
