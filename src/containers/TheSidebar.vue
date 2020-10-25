@@ -54,8 +54,6 @@ export default {
   async created () {
     await this.getCurrentUser()
 
-    console.log("+++++++++++", this.currentUser.userrole)
-
     if (this.currentUser.userrole == "admin") {
       this.venueTitle ="Admin Manager"
     } else {
@@ -64,7 +62,6 @@ export default {
   },
   methods: {
     async getCurrentUser() {
-      console.log("+++++++++++", "Get Current user")
       const query = db.collection('users').doc(auth.currentUser.uid)
       await query.get()
         .then((doc) => {
