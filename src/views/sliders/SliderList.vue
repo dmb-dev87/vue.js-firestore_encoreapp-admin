@@ -32,7 +32,7 @@
     },
     data() {
       return {
-        sliders: Array,
+        sliders: [],
         fields:  ['image', 'url', 'action']
       }
     },

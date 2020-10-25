@@ -6,28 +6,24 @@
           <CForm>
             <CSelect
               label="*Bronze level discount:"
-              size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelbronze"
               :options="levelOptions"
             />
             <CSelect
               label="*Silver level discount: (must be higher than Bronze %)"
-              size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelsilver"
               :options="levelOptions"
             />
             <CSelect
               label="*Gold level discount: (must be higher than Silver %)"
-              size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelgold"
               :options="levelOptions"
             />
             <CSelect
               label="*Platinum level discount: (must be higher than Gold %)"
-              size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelplatinum"
               :options="levelOptions"
@@ -35,14 +31,13 @@
             <hr class="mt-1 mb-3">
             <CSelect
               label="Bonus 'Kicker' discount:"
-              size="md"
               horizontal
-              :value.sync="chrisvenue.discountlevelbonuson"
+              :value.sync="selStrings.discountlevelbonusonString"
+              v-model="selStrings.discountlevelbonusonString"
               :options="bonusOptions"
             />
             <CSelect
               label="Bonus discount:"
-              size="md"
               horizontal
               :value.sync="chrisvenue.discountlevelbonus"
               :options="bonusPercentOptions"
@@ -55,12 +50,12 @@
 </template>
 
 <script>
-import { db } from "./../../firebase.js"
 
 export default {
   name: 'CDetailsDiscountLevels',
   props: {
-    chrisvenue: Object
+    chrisvenue: Object,
+    selStrings: Object,
   },
   data() {
     return {

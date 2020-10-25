@@ -74,7 +74,6 @@
             />
             <CSelect
               label="*Country:"
-              size="md"
               horizontal
               :value.sync="chrisvenue.country"
               v-model="chrisvenue.country"

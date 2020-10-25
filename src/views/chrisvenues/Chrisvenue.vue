@@ -30,9 +30,7 @@
     },
     data() {
       return {
-        Chrisvenues: {
-
-        },
+        Chrisvenues: [],
         fields:  ['name', 'area', 'city', 'country', 'address1', 'email', 'action']
       }
     },

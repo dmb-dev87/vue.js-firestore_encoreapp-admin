@@ -6,7 +6,6 @@
           <CForm>
             <CSelect
               label="*Category:"
-              size="md"
               horizontal
               :value.sync="chrisvenue.category_name"
               :options="categories"
@@ -101,17 +100,12 @@ export default {
   name: 'CDetailsAbout',
   props: {
     chrisvenue: Object,
-    categories: [],
-    location: {
-
-    }
+    categories: Array,
+    location: Object,
   },
   data() {
     return {
     }
-  },
-  mounted() {
-    this.geolocate()
   },
   methods: {
 

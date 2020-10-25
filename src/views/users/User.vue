@@ -63,7 +63,6 @@
               />
               <CSelect
                 label="Gender:"
-                size="md"
                 horizontal
                 :value.sync="userData.gender"
                 v-model="userData.gender"
@@ -72,7 +71,6 @@
               />
               <CSelect
                 label="Country:"
-                size="md"
                 horizontal
                 :value.sync="userData.country"
                 v-model="userData.country"
@@ -85,13 +83,6 @@
                 horizontal
                 :value="userData.dob"
                 v-model="userData.dob"
-              />
-              <CInput
-                label="Register:"
-                horizontal
-                :disabled="true"
-                :value="userData.createAt"
-                v-model="userData.createAt"
               />
               <CInput
                 label="Phone Number:"

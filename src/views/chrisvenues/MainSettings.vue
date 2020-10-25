@@ -6,9 +6,9 @@
           <CForm>
             <CSelect
               label="Be a 'Featured venue':"
-              size="md"
               horizontal
-              :value.sync="chrisvenue.isFeatured"
+              :value.sync="selStrings.isFeaturedString"
+              v-model="selStrings.isFeaturedString"
               :options="featuredOptions"
             />
             <hr class="mt-1 mb-3">
@@ -22,16 +22,15 @@
             <hr class="mt-1 mb-3">
             <CSelect
               label="Activate Encore points:"
-              size="md"
               horizontal
-              :value.sync="chrisvenue.isActive_encore_points"
+              :value.sync="selStrings.isActive_encore_pointsString"
+              v-model="selStrings.isActive_encore_pointsString"
               :options="activateOptions"
               placeholder="-"
             />
             <hr class="mt-1 mb-3">
             <CSelect
               label="*Minimum purchase:"
-              size="md"
               horizontal
               :value.sync="chrisvenue.minimumpurchase"
               :options="purchaseOptions"
@@ -128,7 +127,6 @@
                 </strong>
               </CCol>
             </CRow>
-            <hr class="mt-1 mb-3">
           </CForm>
         </CCardBody>
       </CCard>
@@ -140,9 +138,10 @@
 
   export default {
     name: 'MainSettings',
-    props: [
-      'chrisvenue',
-    ],
+    props: {
+      chrisvenue: Object,
+      selStrings: Object,
+    },
     data() {
       return {
         featuredOptions: [
@@ -154,15 +153,12 @@
         purchaseOptions: [
           "No minimum(recommended)", 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200
         ],
-        featurealcoholserved: this.chrisvenue.featurealcoholserved,
+        featurealcoholserved: false,
         featurefamilyfriendly: false,
         featurehandicapfriendly: false,
         featurewifi: false,
         featurevegan: false,
       }
-    },
-    mounted() {
-      this.featurealcoholserved = this.props.chrisvenue.featurealcoholserved;
     },
     methods: {
       update_features: function(arg, event) {

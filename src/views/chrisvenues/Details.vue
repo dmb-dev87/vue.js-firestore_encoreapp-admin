@@ -17,13 +17,13 @@
               <CDetailsGallery :chrisvenue="Chrisvenue" />
             </CTab>
             <CTab title="Discount levels">
-              <CDetailsDiscountLevels :chrisvenue="Chrisvenue" />
+              <CDetailsDiscountLevels :chrisvenue="Chrisvenue" :selStrings="selStrings" />
             </CTab>
             <CTab title="ID and Company License">
               <IDCardDetail :chrisvenue="Chrisvenue" @update-features="updateFeatures" />
             </CTab>
             <CTab title="Settings">
-              <MainSettings :chrisvenue="Chrisvenue" @update-features="updateFeatures" />
+              <MainSettings :chrisvenue="Chrisvenue" @update-features="updateFeatures" :selStrings="selStrings" />
             </CTab>
           </CTabs>
         </CCardBody>
@@ -86,6 +86,11 @@ export default {
       Chrisvenue: {
 
       },
+      selStrings: {
+        discountlevelbonusonString: "",
+        isFeaturedString: "",
+        isActive_encore_pointsString: ""
+      },
       categories: [],
       location: {
         latitude: 0.0,
@@ -101,9 +106,6 @@ export default {
       dbRef.get().then((doc) => {
         this.Chrisvenue = {
           ...doc.data(),
-          discountlevelbonuson: doc.data.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE",
-          isFeatured: doc.data.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED",
-          isActive_encore_points: doc.data.isActive_encore_points ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE",
           logoimage: doc.data().logoimage ? doc.data().logoimage : "",
           mainimage: doc.data().mainimage ? doc.data().mainimage : "",
           image: doc.data().image ? doc.data().image : [],
@@ -111,6 +113,9 @@ export default {
           IDnationalback: doc.data().IDnationalback ? doc.data().IDnationalback : "",
           IDtradelicense: doc.data().IDtradelicense ? doc.data().IDtradelicense : "",
         }
+        this.selStrings.discountlevelbonusonString = this.Chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
+        this.selStrings.isFeaturedString = this.Chrisvenue.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED"
+        this.selStrings.isActive_encore_pointsString = this.Chrisvenue.isActive_encore_points ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE"
         this.location = this.Chrisvenue.geolocation ? this.Chrisvenue.geolocation : {latitude: 0.0, longitude: 0.0}
       }).catch((error) => {
 
@@ -119,9 +124,6 @@ export default {
       this.termsAndCond = false
 
       this.Chrisvenue = {
-        discountlevelbonuson: "-",
-        isFeatured: "-",
-        isActive_encore_points: "-",
         mainimage: "",
         logoimage: "",
         image: [],
@@ -129,6 +131,10 @@ export default {
         IDnationalback: "",
         IDtradelicense: "",
       }
+
+      this.selStrings.discountlevelbonusonString = "-"
+      this.selStrings.isFeaturedString = ""
+      this.selStrings.isActive_encore_pointsString = ""
     }
 
     db.collection('category').onSnapshot((snapshotChange) => {
@@ -236,9 +242,9 @@ export default {
       }
     },
     updateChrisvenueData() {
-      this.Chrisvenue.discountlevelbonuson = this.Chrisvenue.discountlevelbonuson === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
-      this.Chrisvenue.isFeatured = this.Chrisvenue.isFeatured === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
-      this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
+      this.Chrisvenue.discountlevelbonuson = this.selStrings.discountlevelbonusonString === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
+      this.Chrisvenue.isFeatured = this.selStrings.isFeaturedString === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
+      this.Chrisvenue.isActive_encore_points = this.selStrings.isActive_encore_pointsString === "YES - Encore points are ACTIVE" ? true: false
       this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
       const val = this.validateFields()

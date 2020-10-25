@@ -33,7 +33,7 @@
     },
     data() {
       return {
-        categories: Array,
+        categories: [],
         fields:  ['id', 'name', 'image', 'action']
       }
     },

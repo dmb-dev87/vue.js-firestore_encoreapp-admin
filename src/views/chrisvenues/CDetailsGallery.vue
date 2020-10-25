@@ -76,7 +76,11 @@
               <CRow class="mb-1">
                 <CCol sm="3" />
                 <CCol sm="7">
-                  <CLink :href="chrisvenue.image[index]">{{chrisvenue.image[index]}}</CLink>
+                  <CLink
+                    :href="chrisvenue.image && chrisvenue.image.length > index ? chrisvenue.image[index] : ''"
+                  >
+                    {{chrisvenue.image && chrisvenue.image.length > index ? chrisvenue.image[index] : ''}}
+                  </CLink>
                 </CCol>
               </CRow>
               <CProgress v-show="index==imageIndex" class="mb-1" :value="gallery_st" :max="max" show-percentage animated></CProgress>

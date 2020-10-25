@@ -19,15 +19,9 @@ const db = firebase.firestore()
 const auth = firebase.auth()
 
 const usersCollection = db.collection('users')
-const chrisvenuesCollection = db.collection('chrisvenues')
-const sliderCollection = db.collection('slider')
-const categoryCollection = db.collection('category')
 
 export {
   db,
   auth,
   usersCollection,
-  chrisvenuesCollection,
-  sliderCollection,
-  categoryCollection
 }
