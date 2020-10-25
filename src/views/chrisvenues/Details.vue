@@ -130,6 +130,10 @@ export default {
         IDnationalfront: "",
         IDnationalback: "",
         IDtradelicense: "",
+        discountlevelbronze: 5,
+        discountlevelsilver: 7.5,
+        discountlevelgold: 10,
+        discountlevelplatinum: 12.5
       }
 
       this.selStrings.discountlevelbonusonString = "-"
@@ -239,6 +243,27 @@ export default {
         this.alertColor = "info"
         this.showAlert()
         return false
+      }
+
+      if (this.Chrisvenue.discountlevelsilver <= this.Chrisvenue.discountlevelbronze) {
+        this.alertColor = "danger"
+        this.alertText = "You have to select the big value than Bronze level"
+        this.showAlert()
+        return
+      }
+
+      if (this.Chrisvenue.discountlevelgold <= this.Chrisvenue.discountlevelsilver) {
+        this.alertColor = "danger"
+        this.alertText = "You have to select the big value than Silver level"
+        this.showAlert()
+        return
+      }
+
+      if (this.Chrisvenue.discountlevelplatinum <= this.Chrisvenue.discountlevelgold) {
+        this.alertColor = "danger"
+        this.alertText = "You have to select the big value than Gold level"
+        this.showAlert()
+        return
       }
     },
     updateChrisvenueData() {

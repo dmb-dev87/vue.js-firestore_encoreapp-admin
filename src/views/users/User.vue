@@ -34,7 +34,7 @@
             </CCol>
             <CCol sm="9">
               <CInput
-                label="Name:"
+                label="User Name:"
                 placeholder="Type user name"
                 horizontal
                 :value="userData.username"
