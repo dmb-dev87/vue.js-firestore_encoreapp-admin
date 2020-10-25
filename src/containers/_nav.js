@@ -28,12 +28,6 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'ID Nation Card',
-        to: '/idcards',
-        icon: 'cil-layers'
-      },
-      {
-        _name: 'CSidebarNavItem',
         name: 'Users',
         to: '/users',
         icon: 'cil-people',

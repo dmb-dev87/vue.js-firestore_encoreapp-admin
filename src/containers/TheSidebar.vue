@@ -9,6 +9,8 @@
       <img src="https://encoreapp.net/img/logo-light.png" alt="Encore Loyalty APP logo" width="80%">
     </CSidebarBrand>
 
+    <CSidebarNavTitle>{{venueTitle}}</CSidebarNavTitle>
+
     <CRenderFunction flat :content-to-render="$options.nav"/>
     <CButton size="lg" color="danger" block @click="signout">Log out</CButton>
     <CSidebarMinimizer
@@ -21,13 +23,13 @@
 <script>
 import nav from './_nav'
 import firebase from 'firebase'
+import { db, auth } from './../firebase.js'
 
 export default {
   name: 'TheSidebar',
   nav,
   data() {
     return {
-      venueTitle: "Venue Admin",
       currentUser: {
 
       }
@@ -40,18 +42,29 @@ export default {
     minimize () {
       return this.$store.state.sidebarMinimize 
     },
+    venueTitle: {
+      get () {
+        return this.$store.state.venueTitle
+      },
+      set (title) {
+        this.$store.commit('set', ['venueTitle', title])
+      }
+    }
   },
   async created () {
     await this.getCurrentUser()
 
+    console.log("+++++++++++", this.currentUser.userrole)
+
     if (this.currentUser.userrole == "admin") {
-      this.venueTitle ="Venue Admin"
+      this.venueTitle ="Admin Manager"
     } else {
       this.venueTitle="Venue Owner"
     }
   },
   methods: {
     async getCurrentUser() {
+      console.log("+++++++++++", "Get Current user")
       const query = db.collection('users').doc(auth.currentUser.uid)
       await query.get()
         .then((doc) => {
