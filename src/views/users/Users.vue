@@ -1,6 +1,6 @@
 <template>
   <CRow>
-    <CCol col="12" xl="8">
+    <CCol col="12" xl="12">
       <CCard>
         <CCardHeader>
           <CRow>
@@ -21,20 +21,17 @@
             :items-per-page="5"
             clickable-rows
             :active-page="activePage"
-            @row-clicked="rowClicked"
             :pagination="{ doubleArrows: false, align: 'center'}"
             @page-change="pageChange"
           >
             <template #profileImage="data">
               <td>
-                <img :src="data.item.profileImage" height="30px" />
+                <img :src="data.item.profileImage" height="50px" />
               </td>
             </template>
-            <template #status="data">
+            <template #action="{item}">
               <td>
-                <CBadge :color="getBadge(data.item.status)">
-                  {{data.item.status}}
-                </CBadge>
+                <CLink block color="link" class="text-left" :to="{name: 'User', params: { id: item.key }}">Details</CLink>
               </td>
             </template>
           </CDataTable>
@@ -57,7 +54,8 @@ export default {
         { key: 'country' },
         { key: 'email' },
         { key: 'gender' },
-        { key: 'phone'}
+        { key: 'phone'},
+        { key: 'action'}
       ],
       activePage: 1,
       currentUser: {}
@@ -79,11 +77,11 @@ export default {
         querySnapshot.docs.map((doc) => {
           this.items.push({
             key: doc.id,
-            username: doc.data().username,
-            country: doc.data().country,
-            email: doc.data().email,
-            gender: doc.data().gender,
-            phone: doc.data().mobilenumber,
+            username: `${doc.data().firstname ? doc.data().firstname : '' } ${doc.data().lastname ? doc.data().lastname : ''}`,
+            country: doc.data().country ? doc.data().country : '',
+            email: doc.data().email ? doc.data().email : '',
+            gender: doc.data().gender ? doc.data().gender : '',
+            phone: doc.data().mobilenumber ? doc.data().mobilenumber : '',
             profileImage: doc.data().profileImage,
           })
         })
@@ -118,9 +116,6 @@ export default {
         case 'Banned': return 'danger'
         default: 'primary'
       }
-    },
-    rowClicked (item, index) {
-      this.$router.push({path: `users/${item.key}`})
     },
     pageChange (val) {
       this.$router.push({ query: { page: val }})
