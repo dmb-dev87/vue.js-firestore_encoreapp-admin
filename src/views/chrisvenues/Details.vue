@@ -241,11 +241,10 @@ export default {
       this.Chrisvenue.isActive_encore_points = this.Chrisvenue.isActive_encore_points === "YES - Encore points are ACTIVE" ? true: false
       this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
-      // validation fields
-      // const val = this.validateFields()
-      //
-      // if (val === false)
-      //   return
+      const val = this.validateFields()
+
+      if (val === false)
+        return
 
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid

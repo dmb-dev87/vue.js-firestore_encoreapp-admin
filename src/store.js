@@ -33,10 +33,13 @@ const mutations = {
 const actions = {
   async login({ dispatch }, form) {
     // sign user in
-    const { user } = await fb.auth.signInWithEmailAndPassword(form.email, form.password)
-
-    // fetch user profile and set in state
-    dispatch('fetchUserProfile', user)
+    await fb.auth.signInWithEmailAndPassword(form.email, form.password)
+      .then((userResponse) => {
+        this.dispatch('fetchUserProfile', userResponse.user)
+      })
+      .catch((err) => {
+        window.alert(err.message)
+      })
   },
   async fetchUserProfile({ commit }, user) {
     // fetch user profile
@@ -50,18 +53,24 @@ const actions = {
   },
   async signup({ dispatch }, form) {
     // sign user up
-    const { user } = await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+    await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+      .then((userResponse) => {
+        const { user } = userResponse.user
 
-    // create user profile object in userCollections
-    await fb.usersCollection.doc(user.uid).set({
-      uid: user.uid,
-      email: form.email,
-      username: form.contactName,
-      mobilenumber: form.phoneNumber,
-    })
+        // create user profile object in userCollections
+        fb.usersCollection.doc(user.uid).set({
+          uid: user.uid,
+          email: form.email,
+          username: form.contactName,
+          mobilenumber: form.phoneNumber,
+        })
 
-    // fetch user profile and set in state
-    dispatch('fetchUserProfile', user)
+        // fetch user profile and set in state
+        dispatch('fetchUserProfile', user)
+      })
+      .catch((err) => {
+        window.alert(err.message)
+      })
   },
 }
 
