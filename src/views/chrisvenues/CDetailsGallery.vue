@@ -111,7 +111,6 @@
     },
     methods: {
       prepareUpload(event, arg) {
-        console.log("++++++++++", arg)
         switch (arg) {
           case 'logo':
             this.logo_state = 0
@@ -129,7 +128,6 @@
         }
       },
       uploadImage(arg) {
-        console.log("++++++++++", arg)
         switch (arg) {
           case 'logo':
             this.imageData = this.logoImageData
@@ -153,7 +151,6 @@
             default:
               this.imageIndex = arg;
               this.gallery_st = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-              console.log("++++++++++", this.gallery_state[arg])
               break
           }
         }, error=>{
