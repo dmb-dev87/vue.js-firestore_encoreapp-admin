@@ -22,6 +22,12 @@
                 <CButton color="success" @click="uploadImage('logo')">Upload</CButton>
               </CCol>
             </CRow>
+            <CRow class="mb-1">
+              <CCol sm="3" />
+              <CCol sm="7">
+                <CLink :href="chrisvenue.logoimage">{{chrisvenue.logoimage}}</CLink>
+              </CCol>
+            </CRow>
             <CProgress class="mb-1" :value="logo_state" :max="max" show-percentage animated></CProgress>
             <CRow class="mb-2">
               <CCol sm="3" class="col-form-label" tag="label">
@@ -41,9 +47,15 @@
                 <CButton color="success" @click="uploadImage('main')">Upload</CButton>
               </CCol>
             </CRow>
+            <CRow class="mb-1">
+              <CCol sm="3" />
+              <CCol sm="7">
+                <CLink :href="chrisvenue.mainimage">{{chrisvenue.mainimage}}</CLink>
+              </CCol>
+            </CRow>
             <CProgress class="mb-1" :value="main_state" :max="max" show-percentage animated></CProgress>
             <hr class="mt-1 mb-2">
-            <div class="mb-2" v-for="(image, index) in imagesData">
+            <template class="mb-2" v-for="(image, index) in imagesData">
               <CRow class="mb-2">
                 <CCol sm="3" class="col-form-label" tag="label">
                   {{`Gallery Image ${index+1}`}}:
@@ -61,8 +73,14 @@
                   <CButton color="success" @click="uploadImage(index)">Upload</CButton>
                 </CCol>
               </CRow>
-              <CProgress class="mb-1" :value="gallery_state[index]" :max="max" show-percentage animated></CProgress>
-            </div>
+              <CRow class="mb-1">
+                <CCol sm="3" />
+                <CCol sm="7">
+                  <CLink :href="chrisvenue.image[index]">{{chrisvenue.image[index]}}</CLink>
+                </CCol>
+              </CRow>
+              <CProgress v-show="index==imageIndex" class="mb-1" :value="gallery_st" :max="max" show-percentage animated></CProgress>
+            </template>
           </CForm>
         </CCardBody>
       </CCard>
@@ -86,12 +104,14 @@
         imagesData: Array(10),
         logo_state: 0,
         main_state: 0,
-        gallery_state: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        gallery_st: 0,
+        imageIndex: 0,
         max: 100,
       }
     },
     methods: {
       prepareUpload(event, arg) {
+        console.log("++++++++++", arg)
         switch (arg) {
           case 'logo':
             this.logo_state = 0
@@ -102,12 +122,14 @@
             this.mainImageData = event.target.files[0]
             break
           default:
-            this.gallery_state[arg] = 0
+            this.imageIndex = arg;
+            this.gallery_st = 0
             this.imagesData[arg] = event.target.files[0]
             break
         }
       },
       uploadImage(arg) {
+        console.log("++++++++++", arg)
         switch (arg) {
           case 'logo':
             this.imageData = this.logoImageData
@@ -129,7 +151,9 @@
               this.main_state = (snapshot.bytesTransferred/snapshot.totalBytes)*100
               break
             default:
-              this.gallery_state[arg] = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+              this.imageIndex = arg;
+              this.gallery_st = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+              console.log("++++++++++", this.gallery_state[arg])
               break
           }
         }, error=>{
@@ -147,7 +171,8 @@
                 this.chrisvenue.mainimage=url
                 break
               default:
-                this.gallery_state[arg] = 0
+                this.gallery_st = 0
+                this.imageIndex = arg
                 this.chrisvenue.image[arg]=url
                 break
             }
