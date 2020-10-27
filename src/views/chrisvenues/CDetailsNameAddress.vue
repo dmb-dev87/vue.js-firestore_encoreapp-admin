@@ -26,14 +26,17 @@
               :value="chrisvenue.contactpersonemail"
               v-model="chrisvenue.contactpersonemail"
             />
-            <CInput
-              label="*Contact person phone:"
-              placeholder="Contact person phone"
-              horizontal
-              autocomplete="number"
-              :value="chrisvenue.contactpersonphone"
-              v-model="chrisvenue.contactpersonphone"
-            />
+            <CRow class="mb-3">
+              <CCol sm="3" class="col-form-label" tag="label">
+                *Contact person phone:
+              </CCol>
+              <CCol sm="9">
+                <VuePhoneNumberInput
+                  v-model="chrisvenue.contactpersonphone"
+                  :value="chrisvenue.contactpersonphone"
+                />
+              </CCol>
+            </CRow>
             <hr class="mt-1 mb-3">
             <CInput
               label="Address:"
@@ -80,20 +83,28 @@
               :options="countries"
               placeholder="Click to select country"
             />
-            <CInput
-              label="*Phone, landline:"
-              placeholder="Phone, landline"
-              horizontal
-              :value="chrisvenue.phonelandline"
-              v-model="chrisvenue.phonelandline"
-            />
-            <CInput
-              label="Phone, mobile:"
-              placeholder="Phone, mobile"
-              horizontal
-              :value="chrisvenue.phonemobile"
-              v-model="chrisvenue.phonemobile"
-            />
+            <CRow class="mb-3">
+              <CCol sm="3" class="col-form-label" tag="label">
+                *Phone, landline:
+              </CCol>
+              <CCol sm="9">
+                <VuePhoneNumberInput
+                        v-model="chrisvenue.phonelandline"
+                        :value="chrisvenue.phonelandline"
+                />
+              </CCol>
+            </CRow>
+            <CRow class="mb-3">
+              <CCol sm="3" class="col-form-label" tag="label">
+                *Phone, mobile:
+              </CCol>
+              <CCol sm="9">
+                <VuePhoneNumberInput
+                        v-model="chrisvenue.phonemobile"
+                        :value="chrisvenue.phonemobile"
+                />
+              </CCol>
+            </CRow>
           </CForm>
         </CCardBody>
       </CCard>
@@ -104,9 +115,13 @@
 <script>
 import { db } from "./../../firebase.js"
 import countryData from "./../data/CountryData"
+import VuePhoneNumberInput from "vue-phone-number-input"
 
 export default {
   name: 'CDetailsNameAddress',
+  components: {
+    VuePhoneNumberInput,
+  },
   props: {
     chrisvenue: Object
   },

@@ -269,7 +269,7 @@ export default {
     async validatePincode() {
       let len = 0
       const dbRef = db.collection('chrisvenues')
-          .where('pincode', '==', this.chrisvenue.pincode)
+          .where('pincode', '==', this.Chrisvenue.pincode)
 
       await dbRef.get()
           .then(res => {
@@ -289,16 +289,16 @@ export default {
       if (val === false)
         return
 
-      val = await this.validatePincode()
+      if (this.$route.params.id === undefined) {
+        val = await this.validatePincode()
 
-      if (val === false) {
+        if (val === false) {
           this.alertColor = "danger"
           this.alertText = "The pincode is aleady exist. Please input another pincode."
           this.showAlert()
           return
-      }
+        }
 
-      if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid
         db.collection("chrisvenues")
           .add(this.Chrisvenue)

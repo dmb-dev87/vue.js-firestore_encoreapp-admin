@@ -24,23 +24,19 @@
                 >
                   <template #append-content><CIcon name="cil-envelope-closed"/></template>
                 </CInput>
-                <CInput
+                <VuePhoneNumberInput
                   v-model.trim="signupForm.phoneNumber"
-                  placeholder="Phone Number"
-                  type="number"
-                >
-                  <template #append-content><CIcon name="cil-phone"/></template>
-                </CInput>
+                />
                 <CInput
                   v-model.trim="signupForm.password"
                   placeholder="Password"
                   type="password"
-                  class="mb-4"
+                  class="mt-3 mb-4"
                 >
                   <template #append-content><CIcon name="cil-lock-locked"/></template>
                 </CInput>
                 <CRow>
-                  <CCol col="6" class="icheck-primary">
+                  <CCol col="9" class="icheck-primary">
                     <input
                       type="checkbox"
                       :checked="termsAndCond"
@@ -50,8 +46,8 @@
                       I agree to the Encore T & C's
                     </CLink>
                   </CCol>
-                  <CCol col="6" class="text-right">
-                    <CButton color="primary" class="px-4" @click="signup()">Register</CButton>
+                  <CCol col="3" class="text-right">
+                    <CButton color="primary" @click="signup()">Register</CButton>
                   </CCol>
                 </CRow>
                 <CRow>
@@ -139,8 +135,12 @@
 </template>
 
 <script>
+import VuePhoneNumberInput from "vue-phone-number-input"
 export default {
   name: 'Register',
+  components: {
+    VuePhoneNumberInput,
+  },
   data() {
     return {
       signupForm: {
@@ -155,6 +155,11 @@ export default {
   },
   methods: {
     signup() {
+      if (this.termsAndCond === false) {
+        window.alert("You have to agree the terms and conditions.")
+        return
+      }
+
       this.$store.dispatch('signup', {
         contactName: this.signupForm.contactName,
         email: this.signupForm.email,

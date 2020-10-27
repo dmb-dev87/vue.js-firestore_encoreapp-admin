@@ -18,14 +18,16 @@
                             :value="chrisvenue.contactperson"
                             v-model="chrisvenue.contactperson"
                         />
-                        <CInput
-                            label="*Contact person phone:"
-                            placeholder="Contact person phone"
-                            horizontal
-                            autocomplete="number"
-                            :value="chrisvenue.contactpersonphone"
-                            v-model="chrisvenue.contactpersonphone"
-                        />
+                        <CRow class="mb-3">
+                            <CCol sm="3" class="col-form-label" tag="label">
+                                *Contact person phone:
+                            </CCol>
+                            <CCol sm="9">
+                                <VuePhoneNumberInput
+                                    v-model="chrisvenue.contactpersonphone"
+                                />
+                            </CCol>
+                        </CRow>
                         <CInput
                             label="*City:"
                             placeholder="City"
@@ -56,13 +58,16 @@
                             :value="chrisvenue.email"
                             v-model="chrisvenue.email"
                         />
-                        <CInput
-                            label="*Phone, landline:"
-                            placeholder="Phone, landline"
-                            horizontal
-                            :value="chrisvenue.phonelandline"
-                            v-model="chrisvenue.phonelandline"
-                        />
+                        <CRow class="mb-3">
+                            <CCol sm="3" class="col-form-label" tag="label">
+                                *Phone, landline:
+                            </CCol>
+                            <CCol sm="9">
+                                <VuePhoneNumberInput
+                                    v-model="chrisvenue.phonelandline"
+                                />
+                            </CCol>
+                        </CRow>
                         <CRow>
                             <CCol sm="3" class="col-form-label" tag="label">
                                 *Location:
@@ -205,9 +210,13 @@
     import firebase from "firebase"
     import { db, auth } from "./../../firebase.js"
     import countryData from "./../data/CountryData"
+    import VuePhoneNumberInput from "vue-phone-number-input"
 
     export default {
         name: 'Business',
+        components: {
+            VuePhoneNumberInput,
+        },
         data () {
             return {
                 countries: countryData,
@@ -238,9 +247,9 @@
                         longitude: 0.0
                     },
                     discountlevelbronze: 5,
-                    discountlevelsilver: 5,
-                    discountlevelgold: 5,
-                    discountlevelplatinum: 5,
+                    discountlevelsilver: 7.5,
+                    discountlevelgold: 10,
+                    discountlevelplatinum: 12.5,
                     pincode: "",
                     minimumpurchase: "No minimum(recommended)",
                     owner: "",
@@ -250,7 +259,7 @@
         },
         created() {
             db.collection('category').onSnapshot((snapshotChange) => {
-                this.categories = []
+                this.categories = ["-"]
                 snapshotChange.forEach((doc) => {
                     this.categories.push(
                         doc.data().category_name
@@ -386,17 +395,13 @@
             },
             async validatePincode() {
                 let len = 0
-                console.log("+++++++++++", this.chrisvenue.pincode)
                 const dbRef = db.collection('chrisvenues')
                     .where('pincode', '==', this.chrisvenue.pincode)
 
                 await dbRef.get()
                     .then(res => {
                         len = res.size
-                        console.log("+++++++++++",len)
                     })
-
-                console.log("+++++++++++",len)
 
                 return len === 0;
             },
@@ -422,6 +427,7 @@
                         this.alertText = "Venue successfully written!"
                         this.alertColor = "success"
                         this.showAlert ()
+                        this.$router.push({name: 'Confirm', params: {contact_name: this.chrisvenue.contactperson} })
                     })
                     .catch((error) => {
                         this.alertColor = "danger"

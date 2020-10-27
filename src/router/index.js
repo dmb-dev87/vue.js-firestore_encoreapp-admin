@@ -10,6 +10,7 @@ const Dashboard = () => import('@/views/Dashboard')
 
 //Venue list
 const Business = () => import('@/views/business/Business')
+const ConfirmPage = () => import('@/views/business/ConfirmPage')
 
 const Chrisvenue = () => import('@/views/chrisvenues/Chrisvenue')
 const ChrisvenueDetails = () => import('@/views/chrisvenues/Details')
@@ -87,6 +88,21 @@ function configRoutes () {
             path: 'business',
             name: 'Business',
             component: Business
+        },
+        {
+            path: 'confirm',
+            component: {
+              render(c) {
+                return c('router-view')
+              }
+            },
+            children: [
+                {
+                  path: ':contact_name',
+                  name: 'Confirm',
+                  component: ConfirmPage
+                }
+            ]
         },
         {
           path: 'details',
