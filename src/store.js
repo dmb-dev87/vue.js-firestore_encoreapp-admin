@@ -51,9 +51,9 @@ const actions = {
     // change route to dashboard
     router.push('/')
   },
-  async signup({ dispatch }, form) {
+  signup({ dispatch }, form) {
     // sign user up
-    await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
+    fb.auth.createUserWithEmailAndPassword(form.email, form.password)
       .then((userResponse) => {
         const user = userResponse.user
         // create user profile object in userCollections
