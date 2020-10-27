@@ -55,8 +55,7 @@ const actions = {
     // sign user up
     await fb.auth.createUserWithEmailAndPassword(form.email, form.password)
       .then((userResponse) => {
-        const { user } = userResponse.user
-
+        const user = userResponse.user
         // create user profile object in userCollections
         fb.usersCollection.doc(user.uid).set({
           uid: user.uid,
