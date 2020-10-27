@@ -31,6 +31,24 @@
               :options="levelOptions"
               @click="validateValue('platinum')"
             />
+            <CRow class="mb-2">
+              <CCol sm="3" class="col-form-label" tag="label">
+                Logo Image:
+              </CCol>
+              <CCol sm="7">
+                <input
+                        type="file"
+                        label="Logo Image:"
+                        placeholder="Choose file"
+                        horizontal
+                        ref="logo_image"
+                        @change="prepareUpload($event, 'logo')"
+                />
+              </CCol>
+              <CCol sm="2">
+                <CButton color="success" @click="uploadImage('logo')">Upload</CButton>
+              </CCol>
+            </CRow>
             <hr class="mt-1 mb-3">
             <CSelect
               label="Bonus 'Kicker' discount:"

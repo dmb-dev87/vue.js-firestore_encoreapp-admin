@@ -8,6 +8,9 @@ const TheContainer = () => import('@/containers/TheContainer')
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 
+//Venue list
+const Business = () => import('@/views/business/Business')
+
 const Chrisvenue = () => import('@/views/chrisvenues/Chrisvenue')
 const ChrisvenueDetails = () => import('@/views/chrisvenues/Details')
 
@@ -79,6 +82,11 @@ function configRoutes () {
           path: 'dashboard',
           name: 'Dashboard',
           component: Dashboard
+        },
+        {
+            path: 'business',
+            name: 'Business',
+            component: Business
         },
         {
           path: 'details',

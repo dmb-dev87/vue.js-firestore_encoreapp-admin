@@ -9,9 +9,15 @@
       <img src="https://encoreapp.net/img/logo-light.png" alt="Encore Loyalty APP logo" width="80%">
     </CSidebarBrand>
 
-    <CSidebarNavTitle>{{venueTitle}}</CSidebarNavTitle>
+    <!--<CSidebarNavTitle>{{venueTitle}}</CSidebarNavTitle>-->
 
-    <CRenderFunction flat :content-to-render="$options.nav"/>
+    <template v-if="currentUser.userrole==='admin'">
+      <CRenderFunction flat :content-to-render="$options.admin_nav"/>
+    </template>
+    <template v-else>
+      <CRenderFunction flat :content-to-render="$options.nav"/>
+    </template>
+
     <CButton size="lg" color="danger" block @click="signout">Log out</CButton>
     <CSidebarMinimizer
       class="d-md-down-none"
@@ -22,12 +28,14 @@
 
 <script>
 import nav from './_nav'
+import admin_nav from './_admin_nav'
 import firebase from 'firebase'
 import { db, auth } from './../firebase.js'
 
 export default {
   name: 'TheSidebar',
   nav,
+  admin_nav,
   data() {
     return {
       currentUser: {

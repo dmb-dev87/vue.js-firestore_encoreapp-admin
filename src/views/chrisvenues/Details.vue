@@ -154,7 +154,7 @@ export default {
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
-    validateFields() {
+    async validateFields() {
       if (this.Chrisvenue.name === undefined || this.Chrisvenue.name === "") {
         this.alertText = "Please input Venue name!"
         this.alertColor = "info"
@@ -266,16 +266,37 @@ export default {
         return
       }
     },
-    updateChrisvenueData() {
+    async validatePincode() {
+      let len = 0
+      const dbRef = db.collection('chrisvenues')
+          .where('pincode', '==', this.chrisvenue.pincode)
+
+      await dbRef.get()
+          .then(res => {
+            len = res.size
+          })
+
+      return len === 0;
+    },
+    async updateChrisvenueData() {
       this.Chrisvenue.discountlevelbonuson = this.selStrings.discountlevelbonusonString === "ON - Bonus 'Kicker' discount ACTIVE"  ? true : false
       this.Chrisvenue.isFeatured = this.selStrings.isFeaturedString === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.selStrings.isActive_encore_pointsString === "YES - Encore points are ACTIVE" ? true: false
       this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
 
-      const val = this.validateFields()
+      let val = this.validateFields()
 
       if (val === false)
         return
+
+      val = await this.validatePincode()
+
+      if (val === false) {
+          this.alertColor = "danger"
+          this.alertText = "The pincode is aleady exist. Please input another pincode."
+          this.showAlert()
+          return
+      }
 
       if (this.$route.params.id === undefined) {
         this.Chrisvenue.owner = auth.currentUser.uid
