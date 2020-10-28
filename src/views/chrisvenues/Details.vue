@@ -157,90 +157,97 @@ export default {
     async validateFields() {
       if (this.Chrisvenue.name === undefined || this.Chrisvenue.name === "") {
         this.alertText = "Please input Venue name!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.contactperson === undefined || this.Chrisvenue.contactperson === "") {
-        this.alertText = "Please type Contact name!"
-        this.alertColor = "info"
+        this.alertText = "Please input Contact name!"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.contactpersonphone === undefined || this.Chrisvenue.contactpersonphone === "") {
-        this.alertText = "Please type Contact phone number"
-        this.alertColor = "info"
+        this.alertText = "Please input Contact phone number"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.country === undefined || this.Chrisvenue.country === "") {
-        this.alertText = "Please type country"
-        this.alertColor = "info"
+        this.alertText = "Please input country"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.city === undefined || this.Chrisvenue.city === "") {
-        this.alertText = "Please type city"
-        this.alertColor = "info"
+        this.alertText = "Please input city"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.about === undefined || this.Chrisvenue.about === "") {
-        this.alertText = "Please type about text"
-        this.alertColor = "info"
+        this.alertText = "Please input about text"
+        this.alertColor = "danger"
+        this.showAlert()
+        return false
+      }
+
+      if (this.Chrisvenue.teaserline === undefined || this.Chrisvenue.teaserline === "") {
+        this.alertText = "Please input teaserline text"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.email === undefined || this.Chrisvenue.email === "") {
-        this.alertText = "Please type Email"
-        this.alertColor = "info"
+        this.alertText = "Please input Email"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.phonelandline === undefined || this.Chrisvenue.phonelandline === "") {
         this.alertText = "Please input the Phone Number!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.geolocation === undefined) {
         this.alertText = "Please select the location!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.category_name === undefined || this.Chrisvenue.category_name === "") {
         this.alertText = "Please select the category!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.pincode === undefined || this.Chrisvenue.pincode === "") {
         this.alertText = "Please input the pin code!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }
 
       if (this.Chrisvenue.mainimage === undefined || this.Chrisvenue.mainimage === "") {
         this.alertText = "Please upload the main image!"
-        this.alertColor = "info"
+        this.alertColor = "danger"
         return false
       }
 
       if (this.termsAndCond === false) {
-        this.alertText = "Please confirm terms and conditions!"
-        this.alertColor = "info"
+        this.alertText = "Please agree terms and conditions!"
+        this.alertColor = "danger"
         this.showAlert()
         return false
       }

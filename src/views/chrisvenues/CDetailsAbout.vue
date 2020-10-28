@@ -39,7 +39,7 @@
               </CCol>
             </CRow>
             <CInput
-              label="Teaser line:"
+              label="*Teaser line:"
               placeholder="Type your short teaser line here"
               horizontal
               :value="chrisvenue.teaserline"

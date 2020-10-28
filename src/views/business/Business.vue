@@ -43,6 +43,13 @@
                             :options="countries"
                             placeholder="Click to select country"
                         />
+                        <CInput
+                            label="*Teaser line:"
+                            placeholder="Type your short teaser line here"
+                            horizontal
+                            :value="chrisvenue.teaserline"
+                            v-model="chrisvenue.teaserline"
+                        />
                         <CTextarea
                             label="*About the business:"
                             placeholder="Tell us a little bit about your business"
@@ -238,6 +245,7 @@
                     city: "",
                     country: "",
                     about: "",
+                    teaserline: "",
                     email: "",
                     phonelandline: "",
                     phonemobile: "",
@@ -282,42 +290,49 @@
                 }
 
                 if (this.chrisvenue.contactperson === undefined || this.chrisvenue.contactperson === "") {
-                    this.alertText = "Please type Contact name!"
+                    this.alertText = "Please input Contact name!"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
                 }
 
                 if (this.chrisvenue.contactpersonphone === undefined || this.chrisvenue.contactpersonphone === "") {
-                    this.alertText = "Please type Contact phone number"
+                    this.alertText = "Please input Contact phone number"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
                 }
 
                 if (this.chrisvenue.country === undefined || this.chrisvenue.country === "") {
-                    this.alertText = "Please type country"
+                    this.alertText = "Please input country"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
                 }
 
                 if (this.chrisvenue.city === undefined || this.chrisvenue.city === "") {
-                    this.alertText = "Please type city"
+                    this.alertText = "Please input city"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
                 }
 
                 if (this.chrisvenue.about === undefined || this.chrisvenue.about === "") {
-                    this.alertText = "Please type about text"
+                    this.alertText = "Please input about text"
+                    this.alertColor = "danger"
+                    this.showAlert()
+                    return false
+                }
+
+                if (this.chrisvenue.teaserline === undefined || this.chrisvenue.teaserline === "") {
+                    this.alertText = "Please input teaserline text"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
                 }
 
                 if (this.chrisvenue.email === undefined || this.chrisvenue.email === "") {
-                    this.alertText = "Please type Email"
+                    this.alertText = "Please input Email"
                     this.alertColor = "danger"
                     this.showAlert()
                     return false
