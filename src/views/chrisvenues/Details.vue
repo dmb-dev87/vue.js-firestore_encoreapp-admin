@@ -48,7 +48,7 @@
           <CRow>
             <CCol sm="3" />
             <CCol sm="3">
-              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save and go to next</CButton>
+              <CButton class="px-4" type="submit" color="danger" @click="updateChrisvenueData"><CIcon name="cil-check-circle"/> Save Venue</CButton>
             </CCol>
             <CCol>
               <CAlert

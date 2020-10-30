@@ -39,6 +39,7 @@
     "@coreui/vue-chartjs": "^1.0.5",
     "firebase": "^7.23.0",
     "vue": "~2.6.12",
+    "vue-advanced-cropper": "^0.17.6",
     "vue-google-maps": "^0.1.21",
     "vue-phone-number-input": "^1.1.10",
     "vue-router": "~3.4.3",

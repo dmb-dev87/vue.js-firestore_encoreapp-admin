@@ -1,216 +1,230 @@
 <template>
-    <CRow>
-        <CCol md="12">
-            <CCard>
-                <CCardBody>
-                    <CForm>
-                        <CInput
-                            label="*Business name:"
-                            placeholder="Business name"
-                            horizontal
-                            :value="chrisvenue.name"
-                            v-model="chrisvenue.name"
-                        />
-                        <CInput
-                            label="*Contact name:"
-                            placeholder="Contact name"
-                            horizontal
-                            :value="chrisvenue.contactperson"
-                            v-model="chrisvenue.contactperson"
-                        />
-                        <CRow class="mb-3">
-                            <CCol sm="3" class="col-form-label" tag="label">
-                                *Contact person phone:
-                            </CCol>
-                            <CCol sm="9">
-                                <VuePhoneNumberInput
-                                    v-model="chrisvenue.contactpersonphone"
-                                />
-                            </CCol>
-                        </CRow>
-                        <CInput
-                            label="*City:"
-                            placeholder="City"
-                            horizontal
-                            :value="chrisvenue.city"
-                            v-model="chrisvenue.city"
-                        />
-                        <CSelect
-                            label="*Country:"
-                            horizontal
-                            :value.sync="chrisvenue.country"
-                            v-model="chrisvenue.country"
-                            :options="countries"
-                            placeholder="Click to select country"
-                        />
-                        <CInput
-                            label="*Teaser line:"
-                            placeholder="Type your short teaser line here"
-                            horizontal
-                            :value="chrisvenue.teaserline"
-                            v-model="chrisvenue.teaserline"
-                        />
-                        <CTextarea
-                            label="*About the business:"
-                            placeholder="Tell us a little bit about your business"
-                            horizontal
-                            rows="2"
-                            :value="chrisvenue.about"
-                            v-model="chrisvenue.about"
-                        />
-                        <CInput
-                            label="*Email:"
-                            placeholder="Email"
-                            horizontal
-                            :value="chrisvenue.email"
-                            v-model="chrisvenue.email"
-                        />
-                        <CRow class="mb-3">
-                            <CCol sm="3" class="col-form-label" tag="label">
-                                *Phone, landline:
-                            </CCol>
-                            <CCol sm="9">
-                                <VuePhoneNumberInput
-                                    v-model="chrisvenue.phonelandline"
-                                />
-                            </CCol>
-                        </CRow>
-                        <CRow>
-                            <CCol sm="3" class="col-form-label" tag="label">
-                                *Location:
-                            </CCol>
-                            <CCol sm="4">
+    <div class="wrapper">
+        <div>
+            <CRow>
+                <CCol md="12">
+                    <CCard>
+                        <CCardBody>
+                            <CForm>
                                 <CInput
-                                    label="Latitude:"
-                                    placeholder="Latitude"
+                                    label="*Business name:"
+                                    placeholder="Business name"
                                     horizontal
-                                    type="number"
-                                    :value="chrisvenue.geolocation.latitude"
-                                    v-model="chrisvenue.geolocation.latitude"
+                                    :value="chrisvenue.name"
+                                    v-model="chrisvenue.name"
                                 />
-                            </CCol>
-                            <CCol sm="4">
                                 <CInput
-                                    label="Longitude:"
-                                    placeholder="Longitude"
+                                    label="*Contact name:"
+                                    placeholder="Contact name"
                                     horizontal
-                                    type="number"
-                                    :value="chrisvenue.geolocation.longitude"
-                                    v-model="chrisvenue.geolocation.longitude"
+                                    :value="chrisvenue.contactperson"
+                                    v-model="chrisvenue.contactperson"
                                 />
-                            </CCol>
-                        </CRow>
-                        <CSelect
-                            label="*Category:"
-                            horizontal
-                            :value.sync="chrisvenue.category_name"
-                            :options="categories"
-                        />
-                        <CSelect
-                            label="*Bronze level discount:"
-                            horizontal
-                            :value.sync="chrisvenue.discountlevelbronze"
-                            :options="levelOptions"
-                        />
-                        <CSelect
-                            label="*Silver level discount: (must be higher than Bronze %)"
-                            horizontal
-                            :value.sync="chrisvenue.discountlevelsilver"
-                            :options="levelOptions"
-                            @click="validateValue('silver')"
-                        />
-                        <CSelect
-                            label="*Gold level discount: (must be higher than Silver %)"
-                            horizontal
-                            :value.sync="chrisvenue.discountlevelgold"
-                            :options="levelOptions"
-                            @click="validateValue('gold')"
-                        />
-                        <CSelect
-                            label="*Platinum level discount: (must be higher than Gold %)"
-                            horizontal
-                            :value.sync="chrisvenue.discountlevelplatinum"
-                            :options="levelOptions"
-                            @click="validateValue('platinum')"
-                        />
-                        <CInput
-                            label="*PIN code:"
-                            placeholder="Input PIN code"
-                            horizontal
-                            :value="chrisvenue.pincode"
-                            v-model="chrisvenue.pincode"
-                        />
-                        <CSelect
-                            label="*Minimum purchase:"
-                            horizontal
-                            :value.sync="chrisvenue.minimumpurchase"
-                            :options="purchaseOptions"
-                            placeholder="-"
-                        />
-                        <CRow class="mb-2">
-                            <CCol sm="3" class="col-form-label" tag="label">
-                                *Main Image:
-                            </CCol>
-                            <CCol sm="7">
-                                <input
-                                    type="file"
-                                    label="Main Image:"
-                                    placeholder="Choose file"
+                                <CRow class="mb-3">
+                                    <CCol sm="3" class="col-form-label" tag="label">
+                                        *Contact person phone:
+                                    </CCol>
+                                    <CCol sm="9">
+                                        <VuePhoneNumberInput
+                                            v-model="chrisvenue.contactpersonphone"
+                                        />
+                                    </CCol>
+                                </CRow>
+                                <CInput
+                                    label="*City:"
+                                    placeholder="City"
                                     horizontal
-                                    ref="main_image"
-                                    @change="prepareUpload"
+                                    :value="chrisvenue.city"
+                                    v-model="chrisvenue.city"
                                 />
-                            </CCol>
-                            <CCol sm="2">
-                                <CButton color="success" @click="uploadImage">Upload</CButton>
-                            </CCol>
-                        </CRow>
-                        <CRow class="mb-1">
-                            <CCol sm="3" />
-                            <CCol sm="7">
-                                <CLink :href="chrisvenue.mainimage">{{chrisvenue.mainimage}}</CLink>
-                            </CCol>
-                        </CRow>
-                        <CProgress class="mb-1" :value="main_state" :max="max" show-percentage animated></CProgress>
-                    </CForm>
-                </CCardBody>
-                <CCardFooter>
-                    <CRow class="mb-3">
-                        <CCol sm="3">
-                        </CCol>
-                        <CCol sm="9">
-                            <input
-                                    type="checkbox"
-                                    :checked="termsAndCond"
-                                    @click="updateTermsAndCond"
-                            />
-                            <strong class="ml-4">
-                                I agree to the
-                                <CLink href="https://www.encoreapp.net/terms.html">
-                                    terms and conditions
-                                </CLink>
-                            </strong>
-                        </CCol>
-                    </CRow>
-                    <CRow>
-                        <CCol sm="3" />
-                        <CCol sm="3">
-                            <CButton class="px-4" type="submit" color="danger" @click="saveVenueData"><CIcon name="cil-check-circle"/> Save and Add the Venue</CButton>
-                        </CCol>
-                        <CCol>
-                            <CAlert
-                                :show.sync="dismissCountDown"
-                                closeButton
-                                :color="alertColor"
-                            >
-                            {{this.alertText}}
-                            </CAlert>
-                        </CCol>
-                    </CRow>
-                </CCardFooter>
-            </CCard>
-        </CCol>
-    </CRow>
+                                <CSelect
+                                    label="*Country:"
+                                    horizontal
+                                    :value.sync="chrisvenue.country"
+                                    v-model="chrisvenue.country"
+                                    :options="countries"
+                                    placeholder="Click to select country"
+                                />
+                                <CInput
+                                    label="*Teaser line:"
+                                    placeholder="Type your short teaser line here"
+                                    horizontal
+                                    :value="chrisvenue.teaserline"
+                                    v-model="chrisvenue.teaserline"
+                                />
+                                <CTextarea
+                                    label="*About the business:"
+                                    placeholder="Tell us a little bit about your business"
+                                    horizontal
+                                    rows="2"
+                                    :value="chrisvenue.about"
+                                    v-model="chrisvenue.about"
+                                />
+                                <CInput
+                                    label="*Email:"
+                                    placeholder="Email"
+                                    horizontal
+                                    :value="chrisvenue.email"
+                                    v-model="chrisvenue.email"
+                                />
+                                <CRow class="mb-3">
+                                    <CCol sm="3" class="col-form-label" tag="label">
+                                        *Phone, landline:
+                                    </CCol>
+                                    <CCol sm="9">
+                                        <VuePhoneNumberInput
+                                            v-model="chrisvenue.phonelandline"
+                                        />
+                                    </CCol>
+                                </CRow>
+                                <CRow>
+                                    <CCol sm="3" class="col-form-label" tag="label">
+                                        *Location:
+                                    </CCol>
+                                    <CCol sm="4">
+                                        <CInput
+                                            label="Latitude:"
+                                            placeholder="Latitude"
+                                            horizontal
+                                            type="number"
+                                            :value="chrisvenue.geolocation.latitude"
+                                            v-model="chrisvenue.geolocation.latitude"
+                                        />
+                                    </CCol>
+                                    <CCol sm="4">
+                                        <CInput
+                                            label="Longitude:"
+                                            placeholder="Longitude"
+                                            horizontal
+                                            type="number"
+                                            :value="chrisvenue.geolocation.longitude"
+                                            v-model="chrisvenue.geolocation.longitude"
+                                        />
+                                    </CCol>
+                                </CRow>
+                                <CSelect
+                                    label="*Category:"
+                                    horizontal
+                                    :value.sync="chrisvenue.category_name"
+                                    :options="categories"
+                                />
+                                <CSelect
+                                    label="*Bronze level discount:"
+                                    horizontal
+                                    :value.sync="chrisvenue.discountlevelbronze"
+                                    :options="levelOptions"
+                                />
+                                <CSelect
+                                    label="*Silver level discount: (must be higher than Bronze %)"
+                                    horizontal
+                                    :value.sync="chrisvenue.discountlevelsilver"
+                                    :options="levelOptions"
+                                    @click="validateValue('silver')"
+                                />
+                                <CSelect
+                                    label="*Gold level discount: (must be higher than Silver %)"
+                                    horizontal
+                                    :value.sync="chrisvenue.discountlevelgold"
+                                    :options="levelOptions"
+                                    @click="validateValue('gold')"
+                                />
+                                <CSelect
+                                    label="*Platinum level discount: (must be higher than Gold %)"
+                                    horizontal
+                                    :value.sync="chrisvenue.discountlevelplatinum"
+                                    :options="levelOptions"
+                                    @click="validateValue('platinum')"
+                                />
+                                <CInput
+                                    label="*PIN code:"
+                                    placeholder="Input PIN code"
+                                    horizontal
+                                    :value="chrisvenue.pincode"
+                                    v-model="chrisvenue.pincode"
+                                />
+                                <CSelect
+                                    label="*Minimum purchase:"
+                                    horizontal
+                                    :value.sync="chrisvenue.minimumpurchase"
+                                    :options="purchaseOptions"
+                                    placeholder="-"
+                                />
+                                <CRow class="mb-2">
+                                    <CCol sm="3" class="col-form-label" tag="label">
+                                        *Main Image:
+                                    </CCol>
+                                    <CCol sm="7">
+                                        <CLink :href="chrisvenue.mainimage">{{chrisvenue.mainimage}}</CLink>
+                                    </CCol>
+                                    <CCol sm="2">
+                                        <CButton color="success" @click="showUploadModal">Upload</CButton>
+                                    </CCol>
+                                </CRow>
+                                <!--<CProgress class="mb-1" :value="main_state" :max="max" show-percentage animated></CProgress>-->
+                            </CForm>
+                        </CCardBody>
+                        <CCardFooter>
+                            <CRow class="mb-3">
+                                <CCol sm="3">
+                                </CCol>
+                                <CCol sm="9">
+                                    <input
+                                            type="checkbox"
+                                            :checked="termsAndCond"
+                                            @click="updateTermsAndCond"
+                                    />
+                                    <strong class="ml-4">
+                                        I agree to the
+                                        <CLink href="https://www.encoreapp.net/terms.html">
+                                            terms and conditions
+                                        </CLink>
+                                    </strong>
+                                </CCol>
+                            </CRow>
+                            <CRow>
+                                <CCol sm="3" />
+                                <CCol sm="3">
+                                    <CButton class="px-4" type="submit" color="danger" @click="saveVenueData"><CIcon name="cil-check-circle"/> Save and Add the Venue</CButton>
+                                </CCol>
+                                <CCol>
+                                    <CAlert
+                                        :show.sync="dismissCountDown"
+                                        closeButton
+                                        :color="alertColor"
+                                    >
+                                    {{this.alertText}}
+                                    </CAlert>
+                                </CCol>
+                            </CRow>
+                        </CCardFooter>
+                    </CCard>
+                </CCol>
+            </CRow>
+        </div>
+        <CModal
+            title="Upload Image"
+            :show.sync="cropperModal"
+            size="xl"
+        >
+            <cropper
+                class="upload-example-cropper"
+                ref="cropper"
+                :src="mainImageData"
+                :size-restrictions-algorithm="pixelsRestriction"
+                :stencil-props="{handlers: {}, movable: true, scalable: true, aspectRatio: 1, }"
+            />
+            <div class="button-wrapper">
+                <span class="button" @click="$refs.file.click()">
+                    <input type="file" ref="file" @change="loadImage($event)" accept="image/*">
+                    Select Image
+                </span>
+            </div>
+            <template #footer>
+                <CButton @click="cropperModal = false" color="danger">Discard</CButton>
+                <CButton @click="uploadImage" color="success">Upload</CButton>
+            </template>
+        </CModal>
+    </div>
 </template>
 
 <script>
@@ -218,11 +232,13 @@
     import { db, auth } from "./../../firebase.js"
     import countryData from "./../data/CountryData"
     import VuePhoneNumberInput from "vue-phone-number-input"
+    import { Cropper } from 'vue-advanced-cropper'
 
     export default {
         name: 'Business',
         components: {
             VuePhoneNumberInput,
+            Cropper
         },
         data () {
             return {
@@ -235,8 +251,8 @@
                 dismissCountDown: 0,
                 termsAndCond: false,
                 mainImageData: null,
-                main_state: 0,
-                max: 100,
+                uploadValue: 0,
+                cropperModal: false,
                 categories: [],
                 chrisvenue: {
                     name: "",
@@ -278,6 +294,27 @@
         mounted() {
         },
         methods: {
+            pixelsRestriction({ minWidth, minHeight, maxWidth, maxHeight, imageWidth, imageHeight }) {
+                return {
+                    minWidth: 300,
+                    minHeight: 300,
+                    maxWidth: 1000,
+                    maxHeight: 1000,
+                };
+            },
+            showUploadModal() {
+                this.cropperModal = true
+            },
+            loadImage(event) {
+                var input = event.target;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.mainImageData = e.target.result;
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            },
             showAlert () {
                 this.dismissCountDown = this.dismissSecs
             },
@@ -477,24 +514,56 @@
 
                 return
             },
-            prepareUpload() {
-                this.main_state = 0
-                this.mainImageData = event.target.files[0]
-            },
             uploadImage(arg) {
-                const storageRef=firebase.storage().ref(`images/${this.mainImageData.name}`).put(this.mainImageData)
-                storageRef.on(`state_changed`,snapshot=>{
-                    this.main_state = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-                }, error=>{
-
-                },
-                ()=>{
-                    storageRef.snapshot.ref.getDownloadURL().then((url)=>{
-                        this.main_state = 0
-                        this.chrisvenue.mainimage=url
-                    });
-                });
+                const { canvas } = this.$refs.cropper.getResult();
+                if (canvas)
+                {
+                    canvas.toBlob(blob => {
+                        const storageRef=firebase.storage().ref(`images/`).put(blob)
+                        storageRef.on(`state_changed`, snapshot=>{
+                            this.uploadValue = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+                        }, error => {
+                            this.uploadValue = 0
+                            this.cropperModal = false
+                        },
+                        () => {
+                            storageRef.snapshot.ref.getDownloadURL().then((url) => {
+                                this.uploadValue = 0
+                                this.chrisvenue.mainimage = url
+                                this.cropperModal = false
+                            })
+                        })
+                    })
+                }
             },
         }
     }
 </script>
+<style>
+    .upload-example-cropper {
+        border: solid 1px #EEE;
+    }
+
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 17px;
+    }
+
+    .button {
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        background: #3fb37f;
+        cursor: pointer;
+        transition: background 0.5s;
+    }
+
+    .button:hover {
+        background: #38d890;
+    }
+
+    .button input {
+        display: none;
+    }
+</style>
