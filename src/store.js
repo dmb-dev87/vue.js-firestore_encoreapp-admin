@@ -35,20 +35,23 @@ const actions = {
     // sign user in
     await fb.auth.signInWithEmailAndPassword(form.email, form.password)
       .then((userResponse) => {
-        this.dispatch('fetchUserProfile', userResponse.user)
+        fb.auth.onAuthStateChanged(newUser => {
+          if (newUser) {
+            if (newUser.emailVerified == true) {
+                this.dispatch('fetchUserProfile', userResponse.user)
+            } else {
+                window.alert("You are not verified. Check your email")
+            }
+          }
+        })
       })
       .catch((err) => {
         window.alert(err.message)
       })
   },
   async fetchUserProfile({ commit }, user) {
-    // fetch user profile
     const userProfile = await fb.usersCollection.doc(user.uid).get()
-
-    // set user profile in state
     commit('setUserProfile', userProfile.data())
-
-    // change route to dashboard
     router.push('/')
   },
   signup({ dispatch }, form) {
@@ -64,8 +67,20 @@ const actions = {
           mobilenumber: form.phoneNumber,
         })
 
-        // fetch user profile and set in state
-        dispatch('fetchUserProfile', user)
+        fb.auth.onAuthStateChanged(firebaseUser => {
+          if (firebaseUser) {
+            firebaseUser.sendEmailVerification().then(function() {
+              console.log('send verification')
+              window.alert("Check your inbox for verification email!")
+            },
+            error => {
+              console.log("not send verification");
+            })
+          } else {
+            console.log('not logged in')
+          }
+        })
+        // dispatch('fetchUserProfile', user)
       })
       .catch((err) => {
         window.alert(err.message)
