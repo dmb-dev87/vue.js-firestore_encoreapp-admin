@@ -37,11 +37,11 @@ const actions = {
       .then((userResponse) => {
         fb.auth.onAuthStateChanged(newUser => {
           if (newUser) {
-            if (newUser.emailVerified == true) {
+            // if (newUser.emailVerified == true) {
                 this.dispatch('fetchUserProfile', userResponse.user)
-            } else {
-                window.alert("You are not verified. Check your email")
-            }
+            // } else {
+            //     window.alert("You are not verified. Check your email")
+            // }
           }
         })
       })

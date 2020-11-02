@@ -421,28 +421,28 @@
                     this.alertColor = "danger"
                     this.alertText = "You have to select the big value than Bronze level."
                     this.showAlert()
-                    return
+                    return false
                 }
 
                 if (this.chrisvenue.discountlevelgold <= this.chrisvenue.discountlevelsilver) {
                     this.alertColor = "danger"
                     this.alertText = "You have to select the big value than Silver level."
                     this.showAlert()
-                    return
+                    return false
                 }
 
                 if (this.chrisvenue.discountlevelplatinum <= this.chrisvenue.discountlevelgold) {
                     this.alertColor = "danger"
                     this.alertText = "You have to select the big value than Gold level."
                     this.showAlert()
-                    return
+                    return false
                 }
 
                 if (typeof(this.chrisvenue.minimumpurchase) !== "number") {
                     this.alertColor = "danger"
                     this.alertText = "Select the min purchase number."
                     this.showAlert()
-                    return
+                    return false
                 }
             },
             async validatePincode() {

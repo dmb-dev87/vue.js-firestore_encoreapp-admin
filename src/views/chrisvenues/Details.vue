@@ -256,21 +256,21 @@ export default {
         this.alertColor = "danger"
         this.alertText = "You have to select the big value than Bronze level"
         this.showAlert()
-        return
+        return false
       }
 
       if (this.Chrisvenue.discountlevelgold <= this.Chrisvenue.discountlevelsilver) {
         this.alertColor = "danger"
         this.alertText = "You have to select the big value than Silver level"
         this.showAlert()
-        return
+        return false
       }
 
       if (this.Chrisvenue.discountlevelplatinum <= this.Chrisvenue.discountlevelgold) {
         this.alertColor = "danger"
         this.alertText = "You have to select the big value than Gold level"
         this.showAlert()
-        return
+        return false
       }
     },
     async validatePincode() {
