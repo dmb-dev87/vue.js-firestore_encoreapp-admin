@@ -33,7 +33,7 @@
     data() {
       return {
         sliders: [],
-        fields:  ['image', 'url', 'action']
+        fields:  ['image', 'venue_name', 'url', 'action']
       }
     },
     async created() {
@@ -41,7 +41,7 @@
 
       let dbRef
       if (this.currentUser.userrole == "admin") {
-        dbRef = db.collection('slider')
+        dbRef = db.collection('promo_venue')
       } else {
         this.sliders = []
         return
@@ -53,8 +53,9 @@
           querySnapshot.docs.map((doc) => {
             this.sliders.push({
               key: doc.id,
-              image: doc.data().slider_images,
-              url: doc.data().slider_images,
+              venue_name: doc.data().venue_name,
+              image: doc.data().promo_image,
+              url: doc.data().promo_image,
             })
           })
         })

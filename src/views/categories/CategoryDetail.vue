@@ -37,13 +37,6 @@
             </CCol>
             <CCol sm="9">
               <CInput
-                label="Id:"
-                placeholder="Type category id"
-                horizontal
-                :value="categoryData.category_id"
-                v-model="categoryData.category_id"
-              />
-              <CInput
                 label="Name:"
                 placeholder="Type category name"
                 horizontal
@@ -81,6 +74,7 @@
         dismissSecs: 5,
         dismissCountDown: 0,
         imageData: null,
+        categoryCount: 0,
         categoryData: {
         },
       }
@@ -94,9 +88,14 @@
         }).catch((error) => {
         })
       } else {
+        let dbRef = db.collection('category')
+          .get()
+          .then(doc => {
+            this.categoryCount = doc.size
+          })
         this.categoryData = {
           category_image: "",
-          category_id: "",
+          category_id: 0,
           category_name: ""
         }
       }
@@ -110,6 +109,7 @@
       },
       updateCategoryData() {
         if (this.$route.params.id === undefined) {
+          this.categoryData.category_id = this.categoryCount+1
           db.collection("category")
             .add(this.categoryData)
             .then(() => {

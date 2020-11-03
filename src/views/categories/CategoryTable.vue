@@ -20,7 +20,7 @@
       >
         <template #image="{item}">
           <td>
-            <CImg :src="item.image" height="30px" />
+            <CImg :src="item.image" height="50px" />
           </td>
         </template>
         <template #action="{item}">
