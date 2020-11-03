@@ -32,6 +32,7 @@
               </CCol>
               <CCol sm="9">
                 <VuePhoneNumberInput
+                  default-country-code="AE"
                   v-model="chrisvenue.contactpersonphone"
                   :value="chrisvenue.contactpersonphone"
                 />
@@ -89,8 +90,9 @@
               </CCol>
               <CCol sm="9">
                 <VuePhoneNumberInput
-                        v-model="chrisvenue.phonelandline"
-                        :value="chrisvenue.phonelandline"
+                  default-country-code="AE"
+                  v-model="chrisvenue.phonelandline"
+                  :value="chrisvenue.phonelandline"
                 />
               </CCol>
             </CRow>
@@ -100,8 +102,9 @@
               </CCol>
               <CCol sm="9">
                 <VuePhoneNumberInput
-                        v-model="chrisvenue.phonemobile"
-                        :value="chrisvenue.phonemobile"
+                  default-country-code="AE"
+                  v-model="chrisvenue.phonemobile"
+                  :value="chrisvenue.phonemobile"
                 />
               </CCol>
             </CRow>

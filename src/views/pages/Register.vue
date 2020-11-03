@@ -25,6 +25,7 @@
                   <template #append-content><CIcon name="cil-envelope-closed"/></template>
                 </CInput>
                 <VuePhoneNumberInput
+                  default-country-code="AE"
                   v-model.trim="signupForm.phoneNumber"
                 />
                 <CInput

@@ -34,7 +34,6 @@
               horizontal
               :value.sync="chrisvenue.minimumpurchase"
               :options="purchaseOptions"
-              placeholder="-"
             />
             <CInput
               label="Black-out dates:"

@@ -26,6 +26,7 @@
                                     </CCol>
                                     <CCol sm="9">
                                         <VuePhoneNumberInput
+                                            default-country-code="AE"
                                             v-model="chrisvenue.contactpersonphone"
                                         />
                                     </CCol>
@@ -73,6 +74,7 @@
                                     </CCol>
                                     <CCol sm="9">
                                         <VuePhoneNumberInput
+                                            default-country-code="AE"
                                             v-model="chrisvenue.phonelandline"
                                         />
                                     </CCol>
@@ -259,7 +261,7 @@
                     contactperson: "",
                     contactpersonphone: "",
                     city: "",
-                    country: "",
+                    country: "United Arab Emirates",
                     about: "",
                     teaserline: "",
                     email: "",
@@ -438,7 +440,7 @@
                     return false
                 }
 
-                if (typeof(this.chrisvenue.minimumpurchase) !== "number") {
+                if (this.chrisvenue.minimumpurchase === "-") {
                     this.alertColor = "danger"
                     this.alertText = "Select the min purchase number."
                     this.showAlert()
@@ -459,6 +461,7 @@
             },
             async saveVenueData() {
                 this.chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.chrisvenue.geolocation.latitude), parseFloat(this.chrisvenue.geolocation.longitude))
+                this.chrisvenue.minimumpurchase = this.chrisvenue.minimumpurchase === "No minimum(recommended)" ? 0 : this.chrisvenue.minimumpurchase
 
                 if (this.validateFields() === false)
                     return

@@ -89,7 +89,7 @@ export default {
       selStrings: {
         discountlevelbonusonString: "",
         isFeaturedString: "",
-        isActive_encore_pointsString: ""
+        isActive_encore_pointsString: "",
       },
       categories: [],
       location: {
@@ -112,6 +112,7 @@ export default {
           IDnationalfront: doc.data().IDnationalfront ? doc.data().IDnationalfront : "",
           IDnationalback: doc.data().IDnationalback ? doc.data().IDnationalback : "",
           IDtradelicense: doc.data().IDtradelicense ? doc.data().IDtradelicense : "",
+          minimumpurchase: doc.data().minimumpurchase === 0 ? "No minimum(recommended)" : doc.data().minimumpurchase,
         }
         this.selStrings.discountlevelbonusonString = this.Chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
         this.selStrings.isFeaturedString = this.Chrisvenue.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED"
@@ -124,6 +125,7 @@ export default {
       this.termsAndCond = false
 
       this.Chrisvenue = {
+        country: "United Arab Emirates",
         mainimage: "",
         logoimage: "",
         image: [],
@@ -154,7 +156,7 @@ export default {
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
-    async validateFields() {
+    validateFields() {
       if (this.Chrisvenue.name === undefined || this.Chrisvenue.name === "") {
         this.alertText = "Please input Venue name!"
         this.alertColor = "danger"
@@ -290,14 +292,16 @@ export default {
       this.Chrisvenue.isFeatured = this.selStrings.isFeaturedString === "ON - Your venue will be FEATURED (add-on charge applies)" ? true : false
       this.Chrisvenue.isActive_encore_points = this.selStrings.isActive_encore_pointsString === "YES - Encore points are ACTIVE" ? true: false
       this.Chrisvenue.geolocation = new firebase.firestore.GeoPoint(parseFloat(this.location.latitude), parseFloat(this.location.longitude))
+      this.Chrisvenue.minimumpurchase = this.Chrisvenue.minimumpurchase === "No minimum(recommended)" ? 0 : this.Chrisvenue.minimumpurchase
 
-      let val = this.validateFields()
-
-      if (val === false)
+      if (this.validateFields() === false)
+      {
+        console.log("++++++++++++++++++++", this.validateFields());
         return
+      }
 
       if (this.$route.params.id === undefined) {
-        val = await this.validatePincode()
+        let val = await this.validatePincode()
 
         if (val === false) {
           this.alertColor = "danger"

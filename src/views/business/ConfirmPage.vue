@@ -3,7 +3,7 @@
         <CCol>
             <CCard>
                 <CCardHeader>
-                    Welcome to the register venue.
+                    Welcome to Encore
                 </CCardHeader>
                 <CCardBody>
                     <p class="mb-3">Dear <strong>{{contact_name}}</strong></p>
