@@ -15,7 +15,7 @@
         <CCol md="6" sm="6">
             <CWidgetProgressIcon
                 :header="`${profileCompleteness}/55`"
-                text="PROFILE COMPLERENESS"
+                text="PROFILE COMPLETENESS"
                 color="gradient-info"
                 :value="profilePercent"
                 inverse

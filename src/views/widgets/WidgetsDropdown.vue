@@ -7,7 +7,7 @@
         color="gradient-primary"
         :icon-padding="false"
       >
-        <CIcon name="cil-settings" width="24"/>
+        <CIcon name="cil-smile" width="24"/>
       </CWidgetIcon>
     </CCol>
     <CCol col="12" sm="6" lg="3">
@@ -17,7 +17,7 @@
         color="gradient-info"
         :icon-padding="false"
       >
-        <CIcon name="cil-laptop" width="24"/>
+        <CIcon name="cil-money" width="24"/>
       </CWidgetIcon>
     </CCol>
     <CCol col="12" sm="6" lg="3">
@@ -27,7 +27,7 @@
         color="gradient-warning"
         :icon-padding="false"
       >
-        <CIcon name="cil-moon" width="24"/>
+        <CIcon name="cil-find-in-page" width="24"/>
       </CWidgetIcon>
     </CCol>
     <CCol col="12" sm="6" lg="3">
@@ -37,7 +37,7 @@
         color="gradient-danger"
         :icon-padding="false"
       >
-        <CIcon name="cil-settings" width="24"/>
+        <CIcon name="cil-thumb-up" width="24"/>
       </CWidgetIcon>
     </CCol>
   </CRow>

@@ -11,7 +11,8 @@
                     variant="opposite"
                     shape="pill"
                 />
-                <p>No Active</p>
+                <p v-if="isFeatured">Active</p>
+                <p v-else>Not Active</p>
                 <p>CLICK HERE TO CHANGE</p>
             </CWidgetSimple>
         </CCol>
@@ -26,7 +27,8 @@
                     variant="opposite"
                     shape="pill"
                 />
-                <p>Active</p>
+                <p v-if="isActive">Active</p>
+                <p v-else>Not Active</p>
                 <p>CLICK HERE TO CHANGE</p>
             </CWidgetSimple>
         </CCol>
@@ -48,10 +50,11 @@ export default {
             .where('owner', '==', auth.currentUser.uid)
 
         dbRef.get().then(querySnapshot => {
-            this.venueId = querySnapshot.docs[0].id
-            this.isFeatured = querySnapshot.docs[0].data().isFeatured
-            this.isActive = querySnapshot.docs[0].data().isActive
+            this.venueId = querySnapshot.docs[0] === undefined ? "" : querySnapshot.docs[0].id
+            this.isFeatured = querySnapshot.docs[0] ? querySnapshot.docs[0].data().isFeatured : false
+            this.isActive = querySnapshot.docs[0] ? querySnapshot.docs[0].data().isActive : false
         })
+
     }
 }
 </script>
