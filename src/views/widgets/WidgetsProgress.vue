@@ -1,0 +1,83 @@
+<template>
+    <CRow>
+        <CCol md="6" sm="6">
+            <CWidgetProgressIcon
+                :header="`${venueRating}/5`"
+                text="VENUE RATING"
+                color="gradient-danger"
+                :value="venuePercent"
+                inverse
+            >
+                <span class="progress-info">CLICK HERE TO SEE ALL</span>
+                <CIcon name="cil-star" height="36"/>
+            </CWidgetProgressIcon>
+        </CCol>
+        <CCol md="6" sm="6">
+            <CWidgetProgressIcon
+                :header="`${profileCompleteness}/55`"
+                text="PROFILE COMPLERENESS"
+                color="gradient-info"
+                :value="profilePercent"
+                inverse
+            >
+                <span class="progress-info">CLICK HERE TO UPDATE</span>
+                <CIcon name="cil-chartPie" height="36"/>
+            </CWidgetProgressIcon>
+        </CCol>
+    </CRow>
+</template>
+
+<script>
+import {db, auth} from "./../../firebase.js"
+export default {
+    name: 'WidgetsProgress',
+    components: {
+    },
+    data() {
+        return {
+            venueRating: 0,
+            venuePercent: 0,
+            profileCompleteness: 0,
+            profilePercent: 0,
+        }
+    },
+    created() {
+        let venue_id = ""
+
+        let dbRef = db.collection('chrisvenues')
+            .where('owner', '==', auth.currentUser.uid)
+
+        dbRef.get().then(querySnapshot => {
+            venue_id = querySnapshot.docs[0].id
+
+            let review_cnt = 0
+            let rating_val = 0
+            db.collection('chrisvenues').doc(venue_id).collection("venue_review").get()
+                .then(querySnapshot => {
+                    review_cnt = querySnapshot.docs.length
+                    querySnapshot.docs.forEach(doc => {
+                        rating_val += doc.data().ratings_val
+                    })
+                    this.venueRating = review_cnt === 0 ? 0:rating_val / review_cnt
+                    this.venueRating = this.venueRating.toFixed(2)
+                    this.venuePercent = this.venueRating / 5 * 100
+                })
+
+            this.profileCompleteness = Object.keys(querySnapshot.docs[0].data()).length
+            this.profilePercent = this.profileCompleteness / 55 * 100
+        })
+    },
+    methods: {
+        async getCurrentUser() {
+            const query = db.collection('users').doc(auth.currentUser.uid)
+            await query.get()
+                .then((doc) => {
+                    this.currentUser = doc.data()
+                })
+        },
+    }
+}
+</script>
+<style scoped>
+
+</style>
