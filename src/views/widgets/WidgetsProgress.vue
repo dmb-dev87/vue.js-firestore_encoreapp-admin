@@ -14,14 +14,14 @@
         </CCol>
         <CCol md="6" sm="6">
             <CWidgetProgressIcon
-                :header="`${profileCompleteness}/55`"
+                :header="`${profilePercent} %`"
                 text="PROFILE COMPLETENESS"
                 color="gradient-info"
                 :value="profilePercent"
                 inverse
             >
                 <span class="progress-info">CLICK HERE TO UPDATE</span>
-                <CIcon name="cil-chartPie" height="36"/>
+                <CIcon name="cil-battery-3" height="36"/>
             </CWidgetProgressIcon>
         </CCol>
     </CRow>
@@ -37,7 +37,6 @@ export default {
         return {
             venueRating: 0,
             venuePercent: 0,
-            profileCompleteness: 0,
             profilePercent: 0,
         }
     },
@@ -63,7 +62,6 @@ export default {
                     this.venuePercent = this.venueRating / 5 * 100
                 })
 
-            this.profileCompleteness = Object.keys(querySnapshot.docs[0].data()).length
             this.profilePercent = this.profileCompleteness / 55 * 100
         })
     },

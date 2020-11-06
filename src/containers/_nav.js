@@ -16,13 +16,13 @@ export default [
         _name: 'CSidebarNavItem',
         name: 'List Your Business',
         to: '/business',
-        icon: 'cil-layers'
+        icon: 'cil-bank'
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Business Details',
         to: '/chrisvenues',
-        icon: 'cil-layers'
+        icon: 'cil-dinner'
       },
     ]
   }

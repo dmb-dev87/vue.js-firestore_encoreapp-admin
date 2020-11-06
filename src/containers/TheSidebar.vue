@@ -18,7 +18,10 @@
       <CRenderFunction flat :content-to-render="$options.nav"/>
     </template>
 
-    <CButton size="lg" color="danger" block @click="signout">Log out</CButton>
+    <CButton size="lg" color="danger" block @click="signout">
+      <CIcon name="cil-account-logout" height="36" class="mr-2"/>
+      Log out
+    </CButton>
     <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"

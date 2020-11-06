@@ -177,7 +177,7 @@
                                     />
                                     <strong class="ml-4">
                                         I agree to the
-                                        <CLink href="https://www.encoreapp.net/terms.html">
+                                        <CLink @click="showModal">
                                             terms and conditions
                                         </CLink>
                                     </strong>
@@ -226,6 +226,14 @@
                 <CButton @click="uploadImage" color="success">Upload</CButton>
             </template>
         </CModal>
+        <CModal
+            title="Encoreapp Terms & Conditions"
+            :show.sync="myModal"
+            size="xl"
+            color="primary"
+        >
+            <TermsAndConditions />
+        </CModal>
     </div>
 </template>
 
@@ -234,16 +242,19 @@
     import { db, auth } from "./../../firebase.js"
     import countryData from "./../data/CountryData"
     import VuePhoneNumberInput from "vue-phone-number-input"
+    import TermsAndConditions from "./../modalpages/TermsAndConditions"
     import { Cropper } from 'vue-advanced-cropper'
 
     export default {
         name: 'Business',
         components: {
+            TermsAndConditions,
             VuePhoneNumberInput,
             Cropper
         },
         data () {
             return {
+                myModal: false,
                 countries: countryData,
                 levelOptions: [5.00, 7.50, 10.00, 12.50, 15.00, 17.50, 20.00, 22.50, 25.00, 27.50, 30.00, 32.50, 35.00, 37.50, 40.00, 42.50, 45.00, 47.50, 50.00, 52.50, 55.00, 57.50, 60.00],
                 purchaseOptions: ["No minimum(recommended)", 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200],
@@ -296,6 +307,9 @@
         mounted() {
         },
         methods: {
+            showModal() {
+                this.myModal = true
+            },
             pixelsRestriction({ minWidth, minHeight, maxWidth, maxHeight, imageWidth, imageHeight }) {
                 return {
                     minWidth: 300,

@@ -3,7 +3,7 @@
     <CCol col="12" sm="6" lg="3">
       <CWidgetIcon
         :header="`${visitsOnMonth}`"
-        text="VISITES THIS MONTH"
+        text="VISITS THIS MONTH"
         color="gradient-primary"
         :icon-padding="false"
       >

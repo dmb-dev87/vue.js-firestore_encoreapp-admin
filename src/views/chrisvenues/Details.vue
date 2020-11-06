@@ -39,7 +39,7 @@
               />
               <strong class="ml-4">
                 I agree to the
-                <CLink href="https://www.encoreapp.net/terms.html">
+                <CLink  @click="showModal">
                   terms and conditions
                 </CLink>
               </strong>
@@ -63,10 +63,19 @@
         </CCardFooter>
       </CCard>
     </CCol>
+    <CModal
+      title="Encoreapp Terms & Conditions"
+      :show.sync="myModal"
+      size="xl"
+      color="primary"
+    >
+      <TermsAndConditions />
+    </CModal>
   </div>
 </template>
 
 <script>
+import TermsAndConditions from "./../modalpages/TermsAndConditions"
 import * as Details from './index.js'
 import { db, auth } from '../../firebase.js'
 import firebase from 'firebase'
@@ -74,10 +83,12 @@ import firebase from 'firebase'
 export default {
   name: 'Details',
   components: {
+    TermsAndConditions,
     ...Details
   },
   data() {
     return {
+      myModal: false,
       alertColor: "info",
       alertText: "",
       dismissSecs: 5,
@@ -153,6 +164,9 @@ export default {
     })
   },
   methods: {
+    showModal() {
+      this.myModal = true
+    },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },

@@ -49,6 +49,8 @@ import {
   cilDrop,
   cilDollar,
   cilEnvelopeClosed,
+  cilSmile,
+  cilMoney,
   cilEnvelopeOpen,
   cilEuro,
   cilGlobeAlt,
@@ -76,8 +78,15 @@ import {
   cilUser,
   cilUserFemale,
   cilUserFollow,
-  cilXCircle
-
+  cilXCircle,
+  cilFindInPage,
+  cilThumbUp,
+  cilMediaPlay,
+  cilBattery3,
+  cilDinner,
+  cilBank,
+  cilStorage,
+  cilAccountLogout,
 } from '@coreui/icons'
 import { logo } from './logo'
 
@@ -102,6 +111,8 @@ export const iconsSet = Object.assign(
     cilDrop,
     cilDollar,
     cilEnvelopeClosed,
+    cilSmile,
+    cilMoney,
     cilEnvelopeOpen,
     cilEuro,
     cilGlobeAlt,
@@ -129,7 +140,15 @@ export const iconsSet = Object.assign(
     cilUser,
     cilUserFemale,
     cilUserFollow,
-    cilXCircle
+    cilXCircle,
+    cilFindInPage,
+    cilThumbUp,
+    cilMediaPlay,
+    cilBattery3,
+    cilDinner,
+    cilBank,
+    cilStorage,
+    cilAccountLogout,
   },
   {
     cifUs,
@@ -162,6 +181,6 @@ export const iconsSet = Object.assign(
     cibStripe, 
     cibPaypal, 
     cibGooglePay,
-    cibCcAmex
+    cibCcAmex,
   }
 )
