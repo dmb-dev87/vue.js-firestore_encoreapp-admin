@@ -114,7 +114,6 @@
                 this.dismissCountDown = this.dismissSecs
             },
             sendMail() {
-                console.log("+++++++++++++++++++", this.mailContent)
                 let helpSupport = {
                     "messaeg": this.mailContent,
                     "user_id": auth.currentUser.uid,
