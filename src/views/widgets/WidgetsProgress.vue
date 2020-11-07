@@ -14,7 +14,7 @@
         </CCol>
         <CCol md="6" sm="6">
             <CWidgetProgressIcon
-                :header="profilePercent+'%'"
+                :header="profilePercentStr"
                 text="PROFILE COMPLETENESS"
                 color="gradient-info"
                 :value="profilePercent"
@@ -41,6 +41,7 @@ export default {
             venuePercent: 0,
             profileCompleteness: 0,
             profilePercent: 0,
+            profilePercentStr: "",
             venue_id: "",
         }
     },
@@ -62,13 +63,18 @@ export default {
                         rating_val += doc.data().ratings_val
                     })
                     this.venueRating = review_cnt === 0 ? 0:rating_val / review_cnt
-                    this.venueRating = this.venueRating.toFixed(2)
+                    this.venueRating = Number(this.venueRating).toFixed(2)
                     this.venuePercent = this.venueRating / 5 * 100
                 })
 
-            this.profileCompleteness = Object.keys(querySnapshot.docs[0].data()).length
+            let venue =  querySnapshot.docs[0].data()
+            for(let key in venue){
+                if (venue[key] !== ""){
+                    this.profileCompleteness++
+                }
+            }
             this.profilePercent = this.profileCompleteness / 55 * 100
-            this.profilePercent = this.profilePercent.toFixed(2)
+            this.profilePercentStr = Number(this.profilePercent).toFixed(2) + " %"
         })
     },
     methods: {
