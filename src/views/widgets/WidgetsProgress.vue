@@ -73,7 +73,7 @@ export default {
                     this.profileCompleteness++
                 }
             }
-            this.profilePercent = this.profileCompleteness / 55 * 100
+            this.profilePercent = this.profileCompleteness / 52 * 100
             this.profilePercentStr = Number(this.profilePercent).toFixed(2) + " %"
         })
     },
