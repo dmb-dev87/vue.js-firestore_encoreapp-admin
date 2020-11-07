@@ -1,6 +1,6 @@
 <template>
     <CRow>
-        <CCol col="6" sm="6" lg="6">
+        <CCol md="4" sm="4">
             <CWidgetSimple
                 header="VENUE FEATURED"
             >
@@ -16,7 +16,23 @@
                 <p>CLICK HERE TO CHANGE</p>
             </CWidgetSimple>
         </CCol>
-        <CCol col="6" sm="6" lg="6">
+        <CCol md="4" sm="4">
+            <CWidgetSimple
+                header="BONUS KICKER DISCOUNT"
+            >
+                <CSwitch
+                    class="mt-3"
+                    color="warning"
+                    :checked="discountlevelbonuson"
+                    variant="opposite"
+                    shape="pill"
+                />
+                <p v-if="discountlevelbonuson">Active</p>
+                <p v-else>Not Active</p>
+                <p>CLICK HERE TO CHANGE</p>
+            </CWidgetSimple>
+        </CCol>
+        <CCol md="4" sm="4">
             <CWidgetSimple
                 header="PROMO ACTIVE"
             >
@@ -42,6 +58,7 @@ export default {
         return {
             isFeatured: false,
             isActive: false,
+            discountlevelbonuson: false,
             venueId: ""
         }
     },

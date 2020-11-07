@@ -101,6 +101,7 @@ export default {
         discountlevelbonusonString: "",
         isFeaturedString: "",
         isActive_encore_pointsString: "",
+        isActive_promoString: "",
       },
       categories: [],
       location: {
@@ -128,6 +129,7 @@ export default {
         this.selStrings.discountlevelbonusonString = this.Chrisvenue.discountlevelbonuson ? "ON - Bonus 'Kicker' discount ACTIVE" : "OFF-NOT ACTIVE"
         this.selStrings.isFeaturedString = this.Chrisvenue.isFeatured ? "ON - Your venue will be FEATURED (add-on charge applies)" : "OFF - NOT FEATURED"
         this.selStrings.isActive_encore_pointsString = this.Chrisvenue.isActive_encore_points ? "YES - Encore points are ACTIVE" : "NO - Encore points not ACTIVE"
+        this.selStrings.isActive_promoString = this.Chrisvenue.isActive_promo ? "YES - Promo is Active" : "NO - Promo is not ACTIVE"
         this.location = this.Chrisvenue.geolocation ? this.Chrisvenue.geolocation : {latitude: 0.0, longitude: 0.0}
       }).catch((error) => {
 
@@ -152,6 +154,7 @@ export default {
       this.selStrings.discountlevelbonusonString = "-"
       this.selStrings.isFeaturedString = ""
       this.selStrings.isActive_encore_pointsString = ""
+      this.selStrings.isActive_promoString = ""
     }
 
     db.collection('category').onSnapshot((snapshotChange) => {

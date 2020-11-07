@@ -59,7 +59,7 @@
             </CCol>
         </CRow>
         <CModal
-            title="Send Mail to Support"
+            title="Got a question? We’d love to hear from you:"
             :show.sync="myModal"
             size="lg"
             color="primary"
@@ -69,8 +69,8 @@
                 <CCol col="12">
                     <CForm>
                         <CTextarea
-                            label="Mail Content"
-                            placeholder="Content..."
+                            label="Message"
+                            placeholder="Type your questions or comments here."
                             horizontal
                             rows="5"
                             :value="mailContent"

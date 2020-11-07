@@ -22,7 +22,7 @@
     </CCol>
     <CCol col="12" sm="6" lg="3">
       <CWidgetIcon
-        :header="`${visitsOnMonth}`"
+        :header="`${pageVisitsOnMonth}`"
         text="PAGE VISITS THIS MONTH"
         color="gradient-warning"
         :icon-padding="false"
@@ -32,8 +32,8 @@
     </CCol>
     <CCol col="12" sm="6" lg="3">
       <CWidgetIcon
-        :header="`${visitsOnMonth}`"
-        text="RECOMMENDATIONS THIS MONTH"
+        :header="`${favorites}`"
+        text="FAVOURITE THIS MONTH"
         color="gradient-danger"
         :icon-padding="false"
       >
@@ -55,6 +55,8 @@ export default {
       currentUser: Object,
       visitsOnMonth: '0',
       salesOnMonth: '0',
+      pageVisitsOnMonth: '0',
+      favorites: '0',
     }
   },
   async created() {
@@ -75,6 +77,9 @@ export default {
 
             this.visitsOnMonth = 0
             this.salesOnMonth = 0
+            this.pageVisitsOnMonth = 0
+            this.favorites = 0
+
             for(let id=0; id < this.venues.length; id++) {
                 let venue_id = this.venues[id].key
                 db.collection('user_visit_log')
@@ -86,6 +91,21 @@ export default {
                         snap.docs.map((doc) => {
                             this.salesOnMonth += doc.data().bill_amount
                         })
+                    })
+
+                db.collection('statistics')
+                    .where('venue_id', '==', venue_id)
+                    .where('time', '>', curMonth)
+                    .get()
+                    .then(snap => {
+                        this.pageVisitsOnMonth += snap.size
+                    })
+
+                db.collection('favourites')
+                    .where('venue_id', '==', venue_id)
+                    .get()
+                    .then(snap => {
+                        this.favorites += snap.size
                     })
             }
         })

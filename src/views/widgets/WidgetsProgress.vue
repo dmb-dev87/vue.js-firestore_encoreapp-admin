@@ -14,13 +14,15 @@
         </CCol>
         <CCol md="6" sm="6">
             <CWidgetProgressIcon
-                :header="`${profilePercent} %`"
+                :header="profilePercent+'%'"
                 text="PROFILE COMPLETENESS"
                 color="gradient-info"
                 :value="profilePercent"
                 inverse
             >
-                <span class="progress-info">CLICK HERE TO UPDATE</span>
+                <CLink :to="{name: 'ChrisvenueDetail', params: { id: venue_id }}">
+                    <span class="progress-info">CLICK HERE TO UPDATE</span>
+                </CLink>
                 <CIcon name="cil-battery-3" height="36"/>
             </CWidgetProgressIcon>
         </CCol>
@@ -37,21 +39,23 @@ export default {
         return {
             venueRating: 0,
             venuePercent: 0,
+            profileCompleteness: 0,
             profilePercent: 0,
+            venue_id: "",
         }
     },
     created() {
-        let venue_id = ""
+        this.venue_id = ""
 
         let dbRef = db.collection('chrisvenues')
             .where('owner', '==', auth.currentUser.uid)
 
         dbRef.get().then(querySnapshot => {
-            venue_id = querySnapshot.docs[0].id
+            this.venue_id = querySnapshot.docs[0].id
 
             let review_cnt = 0
             let rating_val = 0
-            db.collection('chrisvenues').doc(venue_id).collection("venue_review").get()
+            db.collection('chrisvenues').doc(this.venue_id).collection("venue_review").get()
                 .then(querySnapshot => {
                     review_cnt = querySnapshot.docs.length
                     querySnapshot.docs.forEach(doc => {
@@ -62,7 +66,9 @@ export default {
                     this.venuePercent = this.venueRating / 5 * 100
                 })
 
+            this.profileCompleteness = Object.keys(querySnapshot.docs[0].data()).length
             this.profilePercent = this.profileCompleteness / 55 * 100
+            this.profilePercent = this.profilePercent.toFixed(2)
         })
     },
     methods: {

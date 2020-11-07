@@ -28,6 +28,14 @@
               :options="activateOptions"
               placeholder="-"
             />
+            <CSelect
+              label="Activate Promo:"
+              horizontal
+              :value.sync="selStrings.isActive_promoString"
+              v-model="selStrings.isActive_promoString"
+              :options="promoOptions"
+              placeholder="-"
+            />
             <hr class="mt-1 mb-3">
             <CSelect
               label="*Minimum purchase:"
@@ -147,7 +155,10 @@
           "-", "ON - Your venue will be FEATURED (add-on charge applies)", "OFF - NOT FEATURED"
         ],
         activateOptions: [
-          "-", "NO - Encore points not ACTIVE", "YES - Encore points are ACTIVE"
+          "-", "NO - Encore points is not ACTIVE", "YES - Encore points are ACTIVE"
+        ],
+        promoOptions: [
+          "-", "NO - Promo is not ACTIVE", "YES - Promo is ACTIVE"
         ],
         purchaseOptions: [
           "No minimum(recommended)", 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200
