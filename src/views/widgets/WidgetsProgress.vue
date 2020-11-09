@@ -2,7 +2,7 @@
     <CRow>
         <CCol md="6" sm="6">
             <CWidgetProgressIcon
-                :header="`${venueRating}/5`"
+                :header="`${venueRating}/5.00`"
                 text="VENUE RATING"
                 color="gradient-danger"
                 :value="venuePercent"

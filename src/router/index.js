@@ -19,6 +19,9 @@ const ChrisvenueDetails = () => import('@/views/chrisvenues/Details')
 const CategoryList = () => import('@/views/categories/CategoryList')
 const CategoryDetail = () => import('@/views/categories/CategoryDetail')
 
+// Memebership
+const MembershipPlan = () => import('@/views/membership/MembershipPlan')
+
 // Sliders
 const SliderList = () => import('@/views/sliders/SliderList')
 const SliderDetail = () => import('@/views/sliders/SliderDetail')
@@ -142,6 +145,14 @@ function configRoutes () {
               component: ChrisvenueDetails
             }
           ]
+        },
+        {
+          path: 'membership',
+          meta: {
+            label: 'Memebership Plan'
+          },
+          name: 'Memebership',
+          component: MembershipPlan
         },
         {
           path: 'categories',

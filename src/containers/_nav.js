@@ -24,6 +24,12 @@ export default [
         to: '/chrisvenues',
         icon: 'cil-dinner'
       },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Membership Plan',
+        to: '/memebership',
+        icon: 'cil-list'
+      },
     ]
   }
 ]

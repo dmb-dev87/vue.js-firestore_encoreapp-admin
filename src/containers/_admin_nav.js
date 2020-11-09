@@ -26,6 +26,12 @@ export default [
             },
             {
                 _name: 'CSidebarNavItem',
+                name: 'Membership Plan',
+                to: '/membership',
+                icon: 'cil-list'
+            },
+            {
+                _name: 'CSidebarNavItem',
                 name: 'Sliders',
                 to: '/sliders',
                 icon: 'cil-layers'
