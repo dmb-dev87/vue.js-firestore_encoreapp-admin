@@ -26,7 +26,7 @@ export default [
       },
       {
         _name: 'CSidebarNavItem',
-        name: 'Membership Plan',
+        name: 'Select Plan',
         to: '/memebership',
         icon: 'cil-list'
       },

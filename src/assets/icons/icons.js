@@ -87,6 +87,8 @@ import {
   cilBank,
   cilStorage,
   cilAccountLogout,
+  cilClipboard,
+  cilAvTimer,
 } from '@coreui/icons'
 import { logo } from './logo'
 
@@ -149,6 +151,8 @@ export const iconsSet = Object.assign(
     cilBank,
     cilStorage,
     cilAccountLogout,
+    cilClipboard,
+    cilAvTimer,
   },
   {
     cifUs,
