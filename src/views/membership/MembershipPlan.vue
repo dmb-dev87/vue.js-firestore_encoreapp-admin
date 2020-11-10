@@ -55,6 +55,7 @@
                                         <CInputCheckbox
                                             v-if="data.item.basicPlan"
                                             :checked="true"
+                                            :disabled="data.item.basicPlan"
                                         />
                                         <span v-else>-</span>
                                     </td>
@@ -64,6 +65,7 @@
                                         <CInputCheckbox
                                             v-if="data.item.premiumPlan"
                                             :checked="true"
+                                            :disabled="data.item.premiumPlan"
                                         />
                                     </td>
                                 </template>
