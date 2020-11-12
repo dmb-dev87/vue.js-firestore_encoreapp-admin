@@ -178,7 +178,6 @@
 </template>
 
 <script>
-    import firestore from 'firebase'
     import CTableWrapper from './../chrisvenues/Table.vue'
     import planData from '../data/PlanData'
     import { db, auth } from './../../firebase.js'
@@ -312,7 +311,6 @@
             },
             getShuffledPlansData () {
                 return planData.slice(0)
-                // return this.shuffleArray(planData.slice(0))
             }
         }
     }
