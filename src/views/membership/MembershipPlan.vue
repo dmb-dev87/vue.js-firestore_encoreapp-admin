@@ -160,9 +160,9 @@
                     <CRow class="mb-1">
                         <CCol col="12">
                             <CAlert
-                                    :show.sync="dismissCountDown"
-                                    closeButton
-                                    :color="alertColor"
+                                :show.sync="dismissCountDown"
+                                closeButton
+                                :color="alertColor"
                             >
                                 {{this.alertText}}
                             </CAlert>
