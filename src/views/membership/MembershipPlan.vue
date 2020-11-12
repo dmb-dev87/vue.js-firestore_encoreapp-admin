@@ -12,7 +12,7 @@
                         <CCol col="12" sm="6" lg="6">
                             <CWidgetIcon
                                 header="Your current membership plan:"
-                                text="Basic (6 months free voucher used)"
+                                :text="currentPlan"
                                 color="gradient-primary"
                                 :icon-padding="false"
                             >
@@ -22,7 +22,7 @@
                         <CCol col="12" sm="6" lg="6">
                             <CWidgetIcon
                                 header="Current plan ends:"
-                                text="16. May, 2021"
+                                :text="billingplanend"
                                 color="gradient-danger"
                                 :icon-padding="false"
                             >
@@ -83,6 +83,7 @@
                             </CCol>
                             <CCol sm="6">
                                 <CInput
+                                    :value="billingvoucheridused"
                                 >
                                     <template #append>
                                         <CButton type="submit" color="warning">Apply voucher</CButton>
@@ -98,9 +99,9 @@
                         <CInputRadioGroup
                             class="col-sm-6"
                             :options="venue_options"
-                            custom={true}
-                            :checked="venue_value"
-                            inline={true}
+                            :custom=true
+                            :checked.sync="venue_value"
+                            :inline=true
                         />
                     </CRow>
                     <hr class="mt-1 mb-3">
@@ -111,9 +112,9 @@
                         <CInputRadioGroup
                             class="col-sm-6"
                             :options="billtype_options"
-                            custom={true}
-                            :checked="billtype_value"
-                            inline={true}
+                            :custom=true
+                            :checked.sync="billtype_value"
+                            :inline=true
                         />
                     </CRow>
                     <CJumbotron
@@ -140,7 +141,7 @@
                         <CCol sm="3">
                             <CInputCheckbox
                                 label="Basic Plan"
-                                :custom="true"
+                                :custom=true
                                 :checked="isBasic"
                                 @click="changePlan"
                             />
@@ -148,7 +149,7 @@
                         <CCol sm="3">
                             <CInputCheckbox
                                 label="Premium Plan"
-                                :custom="true"
+                                :custom=true
                                 :checked="!isBasic"
                                 @click="changePlan"
                             />
@@ -156,7 +157,20 @@
                     </CRow>
                 </CCardBody>
                 <CCardFooter>
-                    <CButton type="submit" color="danger" block @click="updateMembership">Choose membership and go to checkout</CButton>
+                    <CRow class="mb-1">
+                        <CCol col="12">
+                            <CAlert
+                                    :show.sync="dismissCountDown"
+                                    closeButton
+                                    :color="alertColor"
+                            >
+                                {{this.alertText}}
+                            </CAlert>
+                        </CCol>
+                    </CRow>
+                    <CRow>
+                        <CButton type="submit" color="danger" block @click="updateMembership">Choose membership and go to checkout</CButton>
+                    </CRow>
                 </CCardFooter>
             </CCard>
         </CCol>
@@ -164,30 +178,128 @@
 </template>
 
 <script>
+    import firestore from 'firebase'
     import CTableWrapper from './../chrisvenues/Table.vue'
     import planData from '../data/PlanData'
+    import { db, auth } from './../../firebase.js'
     export default {
         name: 'MembershipPlan',
+        components: {},
+
         component: {
             CTableWrapper
         },
         data() {
             return {
+                alertColor: "info",
+                alertText: "",
+                dismissSecs: 5,
+                dismissCountDown: 0,
+                venue_id: "",
                 venue_options: ['1 venue', '2-5 venues', '6-10 venues'],
                 venue_value: '1 venue',
                 billtype_options: ['Monthly', 'Yearly'],
                 billtype_value: 'Monthly',
                 plan_options: ['Basic Plan', 'Premium Plan'],
-                plan_value: 'Basic plan',
                 isBasic: true,
+                billingplanend: "",
+                billingplantype: "",
+                billingvoucherdays: 0,
+                billingvoucheridused: "",
+                currentPlan: "",
             }
+        },
+        created() {
+            let dbRef = db.collection('chrisvenues')
+                .where('owner', '==', auth.currentUser.uid)
+
+            dbRef.get()
+                .then(querySnapshot => {
+                    this.venue_id = querySnapshot.docs[0].id
+                    this.currentPlan = ""
+
+                    this.billingvoucheridused = querySnapshot.docs[0].data().billingvoucheridused
+
+                    this.billingvoucherdays = querySnapshot.docs[0].data().billingvoucherdays
+
+                    let myDate = new Date(querySnapshot.docs[0].data().billingplanend.seconds * 1000) // date object
+                    this.billingplanend = myDate.toDateString()
+
+                    this.billingplantype = querySnapshot.docs[0].data().billingplantype
+
+                    if (this.billingplantype.includes("1")) {
+                        this.venue_value = "1 venue"
+                    }
+                    if (this.billingplantype.includes("2-5")) {
+                        this.venue_value = "2-5 venues"
+                    }
+                    if (this.billingplantype.includes("6-10")) {
+                        this.venue_value = "6-10 venues"
+                    }
+
+                    if (this.billingplantype.includes("monthly")) {
+                        this.billtype_value = "Monthly"
+                    }
+                    if (this.billingplantype.includes("yearly")) {
+                        this.billtype_value = "Yearly"
+                    }
+
+                    if (this.billingplantype.includes("basic")) {
+                        this.currentPlan += "Basic"
+                        this.isBasic = true
+                    }
+                    if (this.billingplantype.includes("premium")) {
+                        this.currentPlan += "Preminum"
+                        this.isBasic = false
+                    }
+
+                    this.currentPlan += " (" + this.billingvoucherdays/30 + " Months"
+
+                    if (this.billingvoucheridused === "") {
+                        this.currentPlan += ")"
+                    } else {
+                        this.currentPlan += " FREE VOUCHER USED)"
+                    }
+                })
         },
         methods: {
             changePlan() {
                 this.isBasic = !this.isBasic
             },
+            showAlert () {
+                this.dismissCountDown = this.dismissSecs
+            },
             updateMembership() {
+                this.billingplantype = ""
+                if (this.venue_value === "1 venue") {
+                    this.billingplantype += "1"
+                } else if (this.venue_value === "2-5 venues") {
+                    this.billingplantype += "2-5"
+                } else if (this.venue_value === "6-10 venues") {
+                    this.billingplantype += "6-10"
+                }
 
+                if (this.isBasic) {
+                    this.billingplantype += "basic"
+                } else {
+                    this.billingplantype += "premium"
+                }
+
+                if (this.billtype_value === "Monthly") {
+                    this.billingplantype += "monthly"
+                } else if (this.billtype_value === "Yearly") {
+                    this.billingplantype += "yearly"
+                }
+
+                let dbRef = db.collection('chrisvenues').doc(this.venue_id)
+                    .update({
+                        billingplantype: this.billingplantype
+                    })
+                    .then(() => {
+                        this.alertText = "Membership plan updated successfully"
+                        this.alertColor = "info"
+                        this.showAlert()
+                    })
             },
             shuffleArray (array) {
                 for (let i = array.length - 1; i > 0; i--) {
