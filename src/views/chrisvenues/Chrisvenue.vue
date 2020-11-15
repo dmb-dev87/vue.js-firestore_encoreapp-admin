@@ -67,6 +67,7 @@
         await query.get()
           .then((doc) => {
             this.currentUser = doc.data()
+            this.$store.commit('set', ['admin', this.currentUser.userrole === 'admin' ? true : false])
           })
       },
       shuffleArray (array) {
