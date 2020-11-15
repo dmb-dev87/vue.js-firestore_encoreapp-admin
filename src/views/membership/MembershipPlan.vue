@@ -83,10 +83,11 @@
                             </CCol>
                             <CCol sm="6">
                                 <CInput
-                                    :value="billingvoucheridused"
+                                    :value="vouchername"
+                                    v-model="vouchername"
                                 >
                                     <template #append>
-                                        <CButton type="submit" color="warning">Apply voucher</CButton>
+                                        <CButton type="submit" color="warning" @click="applyVoucher">Apply voucher</CButton>
                                     </template>
                                 </CInput>
                             </CCol>
@@ -128,6 +129,7 @@
                             </CCol>
                             <CCol sm="3">
                                 <p class="lead">$24 per month</p>
+                                <p class="lead">Free Basic plan for {{billingvoucherdays}} days</p>
                             </CCol>
                             <CCol sm="3">
                                 <p class="lead">$49 per month</p>
@@ -206,6 +208,7 @@
                 billingvoucherdays: 0,
                 billingvoucheridused: "",
                 currentPlan: "",
+                vouchername: "",
             }
         },
         created() {
@@ -311,6 +314,38 @@
             },
             getShuffledPlansData () {
                 return planData.slice(0)
+            },
+            applyVoucher() {
+                db.collection('vouchercodes')
+                    .where('name', '==', this.vouchername)
+                    .get()
+                    .then(querySnapshot => {
+                        let vouchercodes = querySnapshot.docs[0].data()
+                        if (vouchercodes.multipleuse === false) {
+                            db.collection('vouchecodesused')
+                                .where('vouchername', '===', this.vouchername)
+                                .get()
+                                .then(snapshot => {
+                                    this.alertText = "Sorry, but this voucher has already been redeemed."
+                                    this.alertColor = 'danger'
+                                    this.showAlert()
+                                    return
+                                })
+                        }
+
+                        this.billingvoucherdays = vouchercodes.daysfree
+                        let myDate = new Date(vouchercodes.expiry.seconds * 1000) // date object
+                        this.billingplanend = myDate.toDateString()
+                        this.billingplantype = "1basicmonthly"
+                        this.isBasic = true
+                        this.venue_value = '1 venue'
+                        this.billtype_value = 'Monthly'
+                    })
+                    .catch((error) => {
+                        this.alertText = "Sorry, but this voucher name is not correct."
+                        this.alertColor = "danger"
+                        this.showAlert()
+                    })
             }
         }
     }

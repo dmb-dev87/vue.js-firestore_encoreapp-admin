@@ -11,6 +11,7 @@ const state = {
   sidebarShow: 'responsive',
   sidebarMinimize: false,
   venueTitle: "Admin Venue",
+  admin: false,
 }
 
 const mutations = {

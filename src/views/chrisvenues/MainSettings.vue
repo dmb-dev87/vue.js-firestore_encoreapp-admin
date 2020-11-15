@@ -26,6 +26,7 @@
               :value.sync="selStrings.isActive_encore_pointsString"
               v-model="selStrings.isActive_encore_pointsString"
               :options="activateOptions"
+              :disabled="$store.state['admin'] ? false:true"
               placeholder="-"
             />
             <CSelect
