@@ -149,9 +149,9 @@ function configRoutes () {
         {
           path: 'membership',
           meta: {
-            label: 'Memebership Plan'
+            label: 'Membership Plan'
           },
-          name: 'Memebership',
+          name: 'Membership',
           component: MembershipPlan
         },
         {
